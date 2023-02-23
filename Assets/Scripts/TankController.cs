@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TankController : MonoBehaviour
 {
+    public FixedJoystick joystick;
     public float tankSpeed;
     float movement;
     public float rotationSpeed;
@@ -15,8 +16,10 @@ public class TankController : MonoBehaviour
     }
 
     void Update(){
-        movement = Input.GetAxisRaw("VerticalUI");
-        rotation = Input.GetAxisRaw("HorizontalUI");
+        //movement = Input.GetAxisRaw("VerticalUI");
+        //rotation = Input.GetAxisRaw("HorizontalUI");
+        movement = joystick.Vertical;
+        rotation = joystick.Horizontal;
         if(rotation != 0)
             transform.Rotate(0f, rotation*rotationSpeed, 0f, Space.World);
     }
