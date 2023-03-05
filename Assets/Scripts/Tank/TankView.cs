@@ -1,26 +1,28 @@
 using UnityEngine;
 
-public class TankView : MonoBehaviour
+namespace BattleTank
 {
-    TankController tankController;
-    Rigidbody rb;
+    public class TankView : MonoBehaviour
+    {
+        private TankController tankController;
+        private Rigidbody rb;
 
-    void Awake(){
-        rb = GetComponent<Rigidbody>();
-    }
-
-    public void setTankController(TankController tankController){
-        this.tankController = tankController;
-    }
-
-    private void Update(){
-        tankController.GetPlayerInput();
-        if(tankController.GetRotationAngle() != 0){
-            transform.Rotate(transform.up, tankController.GetRotationAngle() * Time.deltaTime);
+        private void Awake(){
+            rb = GetComponent<Rigidbody>();
         }
-    }
 
-    private void FixedUpdate() {
-        rb.velocity = tankController.GetMovementVelocity();
+        private void Update(){
+            if(tankController.GetRotationAngle() != 0){
+                transform.Rotate(transform.up, tankController.GetRotationAngle() * Time.deltaTime);
+            }
+        }
+
+        private void FixedUpdate() {
+            rb.velocity = tankController.GetMovementVelocity();
+        }
+        
+        public void SetTankController(TankController tankController){
+            this.tankController = tankController;
+        }
     }
 }

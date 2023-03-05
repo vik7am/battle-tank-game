@@ -1,20 +1,31 @@
 using UnityEngine;
 
-public class TankService : GenericSingleton<TankService>
+namespace BattleTank
 {
-    TankModel tankModel;
-    TankController tankController;
-    [SerializeField] TankView tankView;
-    [SerializeField] FixedJoystick joystick;
-    [SerializeField] float movementSpeed;
-    [SerializeField] float rotationSpeed;
+    public class TankService : GenericSingleton<TankService>
+    {
+        private TankModel tankModel;
+        private TankController tankController;
+        [SerializeField] private TankView tankView;
+        [SerializeField] private FixedJoystick joystick;
+        [SerializeField] private float movementSpeed;
+        [SerializeField] private float rotationSpeed;
 
-    void Start(){
-        SpawnTank();
-    }
+        private void Start(){
+            SpawnTank();
+        }
 
-    void SpawnTank(){
-        tankModel = new TankModel(movementSpeed, rotationSpeed);
-        tankController = new TankController(tankModel, tankView, joystick);
+        private void SpawnTank(){
+            tankModel = new TankModel(movementSpeed, rotationSpeed);
+            tankController = new TankController(tankModel, tankView);
+        }
+
+        public float GetJoystickHI(){
+            return joystick.Horizontal;
+        }
+
+        public float GetJoystickVI(){
+            return joystick.Vertical;
+        }
     }
 }
