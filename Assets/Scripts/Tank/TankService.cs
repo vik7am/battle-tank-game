@@ -15,7 +15,8 @@ namespace BattleTank
         }
 
         private void SpawnTank(){
-            tankModel = new TankModel(tankListSO.tankSO[0]);
+            int tankNo = Random.Range(0, tankListSO.tankSO.Length);
+            tankModel = new TankModel(tankListSO.tankSO[tankNo]);
             tankController = new TankController(tankModel);
         }
 
@@ -24,16 +25,14 @@ namespace BattleTank
         }
 
         public float GetPlayerHI(){
-            float horizontal = joystick.Horizontal;
-            if(Mathf.Abs(horizontal) > Mathf.Epsilon)
-                return horizontal;
+            if(Mathf.Abs(joystick.Horizontal) > Mathf.Epsilon)
+                return joystick.Horizontal;
             return Input.GetAxisRaw("HorizontalUI");
         }
 
         public float GetPlayerVI(){
-            float vertical = joystick.Vertical;
-            if(Mathf.Abs(vertical) > Mathf.Epsilon)
-                return vertical;
+            if(Mathf.Abs(joystick.Vertical) > Mathf.Epsilon)
+                return joystick.Vertical;
             return Input.GetAxisRaw("VerticalUI");
         }
     }

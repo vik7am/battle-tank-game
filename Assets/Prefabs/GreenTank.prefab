@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 1316326606818665385}
   - component: {fileID: 8105809040890770661}
   m_Layer: 0
-  m_Name: PlayerTank
+  m_Name: GreenTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
