@@ -15,6 +15,7 @@ namespace BattleTank
             this.tankModel = tankModel;
             this.tankView = GameObject.Instantiate<TankView>(tankView);
             this.tankView.SetTankController(this);
+            TankService.Instance.SetCameraToFollowPlayer(this.tankView.transform);
         }
 
         public Vector3 GetMovementVelocity(){

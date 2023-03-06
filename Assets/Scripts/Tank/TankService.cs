@@ -6,6 +6,7 @@ namespace BattleTank
     {
         private TankModel tankModel;
         private TankController tankController;
+        [SerializeField] GameObject cam;
         [SerializeField] private TankView tankView;
         [SerializeField] private FixedJoystick joystick;
         [SerializeField] private float movementSpeed;
@@ -18,6 +19,10 @@ namespace BattleTank
         private void SpawnTank(){
             tankModel = new TankModel(movementSpeed, rotationSpeed);
             tankController = new TankController(tankModel, tankView);
+        }
+
+        public void SetCameraToFollowPlayer(Transform player){
+            cam.transform.SetParent(player);
         }
 
         public float GetJoystickHI(){
