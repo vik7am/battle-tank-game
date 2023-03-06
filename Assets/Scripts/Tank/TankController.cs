@@ -20,11 +20,11 @@ namespace BattleTank
         }
 
         public Vector3 GetMovementVelocity(){
-            return TankService.Instance.GetJoystickVI() * tankModel.movementSpeed * tankView.transform.forward;
+            return TankService.Instance.GetPlayerVI() * tankModel.movementSpeed * tankView.transform.forward;
         }
 
         public float GetRotationAngle(){
-            return TankService.Instance.GetJoystickHI() * tankModel.rotationSpeed;
+            return TankService.Instance.GetPlayerHI() * tankModel.rotationSpeed;
         }
     }
 }

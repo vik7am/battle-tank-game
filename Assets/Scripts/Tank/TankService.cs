@@ -23,12 +23,18 @@ namespace BattleTank
             cam.transform.SetParent(player);
         }
 
-        public float GetJoystickHI(){
-            return joystick.Horizontal;
+        public float GetPlayerHI(){
+            float horizontal = joystick.Horizontal;
+            if(Mathf.Abs(horizontal) > Mathf.Epsilon)
+                return horizontal;
+            return Input.GetAxisRaw("HorizontalUI");
         }
 
-        public float GetJoystickVI(){
-            return joystick.Vertical;
+        public float GetPlayerVI(){
+            float vertical = joystick.Vertical;
+            if(Mathf.Abs(vertical) > Mathf.Epsilon)
+                return vertical;
+            return Input.GetAxisRaw("VerticalUI");
         }
     }
 }
