@@ -2,12 +2,20 @@ namespace BattleTank
 {
     public struct TankModel
     {
+        public TankType tankType;
+        public float health;
+        public float damage;
         public float movementSpeed;
         public float rotationSpeed;
+        public TankView tankView;
 
-        public TankModel(float movementSpeed, float rotationSpeed){
-            this.movementSpeed = movementSpeed;
-            this.rotationSpeed = rotationSpeed;
+        public TankModel(TankSO tankSO){
+            tankType = tankSO.tankType;
+            health = tankSO.health;
+            damage = tankSO.damage;
+            movementSpeed = tankSO.movementSpeed;
+            rotationSpeed = tankSO.rotationSpeed;
+            tankView = tankSO.tankView;
         }
     }
 }

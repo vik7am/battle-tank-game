@@ -580,6 +580,7 @@ MonoBehaviour:
   joystick: {fileID: 1103170789}
   movementSpeed: 8
   rotationSpeed: 50
+  tankListSO: {fileID: 11400000, guid: 760268e0afa5aa9418cc62c20630cb91, type: 2}
 --- !u!4 &1295702206
 Transform:
   m_ObjectHideFlags: 0

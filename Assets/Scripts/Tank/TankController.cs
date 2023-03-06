@@ -4,18 +4,19 @@ namespace BattleTank
 {
     public class TankController
     {
-        private float tankSpeed;
-        private float rotationSpeed;
-        private float movementInput;
-        private float rotationInput;
         private TankModel tankModel;
         private TankView tankView;
 
-        public TankController(TankModel tankModel, TankView tankView){
+        public TankController(TankModel tankModel){
             this.tankModel = tankModel;
-            this.tankView = GameObject.Instantiate<TankView>(tankView);
-            this.tankView.SetTankController(this);
-            TankService.Instance.SetCameraToFollowPlayer(this.tankView.transform);
+            this.tankView = tankModel.tankView;
+            Initialize();
+        }
+
+        private void Initialize(){
+            tankView = GameObject.Instantiate<TankView>(tankView);
+            tankView.SetTankController(this);
+            TankService.Instance.SetCameraToFollowPlayer(tankView.transform);
         }
 
         public Vector3 GetMovementVelocity(){

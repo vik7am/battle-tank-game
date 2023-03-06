@@ -6,19 +6,17 @@ namespace BattleTank
     {
         private TankModel tankModel;
         private TankController tankController;
-        [SerializeField] GameObject cam;
-        [SerializeField] private TankView tankView;
+        [SerializeField] private GameObject cam;
         [SerializeField] private FixedJoystick joystick;
-        [SerializeField] private float movementSpeed;
-        [SerializeField] private float rotationSpeed;
+        [SerializeField] private TankListSO tankListSO;
 
         private void Start(){
             SpawnTank();
         }
 
         private void SpawnTank(){
-            tankModel = new TankModel(movementSpeed, rotationSpeed);
-            tankController = new TankController(tankModel, tankView);
+            tankModel = new TankModel(tankListSO.tankSO[0]);
+            tankController = new TankController(tankModel);
         }
 
         public void SetCameraToFollowPlayer(Transform player){
