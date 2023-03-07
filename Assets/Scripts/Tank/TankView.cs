@@ -25,5 +25,9 @@ namespace BattleTank
         public void SetTankController(TankController tankController){
             this.tankController = tankController;
         }
+
+        public void TakeDamage(){
+            Destroy(gameObject);
+        }
     }
 }

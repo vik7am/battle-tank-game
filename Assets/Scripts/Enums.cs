@@ -15,4 +15,9 @@ namespace BattleTank{
         LEFT,
         RIGHT
     }
+    public enum BulletType{
+        NORMAL,
+        FAST,
+        SLOW
+    }
 }

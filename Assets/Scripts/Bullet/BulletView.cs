@@ -33,11 +33,9 @@ namespace BattleTank
         private void OnTriggerEnter(Collider other) {
             if(other.GetComponent<TankView>()){
                 TankView tankView = other.GetComponent<TankView>();
-                
-                Debug.Log("Collision with tank");
+                tankView.TakeDamage();
             }
-            else
-                Debug.Log("Collision with environment");
+            Destroy(gameObject);
         }
     }
 }

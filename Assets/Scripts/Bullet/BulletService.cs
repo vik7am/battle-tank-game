@@ -9,10 +9,11 @@ namespace BattleTank
         BulletController bulletController;
         BulletModel bulletModel;
         [SerializeField] BulletView bulletView;
+        [SerializeField] BulletListSO bulletListSO;
 
         public void SpawnBullet(Transform bullet){
-            bulletModel = new BulletModel(5);
-            bulletController = new BulletController(bulletModel, bulletView, bullet);
+            bulletModel = new BulletModel(bulletListSO.bulletSO[0]);
+            bulletController = new BulletController(bulletModel, bullet);
         }
     }
 }

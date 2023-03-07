@@ -510,6 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletView: {fileID: 1725479556628035768, guid: 93dc9fb177134dd45b4b22decbb905cf,
     type: 3}
+  bulletListSO: {fileID: 11400000, guid: ef9eab4661bbf2e43a7ec7b583ec64fd, type: 2}
 --- !u!4 &1282092220
 Transform:
   m_ObjectHideFlags: 0
