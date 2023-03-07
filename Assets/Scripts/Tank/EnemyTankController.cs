@@ -21,6 +21,8 @@ namespace BattleTank{
         public override float GetRotationAngle(){
             return enemyTankAI.GetEnemyHI() * tankModel.rotationSpeed;
         }
+
+        public override void FireBullet() {}
     }
 }
 

@@ -6,6 +6,7 @@ namespace BattleTank
     {
         private TankController tankController;
         private Rigidbody rb;
+        public GameObject bulletSpawPoint;
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
