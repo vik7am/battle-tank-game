@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef03626d5d9a7d43956d07e07ec6272, type: 3}
   m_Name: BlueTank
   m_EditorClassIdentifier: 
-  tankType: 0
+  tankType: 3
   health: 100
   damage: 10
-  movementSpeed: 8
-  rotationSpeed: 50
+  movementSpeed: 16
+  rotationSpeed: 25
   tankView: {fileID: 4511230705710579494, guid: 9ad88cc78afdf6d4a92cde0ea41fce41,
     type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef03626d5d9a7d43956d07e07ec6272, type: 3}
   m_Name: GreenTank
   m_EditorClassIdentifier: 
-  tankType: 0
+  tankType: 2
   health: 100
   damage: 10
   movementSpeed: 8

@@ -1,6 +1,6 @@
 namespace BattleTank
 {
-    public struct TankModel
+    public class TankModel
     {
         public TankType tankType;
         public float health;

@@ -17,7 +17,7 @@ namespace BattleTank
         private void SpawnTank(){
             int tankNo = Random.Range(0, tankListSO.tankSO.Length);
             tankModel = new TankModel(tankListSO.tankSO[tankNo]);
-            tankController = new TankController(tankModel);
+            tankController = new PlayerTankController(tankModel);
         }
 
         public void SetCameraToFollowPlayer(Transform player){
