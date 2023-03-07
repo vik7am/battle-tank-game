@@ -290,8 +290,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6674908728880493212}
   - component: {fileID: 6674908728880621672}
-  - component: {fileID: 6674908728880621674}
   - component: {fileID: 4511230705710579494}
+  - component: {fileID: 2449054377936291877}
   m_Layer: 0
   m_Name: BlueTank
   m_TagString: Untagged
@@ -330,19 +330,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!65 &6674908728880621674
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6674908728880590716}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.7, z: 2.1}
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &4511230705710579494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,6 +342,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b55d7394ef1fc489dbcb0fa9afb647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &2449054377936291877
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674908728880590716}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.95
+  m_Height: 2.77
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!1 &6674908728880590718
 GameObject:
   m_ObjectHideFlags: 0

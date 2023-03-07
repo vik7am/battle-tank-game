@@ -373,8 +373,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1316326606818802015}
   - component: {fileID: 1316326606818665387}
-  - component: {fileID: 1316326606818665385}
   - component: {fileID: 8105809040890770661}
+  - component: {fileID: 6582875571939874289}
   m_Layer: 0
   m_Name: GreenTank
   m_TagString: Untagged
@@ -413,19 +413,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!65 &1316326606818665385
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316326606818763967}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.7, z: 2.1}
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &8105809040890770661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,3 +425,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b55d7394ef1fc489dbcb0fa9afb647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &6582875571939874289
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316326606818763967}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.95
+  m_Height: 2.77
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.92, z: 0}

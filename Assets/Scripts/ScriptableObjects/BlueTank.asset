@@ -15,7 +15,7 @@ MonoBehaviour:
   tankType: 3
   health: 100
   damage: 10
-  movementSpeed: 16
-  rotationSpeed: 25
+  movementSpeed: 10
+  rotationSpeed: 40
   tankView: {fileID: 4511230705710579494, guid: 9ad88cc78afdf6d4a92cde0ea41fce41,
     type: 3}
