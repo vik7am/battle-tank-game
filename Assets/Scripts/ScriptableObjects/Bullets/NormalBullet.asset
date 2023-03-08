@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NormalBullet
   m_EditorClassIdentifier: 
   bulletType: 0
-  damage: 25
+  damage: 50
   speed: 20
   bulletView: {fileID: 1725479556628035768, guid: 93dc9fb177134dd45b4b22decbb905cf,
     type: 3}

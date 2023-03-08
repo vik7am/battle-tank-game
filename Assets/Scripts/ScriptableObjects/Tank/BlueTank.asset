@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BlueTank
   m_EditorClassIdentifier: 
   tankType: 3
-  health: 100
+  bulletType: 1
+  health: 50
   damage: 10
   movementSpeed: 10
   rotationSpeed: 40

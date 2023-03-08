@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GreenTank
   m_EditorClassIdentifier: 
   tankType: 2
+  bulletType: 0
   health: 100
   damage: 10
   movementSpeed: 8

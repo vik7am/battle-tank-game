@@ -6,6 +6,7 @@ namespace BattleTank
     public class TankSO : ScriptableObject
     {
         public TankType tankType;
+        public BulletType bulletType;
         public float health;
         public float damage;
         public float movementSpeed;

@@ -10,6 +10,5 @@ namespace BattleTank
         public BulletType bulletType;
         public float damage;
         public float speed;
-        public BulletView bulletView;
     }
 }

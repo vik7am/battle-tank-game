@@ -14,7 +14,9 @@ namespace BattleTank
         }
 
         public override void FireBullet(){
-            BulletService.Instance.SpawnBullet(tankView.bulletSpawPoint.transform);
+            Vector3 bulletSP = tankView.bulletSpawPoint.transform.position;
+            Quaternion bulletQ = tankView.bulletSpawPoint.transform.rotation;
+            BulletService.Instance.SpawnBullet(bulletSP, bulletQ, tankModel.bulletType);
         }
 
         public override Vector3 GetMovementVelocity(){
