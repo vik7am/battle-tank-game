@@ -1,4 +1,5 @@
 using UnityEngine;
+
 namespace BattleTank
 {
     public class PlayerTankController : TankController
@@ -14,9 +15,9 @@ namespace BattleTank
         }
 
         public override void FireBullet(){
-            Vector3 bulletSP = tankView.bulletSpawPoint.transform.position;
+            Vector3 bulletSPos = tankView.bulletSpawPoint.transform.position;
             Quaternion bulletQ = tankView.bulletSpawPoint.transform.rotation;
-            BulletService.Instance.SpawnBullet(bulletSP, bulletQ, tankModel.bulletType);
+            BulletService.Instance.SpawnBullet(bulletSPos, bulletQ, tankModel.bulletType);
         }
 
         public override Vector3 GetMovementVelocity(){

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BattleTank
@@ -11,12 +9,12 @@ namespace BattleTank
         [SerializeField] BulletView bulletView;
         [SerializeField] BulletListSO bulletListSO;
 
-        public void SpawnBullet(Vector3 bulletSP, Quaternion bulletQ, BulletType bulletType){
+        public void SpawnBullet(Vector3 bulletSPos, Quaternion bulletQ, BulletType bulletType){
             
             for(int i=0; i<bulletListSO.bulletSO.Length; i++)
                 if(bulletListSO.bulletSO[i].bulletType == bulletType)
                     bulletModel = new BulletModel(bulletListSO.bulletSO[i]);
-            bulletController = new BulletController(bulletModel, bulletView, bulletSP, bulletQ);
+            bulletController = new BulletController(bulletModel, bulletView, bulletSPos, bulletQ);
         }
     }
 }

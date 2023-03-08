@@ -1,5 +1,6 @@
 using UnityEngine;
-namespace BattleTank{
+namespace BattleTank
+{
     public class EnemyTankAI
     {
         private TankMovement tankMovement;
@@ -19,8 +20,8 @@ namespace BattleTank{
         }
 
         private void RandomTankAction(){
-            tankMovement = (TankMovement)Random.Range(0, 2);
-            tankRotation = (TankRotation)Random.Range(0, 3);
+            tankMovement = (TankMovement)Random.Range(0, System.Enum.GetNames(typeof(TankMovement)).Length);
+            tankRotation = (TankRotation)Random.Range(0, System.Enum.GetNames(typeof(TankRotation)).Length);
             currentDuration = Random.Range(minDuration, maxDuration);
         }
 

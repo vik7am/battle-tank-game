@@ -1,5 +1,7 @@
 using UnityEngine;
-namespace BattleTank{
+
+namespace BattleTank
+{
     public class EnemyTankController : TankController
     {
         private EnemyTankAI enemyTankAI;

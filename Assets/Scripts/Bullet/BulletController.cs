@@ -12,8 +12,8 @@ namespace BattleTank
             Instantiate(bulletSP, bulletQ);
         }
 
-        public void Instantiate(Vector3 bulletSP, Quaternion bulletQ){
-            bulletView = GameObject.Instantiate<BulletView>(bulletView, bulletSP, bulletQ);
+        public void Instantiate(Vector3 bulletSPos, Quaternion bulletQ){
+            bulletView = GameObject.Instantiate<BulletView>(bulletView, bulletSPos, bulletQ);
             bulletView.SetBulletController(this);
         }
 

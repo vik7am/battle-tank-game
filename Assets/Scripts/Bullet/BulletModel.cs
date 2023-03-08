@@ -1,4 +1,3 @@
-
 namespace BattleTank
 {
     public struct BulletModel
