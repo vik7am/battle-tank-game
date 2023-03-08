@@ -8,7 +8,6 @@ namespace BattleTank
     {
         BulletController bulletController;
         Rigidbody rb;
-        float lifeTime = 5;
 
         private void Awake() {
             rb = GetComponent<Rigidbody>();
@@ -16,13 +15,6 @@ namespace BattleTank
 
         private void FireBullet(){
             rb.velocity = bulletController.GetBulletSpeed() * transform.forward;
-        }
-
-        private void Update() {
-            lifeTime -= Time.deltaTime;
-            if(lifeTime<0){
-                Destroy(gameObject);
-            }
         }
 
         public void SetBulletController(BulletController bulletController){
@@ -33,7 +25,7 @@ namespace BattleTank
         private void OnTriggerEnter(Collider other) {
             if(other.GetComponent<TankView>()){
                 TankView tankView = other.GetComponent<TankView>();
-                tankView.TakeDamage();
+                tankView.TakeDamage(bulletController.GetBulletDamage());
             }
             Destroy(gameObject);
         }

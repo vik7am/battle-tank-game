@@ -16,7 +16,7 @@ namespace BattleTank
             for(int i=0; i<bulletListSO.bulletSO.Length; i++)
                 if(bulletListSO.bulletSO[i].bulletType == bulletType)
                     bulletModel = new BulletModel(bulletListSO.bulletSO[i]);
-            bulletController = new BulletController(bulletModel, bulletView , bulletSP, bulletQ);
+            bulletController = new BulletController(bulletModel, bulletView, bulletSP, bulletQ);
         }
     }
 }

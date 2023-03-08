@@ -20,5 +20,9 @@ namespace BattleTank
         public float GetBulletSpeed(){
             return bulletModel.speed;
         }
+
+        public float GetBulletDamage(){
+            return bulletModel.damage;
+        }
     }
 }
