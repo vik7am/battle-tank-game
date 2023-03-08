@@ -1,3 +1,4 @@
+using UnityEngine;
 namespace BattleTank
 {
     public struct TankModel
@@ -7,7 +8,7 @@ namespace BattleTank
         public float damage;
         public float movementSpeed;
         public float rotationSpeed;
-        public TankView tankView;
+        public Material material;
 
         public TankModel(TankSO tankSO){
             tankType = tankSO.tankType;
@@ -15,7 +16,7 @@ namespace BattleTank
             damage = tankSO.damage;
             movementSpeed = tankSO.movementSpeed;
             rotationSpeed = tankSO.rotationSpeed;
-            tankView = tankSO.tankView;
+            material = tankSO.material;
         }
     }
 }

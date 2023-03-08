@@ -7,9 +7,13 @@ namespace BattleTank
         protected TankModel tankModel;
         protected TankView tankView;
 
-        public TankController(TankModel tankModel){
+        public TankController(TankModel tankModel, TankView tankView){
             this.tankModel = tankModel;
-            this.tankView = tankModel.tankView;
+            this.tankView = tankView;
+        }
+
+        public Material GetMaterial(){
+            return tankModel.material;
         }
 
         public abstract Vector3 GetMovementVelocity();

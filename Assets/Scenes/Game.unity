@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44504857, g: 0.4946407, b: 0.57373834, a: 1}
+  m_IndirectSpecularColor: {r: 0.44504905, g: 0.49464136, b: 0.5737399, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -623,6 +623,8 @@ MonoBehaviour:
   cam: {fileID: 1771596986}
   joystick: {fileID: 1103170789}
   tankListSO: {fileID: 11400000, guid: 760268e0afa5aa9418cc62c20630cb91, type: 2}
+  tankView: {fileID: 3790852481726825533, guid: 5601cf402fb874649ad2a5fe60ead5a1,
+    type: 3}
 --- !u!4 &1295702206
 Transform:
   m_ObjectHideFlags: 0
@@ -653,7 +655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1304999366
 Transform:
   m_ObjectHideFlags: 0

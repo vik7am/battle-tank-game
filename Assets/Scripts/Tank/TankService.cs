@@ -11,6 +11,7 @@ namespace BattleTank
         [SerializeField] private GameObject cam;
         [SerializeField] private FixedJoystick joystick;
         [SerializeField] private TankListSO tankListSO;
+        [SerializeField] private TankView tankView;
 
         private void Start(){
             SpawnPlayerTank();
@@ -36,7 +37,7 @@ namespace BattleTank
         private void SpawnPlayerTank(){
             int tankNo = Random.Range(0, tankListSO.tankSO.Length);
             tankModel = new TankModel(tankListSO.tankSO[tankNo]);
-            tankController = new PlayerTankController(tankModel);
+            tankController = new PlayerTankController(tankModel, tankView);
         }
 
         private void SpawnEnemyTanks(){
@@ -48,7 +49,7 @@ namespace BattleTank
         private void SpawnEnemyTank(Vector3 position){
             int tankNo = Random.Range(0, tankListSO.tankSO.Length);
             tankModel = new TankModel(tankListSO.tankSO[tankNo]);
-            new EnemyTankController(tankModel, position);
+            new EnemyTankController(tankModel, tankView, position);
         }
 
         public void SetCameraToFollowPlayer(Transform player){

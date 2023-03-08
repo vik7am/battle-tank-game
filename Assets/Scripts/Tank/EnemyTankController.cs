@@ -3,7 +3,7 @@ namespace BattleTank{
     public class EnemyTankController : TankController
     {
         private EnemyTankAI enemyTankAI;
-        public EnemyTankController(TankModel tankModel, Vector3 position) : base(tankModel){
+        public EnemyTankController(TankModel tankModel, TankView tankView, Vector3 position) : base(tankModel, tankView){
             Initialize(position);
         }
 

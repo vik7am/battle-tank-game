@@ -3,7 +3,7 @@ namespace BattleTank
 {
     public class PlayerTankController : TankController
     {
-        public PlayerTankController(TankModel tankModel) : base(tankModel){
+        public PlayerTankController(TankModel tankModel, TankView tankView) : base(tankModel, tankView){
             Initialize();
         }
 

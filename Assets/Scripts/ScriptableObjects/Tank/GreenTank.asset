@@ -17,5 +17,4 @@ MonoBehaviour:
   damage: 10
   movementSpeed: 8
   rotationSpeed: 50
-  tankView: {fileID: 8105809040890770661, guid: 8f407d6d898c29545986d6455340b005,
-    type: 3}
+  material: {fileID: 2100000, guid: 0f10ef2210012994f8b91c9f99eab30e, type: 2}

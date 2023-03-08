@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace BattleTank
 {
@@ -7,9 +8,16 @@ namespace BattleTank
         private TankController tankController;
         private Rigidbody rb;
         public GameObject bulletSpawPoint;
+        public List<MeshRenderer> tankBody;
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
+        }
+
+        private void UpdateTankColor(){
+            Material material = tankController.GetMaterial();
+            for(int i=0; i<tankBody.Count; i++)
+                tankBody[i].material = material;
         }
 
         private void Update(){
@@ -24,6 +32,7 @@ namespace BattleTank
         
         public void SetTankController(TankController tankController){
             this.tankController = tankController;
+            UpdateTankColor();
         }
 
         public void TakeDamage(){
