@@ -1,28 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BattleTank
 {
     public class PlayerTankSpawner : GenericSingleton<PlayerTankSpawner>
     {
-        protected TankModel tankModel;
-        [SerializeField] protected Transform spawnPosition;
-        [SerializeField] protected TankListSO tankListSO;
-        [SerializeField] protected PlayerTankView playerTankView;
+        private TankModel tankModel;
+        private PlayerInput playerInput;
+        [SerializeField] private Transform spawnPosition;
+        [SerializeField] private TankListSO tankListSO;
+        [SerializeField] private PlayerTankView playerTankView;
         [SerializeField] private GameObject cam;
-
+        [SerializeField] private FixedJoystick fixedJoystick;
+        
         private void Start() {
             SpawnTank();
         }
 
-        protected void SpawnTank(){
+        private void SpawnTank(){
             int tankNo = Random.Range(0, tankListSO.tankSO.Length);
-            tankModel = new TankModel(tankListSO.tankSO[2]);
-            new PlayerTankController(tankModel, playerTankView, spawnPosition.position);
+            tankModel = new TankModel(tankListSO.tankSO[tankNo]);
+            playerInput = new PlayerInput(fixedJoystick);
+            new PlayerTankController(tankModel, playerTankView, spawnPosition.position, playerInput);
         }
 
         public void SetCameraToFollowPlayer(Transform player){
+            cam.transform.position = player.position;
             cam.transform.SetParent(player);
         }
     }

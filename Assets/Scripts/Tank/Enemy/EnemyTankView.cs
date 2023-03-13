@@ -6,10 +6,10 @@ namespace BattleTank
 {
     public class EnemyTankView : MonoBehaviour
     {
-        protected Rigidbody rb;
+        private Rigidbody rb;
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
-        protected EnemyTankController enemyTankController;
+        private EnemyTankController enemyTankController;
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
@@ -20,7 +20,7 @@ namespace BattleTank
             UpdateTankColor();
         }
 
-        protected void UpdateTankColor(){
+        private void UpdateTankColor(){
             Material material = enemyTankController.GetMaterial();
             for(int i=0; i<tankBody.Count; i++)
                 tankBody[i].material = material;
