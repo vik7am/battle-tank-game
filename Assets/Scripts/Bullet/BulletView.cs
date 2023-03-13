@@ -21,9 +21,9 @@ namespace BattleTank
         }
 
         private void OnTriggerEnter(Collider other) {
-            if(other.GetComponent<EnemyTankView>()){
-                EnemyTankView tankView = other.GetComponent<EnemyTankView>();
-                tankView.TakeDamage(bulletController.GetBulletDamage());
+            if(other.GetComponent<IDamageable>() != null){
+                IDamageable tankView = other.GetComponent<IDamageable>();
+                tankView.Damage(bulletController.GetBulletDamage());
             }
             Destroy(gameObject);
         }

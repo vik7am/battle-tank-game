@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class EnemyTankView : MonoBehaviour
+    public class EnemyTankView : MonoBehaviour, IDamageable
     {
         private Rigidbody rb;
         public GameObject bulletSpawPoint;
@@ -26,7 +26,7 @@ namespace BattleTank
                 tankBody[i].material = material;
         }
 
-        public void TakeDamage(float damage){
+        public void Damage(float damage){
             enemyTankController.ReduceHealth(damage);
         }
 

@@ -5,7 +5,6 @@ namespace BattleTank
     public class PlayerTankSpawner : GenericSingleton<PlayerTankSpawner>
     {
         private TankModel tankModel;
-        private PlayerInput playerInput;
         [SerializeField] private Transform spawnPosition;
         [SerializeField] private TankListSO tankListSO;
         [SerializeField] private PlayerTankView playerTankView;
@@ -19,8 +18,7 @@ namespace BattleTank
         private void SpawnTank(){
             int tankNo = Random.Range(0, tankListSO.tankSO.Length);
             tankModel = new TankModel(tankListSO.tankSO[tankNo]);
-            playerInput = new PlayerInput(fixedJoystick);
-            new PlayerTankController(tankModel, playerTankView, spawnPosition.position, playerInput);
+            new PlayerTankController(tankModel, playerTankView, spawnPosition.position, fixedJoystick);
         }
 
         public void SetCameraToFollowPlayer(Transform player){

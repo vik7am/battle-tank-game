@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class PlayerTankView : MonoBehaviour
+    public class PlayerTankView : MonoBehaviour, IDamageable
     {
         private PlayerTankController playerTankController;
         private Rigidbody rb;
@@ -26,7 +26,7 @@ namespace BattleTank
             UpdateTankColor();
         }
 
-        public void TakeDamage(float damage){
+        public void Damage(float damage){
             playerTankController.ReduceHealth(damage);
         }
 
@@ -35,6 +35,7 @@ namespace BattleTank
         }
 
         private void Update(){
+            playerTankController.CheckForPlayerInput();
             if(playerTankController.GetRotationAngle() != 0){
                 transform.Rotate(transform.up, playerTankController.GetRotationAngle() * Time.deltaTime);
             }

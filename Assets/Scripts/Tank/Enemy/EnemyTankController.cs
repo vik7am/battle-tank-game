@@ -7,12 +7,12 @@ namespace BattleTank
         private EnemyTankAI enemyTankAI;
         private EnemyTankView enemyTankView;
         private TankModel tankModel;
-        private float currentHealth;
+        private TankHealth tankHealth;
 
         public EnemyTankController(TankModel tankModel, EnemyTankView enemyTankView, Vector3 position){
             this.enemyTankView = enemyTankView;
             this.tankModel = tankModel;
-            currentHealth = tankModel.health;
+            tankHealth = new TankHealth(tankModel.health);
             Initialize(position);
         }
 
@@ -26,7 +26,10 @@ namespace BattleTank
         }
 
         public void ReduceHealth(float damage){
-            currentHealth -= damage;
+            tankHealth.ReduceHealth(damage);
+            if(tankHealth.IsAlive())
+                return;
+            enemyTankView.DestroyTank();
         }
     }
 }

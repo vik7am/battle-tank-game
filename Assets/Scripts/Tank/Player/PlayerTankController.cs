@@ -5,15 +5,15 @@ namespace BattleTank
     public class PlayerTankController
     {
         private TankModel tankModel;
-        private float currentHealth;
+        private TankHealth tankHealth;
         private PlayerTankView playerTankView;
-        private PlayerInput playerInput;
+        private FixedJoystick Joystick;
 
-        public PlayerTankController(TankModel tankModel, PlayerTankView playerTankView, Vector3 spawnPoistion, PlayerInput playerInput){
+        public PlayerTankController(TankModel tankModel, PlayerTankView playerTankView, Vector3 spawnPoistion, FixedJoystick joystick){
             this.tankModel = tankModel;
-            currentHealth = tankModel.health;
+            tankHealth = new TankHealth(tankModel.health);
             this.playerTankView = playerTankView;
-            this.playerInput = playerInput;
+            this.Joystick = joystick;
             Initialize(spawnPoistion);
         }
 
@@ -28,7 +28,10 @@ namespace BattleTank
         }
 
         public void ReduceHealth(float damage){
-            currentHealth -= damage;
+            tankHealth.ReduceHealth(damage);
+            if(tankHealth.IsAlive())
+                return;
+            playerTankView.DestroyTank();
         }
 
         public void FireBullet(){
@@ -38,11 +41,16 @@ namespace BattleTank
         }
 
         public Vector3 GetMovementVelocity(){
-            return playerInput.GetPlayerVI() * tankModel.movementSpeed * playerTankView.transform.forward;
+            return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward;
         }
 
         public float GetRotationAngle(){
-            return playerInput.GetPlayerHI() * tankModel.rotationSpeed;
+            return Joystick.Horizontal * tankModel.rotationSpeed;
+        }
+
+        public void CheckForPlayerInput(){
+            if(Input.GetKeyDown(KeyCode.Space))
+                FireBullet();
         }
     }
 }
