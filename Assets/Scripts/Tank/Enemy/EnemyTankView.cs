@@ -12,16 +12,17 @@ namespace BattleTank
         public List<MeshRenderer> tankBody;
         private EnemyTankController enemyTankController;
         private NavMeshAgent navMeshAgent;
-        private Vector3 myDestination = new Vector3(0, 0, -30);
+        private Vector3 nextDestination;
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
             navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
-        public void SetTankController(EnemyTankController tankController){
-            this.enemyTankController = tankController;
+        public void SetTankController(EnemyTankController enemyTankController){
+            this.enemyTankController = enemyTankController;
             UpdateTankColor();
+            nextDestination = enemyTankController.GetNextDestination();
         }
 
         private void UpdateTankColor(){
@@ -39,7 +40,9 @@ namespace BattleTank
         }
 
         private void Update(){
-            navMeshAgent.destination = myDestination;
+            navMeshAgent.destination = nextDestination;
+            if(transform.position.x == nextDestination.x && transform.position.z == nextDestination.z)
+                nextDestination = enemyTankController.GetNextDestination();
         }
     }
 }

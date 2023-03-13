@@ -6,14 +6,16 @@ namespace BattleTank
     {
         private EnemyTankAI enemyTankAI;
         private EnemyTankView enemyTankView;
-        private TankModel tankModel;
+        private EnemyTankModel enemyTankModel;
         private TankHealth tankHealth;
+        private int currentPathNo;
 
-        public EnemyTankController(TankModel tankModel, EnemyTankView enemyTankView, Vector3 position){
+        public EnemyTankController(EnemyTankModel enemyTankModel, EnemyTankView enemyTankView){
             this.enemyTankView = enemyTankView;
-            this.tankModel = tankModel;
-            tankHealth = new TankHealth(tankModel.health);
-            Initialize(position);
+            this.enemyTankModel = enemyTankModel;
+            tankHealth = new TankHealth(enemyTankModel.health);
+            currentPathNo = 0;
+            Initialize(enemyTankModel.patrolPath[0]);
         }
 
         private void Initialize(Vector3 position){
@@ -22,7 +24,7 @@ namespace BattleTank
         }
 
         public Material GetMaterial(){
-            return tankModel.material;
+            return enemyTankModel.material;
         }
 
         public void ReduceHealth(float damage){
@@ -30,6 +32,11 @@ namespace BattleTank
             if(tankHealth.IsAlive())
                 return;
             enemyTankView.DestroyTank();
+        }
+
+        public Vector3 GetNextDestination(){
+            currentPathNo = (currentPathNo+1) % enemyTankModel.patrolPath.Length;
+            return enemyTankModel.patrolPath[currentPathNo];
         }
     }
 }
