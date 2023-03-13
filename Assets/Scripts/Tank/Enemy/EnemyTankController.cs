@@ -35,8 +35,12 @@ namespace BattleTank
         }
 
         public Vector3 GetNextDestination(){
-            currentPathNo = (currentPathNo+1) % enemyTankModel.patrolPath.Length;
-            return enemyTankModel.patrolPath[currentPathNo];
+            int nextpathNo;
+            do{
+                nextpathNo = Random.Range(0, enemyTankModel.patrolPath.Length);
+            }while(currentPathNo == nextpathNo);
+            currentPathNo = nextpathNo;
+            return enemyTankModel.patrolPath[nextpathNo];
         }
     }
 }
