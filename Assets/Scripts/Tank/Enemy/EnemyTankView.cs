@@ -1,37 +1,37 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-/*
+using UnityEngine;
+
 namespace BattleTank
 {
-    public abstract class TankView : MonoBehaviour
+    public class EnemyTankView : MonoBehaviour
     {
         protected Rigidbody rb;
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
+        protected EnemyTankController enemyTankController;
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
         }
 
-        protected void UpdateTankColor(){
-            Material material = tankController.GetMaterial();
-            for(int i=0; i<tankBody.Count; i++)
-                tankBody[i].material = material;
-        }
-        
-        public void SetTankController(TankController tankController){
-            this.tankController = tankController;
+        public void SetTankController(EnemyTankController tankController){
+            this.enemyTankController = tankController;
             UpdateTankColor();
         }
 
+        protected void UpdateTankColor(){
+            Material material = enemyTankController.GetMaterial();
+            for(int i=0; i<tankBody.Count; i++)
+                tankBody[i].material = material;
+        }
+
         public void TakeDamage(float damage){
-            tankController.ReduceHealth(damage);
+            enemyTankController.ReduceHealth(damage);
         }
 
         public void DestroyTank(){
             Destroy(gameObject);
         }
-
     }
 }
-*/

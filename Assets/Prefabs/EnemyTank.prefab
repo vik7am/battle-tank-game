@@ -257,10 +257,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6242770063705344391}
   - component: {fileID: 6242770063705740147}
-  - component: {fileID: 3790852481726825533}
   - component: {fileID: 2287085527681164585}
+  - component: {fileID: 5449234430744134065}
   m_Layer: 0
-  m_Name: Tank
+  m_Name: EnemyTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,26 +296,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &3790852481726825533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6242770063705642087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7b55d7394ef1fc489dbcb0fa9afb647, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpawPoint: {fileID: 6905562971650817589}
-  tankBody:
-  - {fileID: 6242770063707638551}
-  - {fileID: 6242770063707638545}
-  - {fileID: 6242770063707638559}
-  - {fileID: 6242770063707638549}
 --- !u!136 &2287085527681164585
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -326,10 +308,28 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.95
-  m_Height: 2.77
+  m_Radius: 0.9
+  m_Height: 2.5
   m_Direction: 2
-  m_Center: {x: 0, y: 0.92, z: 0}
+  m_Center: {x: 0, y: 0.86, z: -0.04}
+--- !u!114 &5449234430744134065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6242770063705642087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbf15defcf6e734ba9957a0bd2227a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawPoint: {fileID: 6905562971650817589}
+  tankBody:
+  - {fileID: 6242770063707638551}
+  - {fileID: 6242770063707638545}
+  - {fileID: 6242770063707638559}
+  - {fileID: 6242770063707638549}
 --- !u!1 &6242770063705642091
 GameObject:
   m_ObjectHideFlags: 0

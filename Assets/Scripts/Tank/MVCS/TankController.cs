@@ -1,16 +1,14 @@
 using UnityEngine;
-
+/*
 namespace BattleTank
 {
     public abstract class TankController
     {
         protected TankModel tankModel;
-        protected TankView tankView;
         protected float currentHealth;
 
         public TankController(TankModel tankModel, TankView tankView){
             this.tankModel = tankModel;
-            this.tankView = tankView;
             currentHealth = tankModel.health;
         }
 
@@ -20,8 +18,6 @@ namespace BattleTank
 
         public void ReduceHealth(float damage){
             currentHealth -= damage;
-            if(currentHealth <= 0)
-                tankView.DestroyTank();
         }
 
         public abstract Vector3 GetMovementVelocity();
@@ -29,3 +25,4 @@ namespace BattleTank
         public abstract void FireBullet();
     }
 }
+*/

@@ -6,27 +6,27 @@ namespace BattleTank
     public class TankService : GenericSingleton<TankService>
     {
         private TankModel tankModel;
-        private TankController tankController;
+        //private TankController tankController;
         private List<EnemyTankAI> enemyTankAIList;
         [SerializeField] private GameObject cam;
         [SerializeField] private FixedJoystick joystick;
         [SerializeField] private TankListSO tankListSO;
-        [SerializeField] private TankView tankView;
+        //[SerializeField] private TankView tankView;
 
         private void Start(){
-            SpawnPlayerTank();
-            enemyTankAIList = new List<EnemyTankAI>();
-            SpawnEnemyTanks();
+            //SpawnPlayerTank();
+            //enemyTankAIList = new List<EnemyTankAI>();
+            //SpawnEnemyTanks();
         }
 
-        private void Update() {
+        /*private void Update() {
             CheckPlayerInput();
             UpdateEnemtyTankAI();
-        }
+        }*/
 
         private void CheckPlayerInput(){
-            if(Input.GetKeyDown(KeyCode.Space))
-                tankController.FireBullet();
+            //if(Input.GetKeyDown(KeyCode.Space))
+                //tankController.FireBullet();
         }
 
         private void UpdateEnemtyTankAI(){
@@ -36,8 +36,8 @@ namespace BattleTank
 
         private void SpawnPlayerTank(){
             int tankNo = Random.Range(0, tankListSO.tankSO.Length);
-            tankModel = new TankModel(tankListSO.tankSO[tankNo]);
-            tankController = new PlayerTankController(tankModel, tankView);
+            tankModel = new TankModel(tankListSO.tankSO[2]);
+            //tankController = new PlayerTankController(tankModel, tankView);
         }
 
         private void SpawnEnemyTanks(){
@@ -49,7 +49,7 @@ namespace BattleTank
         private void SpawnEnemyTank(Vector3 position){
             int tankNo = Random.Range(0, tankListSO.tankSO.Length);
             tankModel = new TankModel(tankListSO.tankSO[tankNo]);
-            new EnemyTankController(tankModel, tankView, position);
+            //new EnemyTankController(tankModel, tankView, position);
         }
 
         public void SetCameraToFollowPlayer(Transform player){
