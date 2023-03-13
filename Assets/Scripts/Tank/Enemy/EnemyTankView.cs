@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace BattleTank
 {
@@ -10,9 +11,12 @@ namespace BattleTank
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
         private EnemyTankController enemyTankController;
+        private NavMeshAgent navMeshAgent;
+        private Vector3 myDestination = new Vector3(0, 0, -30);
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
         public void SetTankController(EnemyTankController tankController){
@@ -32,6 +36,10 @@ namespace BattleTank
 
         public void DestroyTank(){
             Destroy(gameObject);
+        }
+
+        private void Update(){
+            navMeshAgent.destination = myDestination;
         }
     }
 }
