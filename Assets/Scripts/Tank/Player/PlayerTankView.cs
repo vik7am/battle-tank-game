@@ -30,6 +30,7 @@ namespace BattleTank
         }
 
         public void DestroyTank(){
+            PlayerTankSpawner.Instance.StopFollowingPlayer();
             Destroy(gameObject);
         }
 
@@ -42,6 +43,12 @@ namespace BattleTank
 
         private void FixedUpdate() {
             rb.velocity = playerTankController.GetMovementVelocity();
+        }
+
+        private void OnCollisionEnter(Collision other) {
+            IDamageable damagableObject = other.gameObject.GetComponent<IDamageable>();
+            if(damagableObject != null)
+                damagableObject.Damage(playerTankController.GetCollisionDamage());
         }
     }
 }

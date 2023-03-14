@@ -42,5 +42,11 @@ namespace BattleTank
             if(agent.remainingDistance <= agent.stoppingDistance)
                 agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, range));
         }
+
+        private void OnCollisionEnter(Collision other) {
+            IDamageable damagableObject = other.gameObject.GetComponent<IDamageable>();
+            if(damagableObject != null)
+                damagableObject.Damage(enemyTankController.GetCollisionDamage());
+        }
     }
 }

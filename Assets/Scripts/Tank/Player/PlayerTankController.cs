@@ -20,7 +20,7 @@ namespace BattleTank
         private void Initialize(Vector3 spawnPosition){
             playerTankView = GameObject.Instantiate<PlayerTankView>(playerTankView, spawnPosition, Quaternion.identity);
             playerTankView.SetTankController(this);
-            PlayerTankSpawner.Instance.SetCameraToFollowPlayer(playerTankView.transform);
+            PlayerTankSpawner.Instance.StartFollowingPlayer(playerTankView.transform);
         }
 
         public Material GetMaterial(){
@@ -51,6 +51,10 @@ namespace BattleTank
         public void CheckForPlayerInput(){
             if(Input.GetKeyDown(KeyCode.Space))
                 FireBullet();
+        }
+
+        public float GetCollisionDamage(){
+            return tankModel.damage;
         }
     }
 }

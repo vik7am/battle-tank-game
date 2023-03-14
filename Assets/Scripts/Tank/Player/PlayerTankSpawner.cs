@@ -21,9 +21,13 @@ namespace BattleTank
             new PlayerTankController(tankModel, playerTankView, spawnPosition, fixedJoystick);
         }
 
-        public void SetCameraToFollowPlayer(Transform player){
+        public void StartFollowingPlayer(Transform player){
             cam.transform.position = player.position;
             cam.transform.SetParent(player);
+        }
+
+        public void StopFollowingPlayer(){
+            cam.transform.SetParent(null);
         }
     }
 }
