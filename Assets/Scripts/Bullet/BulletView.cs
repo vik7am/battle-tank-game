@@ -4,8 +4,8 @@ namespace BattleTank
 {
     public class BulletView : MonoBehaviour
     {
-        BulletController bulletController;
-        Rigidbody rb;
+        private BulletController bulletController;
+        private Rigidbody rb;
 
         private void Awake() {
             rb = GetComponent<Rigidbody>();
@@ -22,8 +22,8 @@ namespace BattleTank
 
         private void OnTriggerEnter(Collider other) {
             if(other.GetComponent<IDamageable>() != null){
-                IDamageable tankView = other.GetComponent<IDamageable>();
-                tankView.Damage(bulletController.GetBulletDamage());
+                IDamageable damagableObject = other.GetComponent<IDamageable>();
+                damagableObject.Damage(bulletController.GetBulletDamage());
             }
             Destroy(gameObject);
         }

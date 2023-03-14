@@ -4,16 +4,17 @@ namespace BattleTank
 {
     public class BulletController
     {
-        BulletModel bulletModel;
-        BulletView bulletView;
-        public BulletController(BulletModel bulletModel,BulletView bulletView, Vector3 bulletSP, Quaternion bulletQ){
+        private BulletModel bulletModel;
+        private BulletView bulletView;
+
+        public BulletController(BulletModel bulletModel, BulletView bulletView, Vector3 spawnPoint, Quaternion rotation){
             this.bulletModel = bulletModel;
             this.bulletView = bulletView;
-            Instantiate(bulletSP, bulletQ);
+            Instantiate(spawnPoint, rotation);
         }
 
-        public void Instantiate(Vector3 bulletSPos, Quaternion bulletQ){
-            bulletView = GameObject.Instantiate<BulletView>(bulletView, bulletSPos, bulletQ);
+        public void Instantiate(Vector3 spawnPoint, Quaternion rotation){
+            bulletView = GameObject.Instantiate<BulletView>(bulletView, spawnPoint, rotation);
             bulletView.SetBulletController(this);
         }
 

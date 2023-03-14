@@ -4,17 +4,16 @@ namespace BattleTank
 {
     public class BulletService : GenericSingleton<BulletService>
     {
-        BulletController bulletController;
-        BulletModel bulletModel;
-        [SerializeField] BulletView bulletView;
-        [SerializeField] BulletListSO bulletListSO;
+        private BulletController bulletController;
+        private BulletModel bulletModel;
+        [SerializeField] private BulletView bulletView;
+        [SerializeField] private BulletListSO bulletListSO;
 
-        public void SpawnBullet(Vector3 bulletSPos, Quaternion bulletQ, BulletType bulletType){
-            
+        public void SpawnBullet(Vector3 spawnPoint, Quaternion rotation, BulletType bulletType){
             for(int i=0; i<bulletListSO.bulletSO.Length; i++)
                 if(bulletListSO.bulletSO[i].bulletType == bulletType)
                     bulletModel = new BulletModel(bulletListSO.bulletSO[i]);
-            bulletController = new BulletController(bulletModel, bulletView, bulletSPos, bulletQ);
+            bulletController = new BulletController(bulletModel, bulletView, spawnPoint, rotation);
         }
     }
 }

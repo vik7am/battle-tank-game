@@ -9,12 +9,12 @@ namespace BattleTank
         private PlayerTankView playerTankView;
         private FixedJoystick Joystick;
 
-        public PlayerTankController(TankModel tankModel, PlayerTankView playerTankView, Vector3 spawnPoistion, FixedJoystick joystick){
+        public PlayerTankController(TankModel tankModel, PlayerTankView playerTankView, Vector3 spawnPosition, FixedJoystick joystick){
             this.tankModel = tankModel;
             tankHealth = new TankHealth(tankModel.health);
             this.playerTankView = playerTankView;
             this.Joystick = joystick;
-            Initialize(spawnPoistion);
+            Initialize(spawnPosition);
         }
 
         private void Initialize(Vector3 spawnPosition){
@@ -35,9 +35,9 @@ namespace BattleTank
         }
 
         public void FireBullet(){
-            Vector3 bulletSPos = playerTankView.bulletSpawPoint.transform.position;
-            Quaternion bulletQ = playerTankView.bulletSpawPoint.transform.rotation;
-            BulletService.Instance.SpawnBullet(bulletSPos, bulletQ, tankModel.bulletType);
+            Vector3 bulletSpawnPoint = playerTankView.bulletSpawPoint.transform.position;
+            Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
+            BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, tankModel.bulletType);
         }
 
         public Vector3 GetMovementVelocity(){

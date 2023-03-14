@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,7 +21,7 @@ namespace BattleTank
         public void SetTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;
             UpdateTankColor();
-            agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, 25));
+            agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, range));
         }
 
         private void UpdateTankColor(){
@@ -39,7 +38,7 @@ namespace BattleTank
             Destroy(gameObject);
         }
 
-        void Update(){
+        private void Update(){
             if(agent.remainingDistance <= agent.stoppingDistance)
                 agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, range));
         }
