@@ -1,21 +1,19 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace BattleTank
 {
     public class EnemyTankController
     {
-        private EnemyTankAI enemyTankAI;
         private EnemyTankView enemyTankView;
-        private EnemyTankModel enemyTankModel;
+        private TankModel tankModel;
         private TankHealth tankHealth;
-        private int currentPathNo;
 
-        public EnemyTankController(EnemyTankModel enemyTankModel, EnemyTankView enemyTankView){
+        public EnemyTankController(TankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
             this.enemyTankView = enemyTankView;
-            this.enemyTankModel = enemyTankModel;
-            tankHealth = new TankHealth(enemyTankModel.health);
-            currentPathNo = 0;
-            Initialize(enemyTankModel.patrolPath[0]);
+            this.tankModel = tankModel;
+            tankHealth = new TankHealth(tankModel.health);
+            Initialize(spawnPosition);
         }
 
         private void Initialize(Vector3 position){
@@ -24,7 +22,7 @@ namespace BattleTank
         }
 
         public Material GetMaterial(){
-            return enemyTankModel.material;
+            return tankModel.material;
         }
 
         public void ReduceHealth(float damage){
@@ -34,13 +32,19 @@ namespace BattleTank
             enemyTankView.DestroyTank();
         }
 
-        public Vector3 GetNextDestination(){
-            int nextpathNo;
+        public Vector3 GetRandomPoint(Vector3 center, float range){
+            bool pointFound = false;
+            Vector3 randomPoint;
+            Vector3 result = Vector3.zero;
+            NavMeshHit hit;
             do{
-                nextpathNo = Random.Range(0, enemyTankModel.patrolPath.Length);
-            }while(currentPathNo == nextpathNo);
-            currentPathNo = nextpathNo;
-            return enemyTankModel.patrolPath[nextpathNo];
+                randomPoint = center + Random.insideUnitSphere * range;
+                if(NavMesh.SamplePosition(randomPoint, out hit, 1, NavMesh.AllAreas)){
+                    result = hit.position;
+                    pointFound = true;
+                }
+            }while(pointFound == false);
+            return result;
         }
     }
 }

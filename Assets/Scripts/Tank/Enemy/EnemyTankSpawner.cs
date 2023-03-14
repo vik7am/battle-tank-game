@@ -4,22 +4,21 @@ namespace BattleTank
 {
     public class EnemyTankSpawner : GenericSingleton<EnemyTankSpawner>
     {
-        private EnemyTankModel enemyTankModel;
+        private TankModel tankModel;
         [SerializeField] private TankListSO tankListSO;
         [SerializeField] private EnemyTankView enemyTankView;
-        [SerializeField] private TankPatrolPathListSO paths;
+        [SerializeField] private Vector3[] enemyTankSpawns;
 
         private void Start() {
             SpawnEnemyTanks();
         }
 
         private void SpawnEnemyTanks(){
-            for(int i=0; i<paths.patrolPathList.Length; i++){
+            for(int i=0; i< enemyTankSpawns.Length; i++){
                 int tankNo = Random.Range(0, tankListSO.tankSO.Length);
-                enemyTankModel = new EnemyTankModel(tankListSO.tankSO[tankNo], paths.patrolPathList[i]);
-                new EnemyTankController(enemyTankModel, enemyTankView);
+                tankModel = new TankModel(tankListSO.tankSO[tankNo]);
+                new EnemyTankController(tankModel, enemyTankView, enemyTankSpawns[i]);
             }
-            
         }
     }
 }

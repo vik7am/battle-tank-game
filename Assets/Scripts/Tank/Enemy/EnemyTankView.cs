@@ -11,18 +11,18 @@ namespace BattleTank
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
         private EnemyTankController enemyTankController;
-        private NavMeshAgent navMeshAgent;
-        private Vector3 nextDestination;
+        private NavMeshAgent agent;
+        [SerializeField] private float range;
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
-            navMeshAgent = GetComponent<NavMeshAgent>();
+            agent = GetComponent<NavMeshAgent>();
         }
 
         public void SetTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;
             UpdateTankColor();
-            nextDestination = enemyTankController.GetNextDestination();
+            agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, 25));
         }
 
         private void UpdateTankColor(){
@@ -39,10 +39,9 @@ namespace BattleTank
             Destroy(gameObject);
         }
 
-        private void Update(){
-            navMeshAgent.destination = nextDestination;
-            if(transform.position.x == nextDestination.x && transform.position.z == nextDestination.z)
-                nextDestination = enemyTankController.GetNextDestination();
+        void Update(){
+            if(agent.remainingDistance <= agent.stoppingDistance)
+                agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, range));
         }
     }
 }
