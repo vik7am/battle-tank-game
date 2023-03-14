@@ -1,4 +1,5 @@
 using UnityEngine;
+
 namespace BattleTank
 {
     public class GenericSingleton<T> : MonoBehaviour where T:GenericSingleton<T>
