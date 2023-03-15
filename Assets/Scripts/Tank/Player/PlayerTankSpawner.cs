@@ -28,12 +28,6 @@ namespace BattleTank
 
         public void StopFollowingPlayer(){
             cam.transform.SetParent(null);
-            StartCoroutine(DestroyAllEnemies());
-        }
-
-        IEnumerator DestroyAllEnemies(){
-            yield return new WaitForSeconds(2);
-            EnemyTankSpawner.Instance.DestroyAllEnemyTanks();
         }
     }
 }

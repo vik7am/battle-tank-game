@@ -31,7 +31,13 @@ namespace BattleTank
             tankHealth.ReduceHealth(damage);
             if(tankHealth.IsAlive())
                 return;
-            playerTankView.DestroyTank();
+            DestroyTank();
+        }
+
+        private void DestroyTank(){
+            PlayerTankSpawner.Instance.StopFollowingPlayer();
+            GameObject.Destroy(playerTankView.gameObject);
+            GameOver.Instance.DestroyEverything();
         }
 
         public void FireBullet(){

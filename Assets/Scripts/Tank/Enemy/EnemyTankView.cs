@@ -34,10 +34,6 @@ namespace BattleTank
             enemyTankController.ReduceHealth(damage);
         }
 
-        public void DestroyTank(){
-            Destroy(gameObject);
-        }
-
         private void Update(){
             if(agent.remainingDistance <= agent.stoppingDistance)
                 agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, range));

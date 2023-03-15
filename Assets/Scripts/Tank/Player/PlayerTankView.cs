@@ -29,11 +29,6 @@ namespace BattleTank
             playerTankController.ReduceHealth(damage);
         }
 
-        public void DestroyTank(){
-            PlayerTankSpawner.Instance.StopFollowingPlayer();
-            Destroy(gameObject);
-        }
-
         private void Update(){
             playerTankController.CheckForPlayerInput();
             if(playerTankController.GetRotationAngle() != 0){

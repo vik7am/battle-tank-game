@@ -24,10 +24,8 @@ namespace BattleTank
             }
         }
 
-        public void DestroyAllEnemyTanks(){
-            for(int i=0; i< enemyTankSpawns.Length; i++){
-                enemyTanks[i].DestroyTank();
-            }
+        public List<EnemyTankController> GetEnemyTankControllerList(){
+            return enemyTanks;
         }
     }
 }
