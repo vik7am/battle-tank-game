@@ -29,15 +29,8 @@ namespace BattleTank
 
         public void ReduceHealth(float damage){
             tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsAlive())
-                return;
-            DestroyTank();
-        }
-
-        private void DestroyTank(){
-            PlayerTankSpawner.Instance.StopFollowingPlayer();
-            GameObject.Destroy(playerTankView.gameObject);
-            GameOver.Instance.DestroyEverything();
+            if(tankHealth.IsDead())
+                DestroyTank();
         }
 
         public void FireBullet(){
@@ -47,10 +40,12 @@ namespace BattleTank
         }
 
         public Vector3 GetMovementVelocity(){
+            //return Input.GetAxisRaw("VerticalUI") * tankModel.movementSpeed * playerTankView.transform.forward;
             return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward;
         }
 
         public float GetRotationAngle(){
+            //return Input.GetAxisRaw("HorizontalUI") * tankModel.rotationSpeed;
             return Joystick.Horizontal * tankModel.rotationSpeed;
         }
 
@@ -61,6 +56,16 @@ namespace BattleTank
 
         public float GetCollisionDamage(){
             return tankModel.damage;
+        }
+
+        public bool IsTankAlive(){
+            return !tankHealth.IsDead();
+        }
+
+        private void DestroyTank(){
+            PlayerTankSpawner.Instance.StopFollowingPlayer();
+            playerTankView.ShowEffectAndDestroy();
+            GameOver.Instance.DestroyEverything();
         }
     }
 }

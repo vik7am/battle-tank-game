@@ -1,23 +1,21 @@
+using UnityEngine;
 namespace BattleTank
 {
     public class TankHealth
     {
+        float maxHealth;
         float currentHealth;
-        bool alive;
 
         public TankHealth(float health){
-            alive = true;
-            currentHealth = health;
+            currentHealth = maxHealth = health;
         }
 
         public void ReduceHealth(float damage){
-            currentHealth -= damage;
-            if(currentHealth <= 0)
-                alive = false;
+            currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
         }
 
-        public bool IsAlive(){
-            return alive;
+        public bool IsDead(){
+            return currentHealth == 0;
         }
     }
 }
