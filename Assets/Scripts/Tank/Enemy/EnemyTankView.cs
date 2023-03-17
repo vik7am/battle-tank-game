@@ -13,6 +13,7 @@ namespace BattleTank
         private EnemyTankController enemyTankController;
         private NavMeshAgent agent;
         [SerializeField] private float range;
+        private Coroutine destroyCoroutine;
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
@@ -48,9 +49,12 @@ namespace BattleTank
         }
 
         public void ShowEffectAndDestroy(){
+            if(destroyCoroutine != null)
+                return;
+            destroyCoroutine = StartCoroutine(DestroyEnemyTank());
             ParticleEffectService.Instance.ShowTankExplosionEffect(transform.position);
             agent.isStopped = true;
-            StartCoroutine(DestroyEnemyTank());
+            
         }
 
         IEnumerator DestroyEnemyTank(){

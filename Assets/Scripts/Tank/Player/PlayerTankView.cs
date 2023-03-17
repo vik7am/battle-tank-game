@@ -10,6 +10,7 @@ namespace BattleTank
         private Rigidbody rb;
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
+        private Coroutine destroyCoroutine;
         
         private void Awake(){
             rb = GetComponent<Rigidbody>();
@@ -49,8 +50,10 @@ namespace BattleTank
         }
 
         public void ShowEffectAndDestroy(){
+            if(destroyCoroutine != null)
+                return;
+            destroyCoroutine = StartCoroutine(DestroyEnemyTank());
             ParticleEffectService.Instance.ShowTankExplosionEffect(transform.position);
-            StartCoroutine(DestroyEnemyTank());
         }
 
         IEnumerator DestroyEnemyTank(){

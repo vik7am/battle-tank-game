@@ -9,11 +9,14 @@ namespace BattleTank
         private List<EnemyTankController> enemyTanks;
         [SerializeField] private Transform environment;
         [SerializeField] private float delay;
+        private Coroutine destructionCoroutine;
 
         public void DestroyEverything(){
+            if(destructionCoroutine != null)
+                return;
             CameraService.Instance.SetCameraZoomOut(true);
             enemyTanks = EnemyTankSpawner.Instance.GetEnemyTankControllerList();
-            StartCoroutine(StartDestruction());
+            destructionCoroutine = StartCoroutine(StartDestruction());
         }
 
         IEnumerator StartDestruction(){
