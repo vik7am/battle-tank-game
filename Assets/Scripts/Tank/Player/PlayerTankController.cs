@@ -20,7 +20,7 @@ namespace BattleTank
         private void Initialize(Vector3 spawnPosition){
             playerTankView = GameObject.Instantiate<PlayerTankView>(playerTankView, spawnPosition, Quaternion.identity);
             playerTankView.SetTankController(this);
-            PlayerTankSpawner.Instance.SetCameraToFollowPlayer(playerTankView.transform);
+            CameraService.Instance.StartFollowingPlayer(playerTankView.transform);
         }
 
         public Material GetMaterial(){
@@ -29,9 +29,8 @@ namespace BattleTank
 
         public void ReduceHealth(float damage){
             tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsAlive())
-                return;
-            playerTankView.DestroyTank();
+            if(tankHealth.IsDead())
+                DestroyTank();
         }
 
         public void FireBullet(){
@@ -41,16 +40,32 @@ namespace BattleTank
         }
 
         public Vector3 GetMovementVelocity(){
+            //return Input.GetAxisRaw("VerticalUI") * tankModel.movementSpeed * playerTankView.transform.forward;
             return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward;
         }
 
         public float GetRotationAngle(){
+            //return Input.GetAxisRaw("HorizontalUI") * tankModel.rotationSpeed;
             return Joystick.Horizontal * tankModel.rotationSpeed;
         }
 
         public void CheckForPlayerInput(){
             if(Input.GetKeyDown(KeyCode.Space))
                 FireBullet();
+        }
+
+        public float GetCollisionDamage(){
+            return tankModel.damage;
+        }
+
+        public bool IsTankAlive(){
+            return !tankHealth.IsDead();
+        }
+
+        private void DestroyTank(){
+            CameraService.Instance.StopFollowingPlayer();
+            playerTankView.ShowEffectAndDestroy();
+            DestructionService.Instance.DestroyEverything();
         }
     }
 }

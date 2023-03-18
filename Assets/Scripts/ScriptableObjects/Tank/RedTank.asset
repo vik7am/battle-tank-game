@@ -15,7 +15,7 @@ MonoBehaviour:
   tankType: 1
   bulletType: 2
   health: 150
-  damage: 10
+  damage: 50
   movementSpeed: 6
   rotationSpeed: 60
   material: {fileID: 2100000, guid: f9d36c37a8e105a4e879418db2da93be, type: 2}

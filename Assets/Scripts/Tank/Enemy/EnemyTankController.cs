@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+
 namespace BattleTank
 {
     public class EnemyTankController
@@ -27,9 +28,8 @@ namespace BattleTank
 
         public void ReduceHealth(float damage){
             tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsAlive())
-                return;
-            enemyTankView.DestroyTank();
+            if(tankHealth.IsDead())
+                DestroyTank();
         }
 
         public Vector3 GetRandomPoint(Vector3 center, float range){
@@ -45,6 +45,26 @@ namespace BattleTank
                 }
             }while(pointFound == false);
             return result;
+        }
+
+        public float GetCollisionDamage(){
+            return tankModel.damage;
+        }
+
+        private void DestroyTank(){
+            if(enemyTankView == null)
+                return;
+            enemyTankView.ShowEffectAndDestroy();
+            enemyTankView = null;
+        }
+
+        public void KillTank(){
+            tankHealth.ReduceHealth(tankModel.health);
+            DestroyTank();
+        }
+
+        public bool IsTankAlive(){
+            return !tankHealth.IsDead();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 namespace BattleTank
 {
@@ -9,6 +10,7 @@ namespace BattleTank
         private Rigidbody rb;
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
+        private Coroutine destroyCoroutine;
         
         private void Awake(){
             rb = GetComponent<Rigidbody>();
@@ -26,11 +28,8 @@ namespace BattleTank
         }
 
         public void Damage(float damage){
-            playerTankController.ReduceHealth(damage);
-        }
-
-        public void DestroyTank(){
-            Destroy(gameObject);
+            if(playerTankController.IsTankAlive())
+                playerTankController.ReduceHealth(damage);
         }
 
         private void Update(){
@@ -42,6 +41,24 @@ namespace BattleTank
 
         private void FixedUpdate() {
             rb.velocity = playerTankController.GetMovementVelocity();
+        }
+
+        private void OnCollisionEnter(Collision other) {
+            IDamageable damagableObject = other.gameObject.GetComponent<IDamageable>();
+            if(damagableObject != null)
+                damagableObject.Damage(playerTankController.GetCollisionDamage());
+        }
+
+        public void ShowEffectAndDestroy(){
+            if(destroyCoroutine != null)
+                return;
+            destroyCoroutine = StartCoroutine(DestroyEnemyTank());
+            ParticleEffectService.Instance.ShowTankExplosionEffect(transform.position);
+        }
+
+        IEnumerator DestroyEnemyTank(){
+            yield return new WaitForSeconds(1.0f);
+            Destroy(gameObject);
         }
     }
 }

@@ -7,17 +7,6 @@ namespace BattleTank
         BLUE_TANK
     }
 
-    public enum TankMovement{
-        IDLE,
-        FORWARD
-    }
-
-    public enum TankRotation{
-        NONE,
-        LEFT,
-        RIGHT
-    }
-
     public enum BulletType{
         NORMAL,
         FAST,
