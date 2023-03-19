@@ -9,8 +9,8 @@ namespace BattleTank
         private EnemyTankView enemyTankView;
         private TankModel tankModel;
         private TankHealth tankHealth;
-        private State currentState;
         private NavMeshAgent navMeshAgent;
+        private EnemySM enemySM;
 
         public EnemyTankController(TankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
             this.enemyTankView = enemyTankView;
@@ -22,8 +22,8 @@ namespace BattleTank
         private void Initialize(Vector3 position){
             enemyTankView = GameObject.Instantiate<EnemyTankView>(enemyTankView, position, Quaternion.identity);
             navMeshAgent = enemyTankView.GetComponent<NavMeshAgent>();
+            enemySM = enemyTankView.GetComponent<EnemySM>();
             enemyTankView.SetTankController(this);
-            SetState(new IdleState(this));
         }
 
         public Material GetMaterial(){
@@ -55,26 +55,6 @@ namespace BattleTank
 
         public bool IsTankAlive(){
             return !tankHealth.IsDead();
-        }
-
-        public NavMeshAgent GetNavMeshAgent(){
-            return navMeshAgent;
-        }
-
-        public Vector3 GetTankPosition(){
-            return enemyTankView.transform.position;
-        }
-
-        public void SetState(State state){
-            if(currentState != null)
-                currentState.OnStateExit();
-            currentState = state;
-            if(currentState != null)
-                currentState.OnStateEnter();
-        }
-
-        public State getCurrentstate(){
-            return currentState;
         }
 
     }

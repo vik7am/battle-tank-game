@@ -3,22 +3,24 @@ using UnityEngine.AI;
 
 namespace BattleTank
 {
-    public class PatrolState : State
+    public class PatrolState : BaseState
     {
+        private EnemySM enemySM;
         private NavMeshAgent navMeshAgent;
 
-        public PatrolState(EnemyTankController enemyTankController): base(enemyTankController) {
-            navMeshAgent = enemyTankController.GetNavMeshAgent();
+        public PatrolState(EnemySM enemySM): base(enemySM) {
+            this.enemySM = enemySM;
+            this.navMeshAgent = enemySM.navMeshAgent;
         }
 
         public override void OnStateEnter(){
-            navMeshAgent.SetDestination(GetRandomPoint(enemyTankController.GetTankPosition(), 50));
+            navMeshAgent.SetDestination(GetRandomPoint(enemySM.transform.position, 50));
             navMeshAgent.isStopped = false;
         }
 
         public override void Tick(){
-            if(navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-                enemyTankController.SetState(new IdleState(enemyTankController));
+            if(navMeshAgent.remainingDistance <= enemySM.navMeshAgent.stoppingDistance)
+                enemySM.SetState(enemySM.idleState);
         }
 
         public override void OnStateExit(){

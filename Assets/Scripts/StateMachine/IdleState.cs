@@ -2,12 +2,15 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class IdleState : State
+    public class IdleState : BaseState
     {
         private float idleTime = 5;
         private float timeElapsed;
+        private EnemySM enemySM;
 
-        public IdleState(EnemyTankController enemyTankController): base(enemyTankController) {}
+        public IdleState(EnemySM enemySM): base(enemySM) {
+            this.enemySM = enemySM;
+        }
 
         public override void OnStateEnter(){
             timeElapsed = 0;
@@ -16,7 +19,7 @@ namespace BattleTank
         public override void Tick(){
             timeElapsed += Time.deltaTime;
             if(timeElapsed >= idleTime)
-                enemyTankController.SetState(new PatrolState(enemyTankController));
+                stateMachine.SetState(enemySM.patrolState);
         }
     }
 }

@@ -7,16 +7,11 @@ namespace BattleTank
 {
     public class EnemyTankView : MonoBehaviour, IDamageable
     {
-        private Rigidbody rb;
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
         private EnemyTankController enemyTankController;
         [SerializeField] private float range;
         private Coroutine destroyCoroutine;
-
-        private void Awake(){
-            rb = GetComponent<Rigidbody>();
-        }
 
         public void SetTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;
@@ -32,10 +27,6 @@ namespace BattleTank
         public void Damage(float damage){
             if(enemyTankController.IsTankAlive())
                 enemyTankController.ReduceHealth(damage);
-        }
-
-        private void Update(){
-            enemyTankController.getCurrentstate().Tick();
         }
 
         private void OnCollisionEnter(Collision other){
