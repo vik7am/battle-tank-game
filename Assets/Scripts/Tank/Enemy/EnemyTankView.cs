@@ -11,19 +11,16 @@ namespace BattleTank
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
         private EnemyTankController enemyTankController;
-        private NavMeshAgent agent;
         [SerializeField] private float range;
         private Coroutine destroyCoroutine;
 
         private void Awake(){
             rb = GetComponent<Rigidbody>();
-            agent = GetComponent<NavMeshAgent>();
         }
 
         public void SetTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;
             UpdateTankColor();
-            agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, range));
         }
 
         private void UpdateTankColor(){
@@ -38,8 +35,7 @@ namespace BattleTank
         }
 
         private void Update(){
-            if(agent.remainingDistance <= agent.stoppingDistance)
-                agent.SetDestination(enemyTankController.GetRandomPoint(transform.position, range));
+            enemyTankController.getCurrentstate().Tick();
         }
 
         private void OnCollisionEnter(Collision other){
@@ -53,7 +49,6 @@ namespace BattleTank
                 return;
             destroyCoroutine = StartCoroutine(DestroyEnemyTank());
             ParticleEffectService.Instance.ShowTankExplosionEffect(transform.position);
-            agent.isStopped = true;
             
         }
 

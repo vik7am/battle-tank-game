@@ -40,13 +40,13 @@ namespace BattleTank
         }
 
         public Vector3 GetMovementVelocity(){
-            //return Input.GetAxisRaw("VerticalUI") * tankModel.movementSpeed * playerTankView.transform.forward;
-            return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward;
+            return Input.GetAxisRaw("VerticalUI") * tankModel.movementSpeed * playerTankView.transform.forward;
+            //return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward;
         }
 
         public float GetRotationAngle(){
-            //return Input.GetAxisRaw("HorizontalUI") * tankModel.rotationSpeed;
-            return Joystick.Horizontal * tankModel.rotationSpeed;
+            return Input.GetAxisRaw("HorizontalUI") * tankModel.rotationSpeed;
+            //return Joystick.Horizontal * tankModel.rotationSpeed;
         }
 
         public void CheckForPlayerInput(){

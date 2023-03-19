@@ -9,6 +9,8 @@ namespace BattleTank
         private EnemyTankView enemyTankView;
         private TankModel tankModel;
         private TankHealth tankHealth;
+        private State currentState;
+        private NavMeshAgent navMeshAgent;
 
         public EnemyTankController(TankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
             this.enemyTankView = enemyTankView;
@@ -19,7 +21,9 @@ namespace BattleTank
 
         private void Initialize(Vector3 position){
             enemyTankView = GameObject.Instantiate<EnemyTankView>(enemyTankView, position, Quaternion.identity);
+            navMeshAgent = enemyTankView.GetComponent<NavMeshAgent>();
             enemyTankView.SetTankController(this);
+            SetState(new IdleState(this));
         }
 
         public Material GetMaterial(){
@@ -32,21 +36,6 @@ namespace BattleTank
                 DestroyTank();
         }
 
-        public Vector3 GetRandomPoint(Vector3 center, float range){
-            bool pointFound = false;
-            Vector3 randomPoint;
-            Vector3 result = Vector3.zero;
-            NavMeshHit hit;
-            do{
-                randomPoint = center + Random.insideUnitSphere * range;
-                if(NavMesh.SamplePosition(randomPoint, out hit, 1, NavMesh.AllAreas)){
-                    result = hit.position;
-                    pointFound = true;
-                }
-            }while(pointFound == false);
-            return result;
-        }
-
         public float GetCollisionDamage(){
             return tankModel.damage;
         }
@@ -54,6 +43,7 @@ namespace BattleTank
         private void DestroyTank(){
             if(enemyTankView == null)
                 return;
+            navMeshAgent.isStopped = true;
             enemyTankView.ShowEffectAndDestroy();
             enemyTankView = null;
         }
@@ -66,6 +56,27 @@ namespace BattleTank
         public bool IsTankAlive(){
             return !tankHealth.IsDead();
         }
+
+        public NavMeshAgent GetNavMeshAgent(){
+            return navMeshAgent;
+        }
+
+        public Vector3 GetTankPosition(){
+            return enemyTankView.transform.position;
+        }
+
+        public void SetState(State state){
+            if(currentState != null)
+                currentState.OnStateExit();
+            currentState = state;
+            if(currentState != null)
+                currentState.OnStateEnter();
+        }
+
+        public State getCurrentstate(){
+            return currentState;
+        }
+
     }
 }
 
