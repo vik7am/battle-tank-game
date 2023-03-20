@@ -4,10 +4,10 @@ namespace BattleTank
 {
     public class EnemyTankController
     {
+        private EnemySM enemySM;
         public EnemyTankView enemyTankView {get; private set;}
         public TankModel tankModel {get;}
         public TankHealth tankHealth {get;}
-        private EnemySM enemySM;
 
         public EnemyTankController(TankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
             this.enemyTankView = enemyTankView;

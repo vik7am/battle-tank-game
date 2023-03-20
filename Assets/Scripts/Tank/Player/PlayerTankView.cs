@@ -8,9 +8,9 @@ namespace BattleTank
     {
         private PlayerTankController playerTankController;
         private Rigidbody rb;
+        private Coroutine destroyCoroutine;
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
-        private Coroutine destroyCoroutine;
         
         private void Awake(){
             rb = GetComponent<Rigidbody>();
@@ -42,12 +42,6 @@ namespace BattleTank
         private void FixedUpdate() {
             rb.velocity = playerTankController.GetMovementVelocity();
         }
-
-        /*private void OnCollisionEnter(Collision other) {
-            IDamageable damagableObject = other.gameObject.GetComponent<IDamageable>();
-            if(damagableObject != null)
-                damagableObject.Damage(playerTankController.GetCollisionDamage());
-        }*/
 
         public void ShowEffectAndDestroy(){
             if(destroyCoroutine != null)

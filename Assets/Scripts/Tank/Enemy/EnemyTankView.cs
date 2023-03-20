@@ -5,10 +5,10 @@ namespace BattleTank
 {
     public class EnemyTankView : MonoBehaviour, IDamageable
     {
-        public GameObject bulletSpawPoint;
-        public List<MeshRenderer> tankBody;
         private EnemyTankController enemyTankController;
         private Coroutine destroyCoroutine;
+        public GameObject bulletSpawPoint;
+        public List<MeshRenderer> tankBody;
 
         public void SetTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;

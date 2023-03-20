@@ -19,21 +19,21 @@ namespace BattleTank
 
         public override void Tick()
         {
-            if(enemySM.playerTransform == null){
-                stateMachine.SetState(enemySM.idleState);
-                return;
-            }
-            if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < enemySM.attackRange)
+            if(coolDownTime > 0)
+                coolDownTime -= Time.deltaTime;
+            else
+                FireBullet();
+            if(enemySM.PlayerTankInAttackRange())
                 enemySM.navMeshAgent.SetDestination(enemySM.playerTransform.position);
             else
                 stateMachine.SetState(enemySM.chaseState);
-            if(coolDownTime > 0)
-                coolDownTime -= Time.deltaTime;
-            else{
-                BulletService.Instance.SpawnBullet(enemySM.enemyTankView.bulletSpawPoint.transform.position, enemySM.transform.rotation, enemySM.enemyTankController.tankModel.bulletType);
-                coolDownTime = 1/fireRateRPM * 60;
-            }
-                
+        }
+
+        private void FireBullet(){
+            Vector3 bulletspawn = enemySM.enemyTankView.bulletSpawPoint.transform.position;
+            BulletType bulletType = enemySM.enemyTankController.tankModel.bulletType;
+            BulletService.Instance.SpawnBullet(bulletspawn, enemySM.transform.rotation, bulletType);
+            coolDownTime = 1/fireRateRPM * 60; // converting fire rate from minutes to seconds
         }
     }
 }

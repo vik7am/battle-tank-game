@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class EnemySM : StateMachine
+    public class EnemySM : StateMachine //Enemy State Machine
     {
         public IdleState idleState {get; private set;}
         public PatrolState patrolState {get; private set;}
@@ -17,7 +17,7 @@ namespace BattleTank
         public EnemyTankView enemyTankView {get; private set;}
         public float chaseRange {get; private set;}
         public float attackRange {get; private set;}
-        public float enemyPatrolRange;
+        public float enemyPatrolRange {get; private set;}
         
         private void Awake() {
             navMeshAgent = GetComponent<NavMeshAgent>();
@@ -44,6 +44,18 @@ namespace BattleTank
         private void Update(){
             if(currentState != null)
                 currentState.Tick();
+        }
+
+        public bool PlayerTankInChaseRange(){
+            if(playerTransform == null)
+                return false;
+            return Vector3.Distance(transform.position, playerTransform.position) < chaseRange;
+        }
+
+        public bool PlayerTankInAttackRange(){
+            if(playerTransform == null)
+                return false;
+            return Vector3.Distance(transform.position, playerTransform.position) < attackRange;
         }
 
         public Vector3 GetRandomPoint(){

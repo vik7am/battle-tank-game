@@ -22,9 +22,8 @@ namespace BattleTank
             timeElapsed += Time.deltaTime;
             if(timeElapsed >= idleTime)
                 stateMachine.SetState(enemySM.patrolState);
-            if(enemySM.playerTransform != null)
-                if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < enemySM.chaseRange)
-                    stateMachine.SetState(enemySM.chaseState);
+            else if(enemySM.PlayerTankInChaseRange())
+                stateMachine.SetState(enemySM.chaseState);
         }
     }
 }

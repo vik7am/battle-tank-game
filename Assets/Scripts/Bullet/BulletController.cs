@@ -4,8 +4,8 @@ namespace BattleTank
 {
     public class BulletController
     {
-        private BulletModel bulletModel;
-        private BulletView bulletView;
+        public BulletModel bulletModel {get;}
+        public BulletView bulletView {get; private set;}
 
         public BulletController(BulletModel bulletModel, BulletView bulletView, Vector3 spawnPoint, Quaternion rotation){
             this.bulletModel = bulletModel;
@@ -16,14 +16,6 @@ namespace BattleTank
         public void Instantiate(Vector3 spawnPoint, Quaternion rotation){
             bulletView = GameObject.Instantiate<BulletView>(bulletView, spawnPoint, rotation);
             bulletView.SetBulletController(this);
-        }
-
-        public float GetBulletSpeed(){
-            return bulletModel.speed;
-        }
-
-        public float GetBulletDamage(){
-            return bulletModel.damage;
         }
     }
 }

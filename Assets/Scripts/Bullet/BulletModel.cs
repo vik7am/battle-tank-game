@@ -2,9 +2,9 @@ namespace BattleTank
 {
     public struct BulletModel
     {
-        public BulletType bulletType;
-        public float speed;
-        public float damage;
+        public BulletType bulletType {get;}
+        public float speed {get;}
+        public float damage {get;}
         
         public BulletModel(BulletSO bulletSO){
             bulletType = bulletSO.bulletType;
