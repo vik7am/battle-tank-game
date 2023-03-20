@@ -7,7 +7,7 @@ namespace BattleTank
     public class EnemyTankController
     {
         private EnemyTankView enemyTankView;
-        private TankModel tankModel;
+        public TankModel tankModel {get; private set;}
         private TankHealth tankHealth;
         private NavMeshAgent navMeshAgent;
         private EnemySM enemySM;
@@ -24,6 +24,7 @@ namespace BattleTank
             navMeshAgent = enemyTankView.GetComponent<NavMeshAgent>();
             enemySM = enemyTankView.GetComponent<EnemySM>();
             enemyTankView.SetTankController(this);
+            enemySM.SetEnemyTankController(this);
         }
 
         public Material GetMaterial(){

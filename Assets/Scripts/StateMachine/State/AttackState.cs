@@ -5,6 +5,8 @@ namespace BattleTank
     public class AttackState : BaseState
     {
         private EnemySM enemySM;
+        private float fireRateRPM = 30;
+        private float coolDownTime;
         
         public AttackState(EnemySM enemySM): base(enemySM) {
             this.enemySM = enemySM;
@@ -16,10 +18,21 @@ namespace BattleTank
 
         public override void Tick()
         {
-            if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < 5)
-                Debug.Log("Shooting bullet!!");
+            if(enemySM.playerTransform == null){
+                stateMachine.SetState(enemySM.idleState);
+                return;
+            }
+            if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < 10)
+                enemySM.navMeshAgent.SetDestination(enemySM.playerTransform.position);
             else
                 stateMachine.SetState(enemySM.chaseState);
+            if(coolDownTime > 0)
+                coolDownTime -= Time.deltaTime;
+            else{
+                BulletService.Instance.SpawnBullet(enemySM.enemyTankView.bulletSpawPoint.transform.position, enemySM.transform.rotation, enemySM.enemyTankController.tankModel.bulletType);
+                coolDownTime = 1/fireRateRPM * 60;
+            }
+                
         }
     }
 }

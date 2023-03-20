@@ -11,9 +11,12 @@ namespace BattleTank
         public AttackState attackState {get; private set;}
         public NavMeshAgent navMeshAgent {get; private set;}
         public Transform playerTransform {get; private set;}
+        public EnemyTankController enemyTankController {get; private set;}
+        public EnemyTankView enemyTankView {get; private set;}
         
         private void Awake() {
             navMeshAgent = GetComponent<NavMeshAgent>();
+            enemyTankView = GetComponent<EnemyTankView>();
         }
         
         private void Start(){
@@ -23,6 +26,10 @@ namespace BattleTank
             chaseState = new ChaseState(this);
             attackState = new AttackState(this);
             SetState(idleState);
+        }
+
+        public void SetEnemyTankController(EnemyTankController enemyTankController){
+            this.enemyTankController = enemyTankController;
         }
 
         private void Update(){
