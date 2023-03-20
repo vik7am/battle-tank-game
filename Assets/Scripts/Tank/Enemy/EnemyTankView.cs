@@ -29,11 +29,11 @@ namespace BattleTank
                 enemyTankController.ReduceHealth(damage);
         }
 
-        private void OnCollisionEnter(Collision other){
+        /*private void OnCollisionEnter(Collision other){
             IDamageable damagableObject = other.gameObject.GetComponent<IDamageable>();
             if(damagableObject != null)
                 damagableObject.Damage(enemyTankController.GetCollisionDamage());
-        }
+        }*/
 
         public void ShowEffectAndDestroy(){
             if(destroyCoroutine != null)

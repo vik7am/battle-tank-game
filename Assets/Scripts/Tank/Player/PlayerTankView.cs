@@ -43,11 +43,11 @@ namespace BattleTank
             rb.velocity = playerTankController.GetMovementVelocity();
         }
 
-        private void OnCollisionEnter(Collision other) {
+        /*private void OnCollisionEnter(Collision other) {
             IDamageable damagableObject = other.gameObject.GetComponent<IDamageable>();
             if(damagableObject != null)
                 damagableObject.Damage(playerTankController.GetCollisionDamage());
-        }
+        }*/
 
         public void ShowEffectAndDestroy(){
             if(destroyCoroutine != null)

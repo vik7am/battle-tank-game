@@ -13,6 +13,7 @@ namespace BattleTank
         }
 
         public override void OnStateEnter(){
+            enemySM.navMeshAgent.isStopped = true;
             timeElapsed = 0;
         }
 
@@ -20,6 +21,8 @@ namespace BattleTank
             timeElapsed += Time.deltaTime;
             if(timeElapsed >= idleTime)
                 stateMachine.SetState(enemySM.patrolState);
+            if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < 10)
+                stateMachine.SetState(enemySM.chaseState);
         }
     }
 }
