@@ -16,9 +16,9 @@ namespace BattleTank
 
         public override void Tick()
         {
-            if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < 10)
+            if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < enemySM.attackRange)
                 stateMachine.SetState(enemySM.attackState);
-            else if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < 15)
+            else if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < enemySM.chaseRange)
                 enemySM.navMeshAgent.SetDestination(enemySM.playerTransform.position);
             else
                 stateMachine.SetState(enemySM.idleState);

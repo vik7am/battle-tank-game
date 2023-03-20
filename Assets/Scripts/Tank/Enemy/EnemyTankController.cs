@@ -1,15 +1,12 @@
 using UnityEngine;
-using UnityEngine.AI;
-
 
 namespace BattleTank
 {
     public class EnemyTankController
     {
-        private EnemyTankView enemyTankView;
-        public TankModel tankModel {get; private set;}
-        private TankHealth tankHealth;
-        private NavMeshAgent navMeshAgent;
+        public EnemyTankView enemyTankView {get; private set;}
+        public TankModel tankModel {get;}
+        public TankHealth tankHealth {get;}
         private EnemySM enemySM;
 
         public EnemyTankController(TankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
@@ -21,37 +18,16 @@ namespace BattleTank
 
         private void Initialize(Vector3 position){
             enemyTankView = GameObject.Instantiate<EnemyTankView>(enemyTankView, position, Quaternion.identity);
-            navMeshAgent = enemyTankView.GetComponent<NavMeshAgent>();
             enemySM = enemyTankView.GetComponent<EnemySM>();
             enemyTankView.SetTankController(this);
             enemySM.SetEnemyTankController(this);
         }
 
-        public Material GetMaterial(){
-            return tankModel.material;
-        }
-
-        public void ReduceHealth(float damage){
-            tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsDead())
-                DestroyTank();
-        }
-
-        public float GetCollisionDamage(){
-            return tankModel.damage;
-        }
-
-        private void DestroyTank(){
+        public void DestroyTank(){
             if(enemyTankView == null)
                 return;
-            navMeshAgent.isStopped = true;
-            enemyTankView.ShowEffectAndDestroy();
+            enemySM.SetState(enemySM.deadState);
             enemyTankView = null;
-        }
-
-        public void KillTank(){
-            tankHealth.ReduceHealth(tankModel.health);
-            DestroyTank();
         }
 
         public bool IsTankAlive(){

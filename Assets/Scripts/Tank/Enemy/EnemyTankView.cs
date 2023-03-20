@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using System.Collections;
 
 namespace BattleTank
 {
@@ -10,7 +8,6 @@ namespace BattleTank
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
         private EnemyTankController enemyTankController;
-        [SerializeField] private float range;
         private Coroutine destroyCoroutine;
 
         public void SetTankController(EnemyTankController enemyTankController){
@@ -19,33 +16,16 @@ namespace BattleTank
         }
 
         private void UpdateTankColor(){
-            Material material = enemyTankController.GetMaterial();
             for(int i=0; i<tankBody.Count; i++)
-                tankBody[i].material = material;
+                tankBody[i].material = enemyTankController.tankModel.material;
         }
 
         public void Damage(float damage){
-            if(enemyTankController.IsTankAlive())
-                enemyTankController.ReduceHealth(damage);
-        }
-
-        /*private void OnCollisionEnter(Collision other){
-            IDamageable damagableObject = other.gameObject.GetComponent<IDamageable>();
-            if(damagableObject != null)
-                damagableObject.Damage(enemyTankController.GetCollisionDamage());
-        }*/
-
-        public void ShowEffectAndDestroy(){
-            if(destroyCoroutine != null)
+            if(enemyTankController.tankHealth.IsDead())
                 return;
-            destroyCoroutine = StartCoroutine(DestroyEnemyTank());
-            ParticleEffectService.Instance.ShowTankExplosionEffect(transform.position);
-            
-        }
-
-        IEnumerator DestroyEnemyTank(){
-            yield return new WaitForSeconds(1.0f);
-            Destroy(gameObject);
+            enemyTankController.tankHealth.ReduceHealth(damage);
+            if(enemyTankController.tankHealth.IsDead())
+                enemyTankController.DestroyTank();
         }
     }
 }

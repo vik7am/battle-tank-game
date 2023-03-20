@@ -5,11 +5,12 @@ namespace BattleTank
     public class AttackState : BaseState
     {
         private EnemySM enemySM;
-        private float fireRateRPM = 30;
+        private float fireRateRPM;
         private float coolDownTime;
         
         public AttackState(EnemySM enemySM): base(enemySM) {
             this.enemySM = enemySM;
+            fireRateRPM = 30;
         }
 
         public override void OnStateEnter() {
@@ -22,7 +23,7 @@ namespace BattleTank
                 stateMachine.SetState(enemySM.idleState);
                 return;
             }
-            if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < 10)
+            if(Vector3.Distance(enemySM.transform.position, enemySM.playerTransform.position) < enemySM.attackRange)
                 enemySM.navMeshAgent.SetDestination(enemySM.playerTransform.position);
             else
                 stateMachine.SetState(enemySM.chaseState);
