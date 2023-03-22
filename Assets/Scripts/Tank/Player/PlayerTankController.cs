@@ -6,8 +6,8 @@ namespace BattleTank
     {
         private TankModel tankModel;
         private TankHealth tankHealth;
-        private PlayerTankView playerTankView;
         private FixedJoystick Joystick;
+        public PlayerTankView playerTankView {get; private set;}
 
         public PlayerTankController(TankModel tankModel, PlayerTankView playerTankView, Vector3 spawnPosition, FixedJoystick joystick){
             this.tankModel = tankModel;
@@ -38,24 +38,19 @@ namespace BattleTank
             Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
             BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, tankModel.bulletType);
         }
-
         public Vector3 GetMovementVelocity(){
-            //return Input.GetAxisRaw("VerticalUI") * tankModel.movementSpeed * playerTankView.transform.forward;
-            return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward;
+            return Input.GetAxisRaw("VerticalUI") * tankModel.movementSpeed * playerTankView.transform.forward; //Keyboard Input code
+            //return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward; //Joystick Input code
         }
 
         public float GetRotationAngle(){
-            //return Input.GetAxisRaw("HorizontalUI") * tankModel.rotationSpeed;
-            return Joystick.Horizontal * tankModel.rotationSpeed;
+            return Input.GetAxisRaw("HorizontalUI") * tankModel.rotationSpeed; //Keyboard Input code
+            //return Joystick.Horizontal * tankModel.rotationSpeed; //Joystick Input code
         }
 
         public void CheckForPlayerInput(){
             if(Input.GetKeyDown(KeyCode.Space))
                 FireBullet();
-        }
-
-        public float GetCollisionDamage(){
-            return tankModel.damage;
         }
 
         public bool IsTankAlive(){

@@ -10,7 +10,7 @@ namespace BattleTank
 
         private void Start() {
             camZoomOut = false;
-            camSize = 10;
+            camSize = 15;
         }
 
         public void StartFollowingPlayer(Transform player){

@@ -26,10 +26,11 @@ namespace BattleTank
 
         IEnumerator DestroyEnemies(){
             int n = enemyTanks.Count;
+            yield return new WaitForSeconds(delay);
             for(int i=0; i<n; i++){
                 if(enemyTanks[i].IsTankAlive() == false)
                     continue;
-                enemyTanks[i].KillTank();
+                enemyTanks[i].DestroyTank();
                 yield return new WaitForSeconds(delay);
             }
         }

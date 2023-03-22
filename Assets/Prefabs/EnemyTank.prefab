@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 2287085527681164585}
   - component: {fileID: 5449234430744134065}
   - component: {fileID: 6628715219678761018}
+  - component: {fileID: 6100477993346565160}
   m_Layer: 0
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -295,7 +296,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
@@ -331,7 +332,6 @@ MonoBehaviour:
   - {fileID: 6242770063707638545}
   - {fileID: 6242770063707638559}
   - {fileID: 6242770063707638549}
-  range: 40
 --- !u!195 &6628715219678761018
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -354,6 +354,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6100477993346565160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6242770063705642087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461e4e449d5b1274f8068a493e57191a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6242770063705642091
 GameObject:
   m_ObjectHideFlags: 0

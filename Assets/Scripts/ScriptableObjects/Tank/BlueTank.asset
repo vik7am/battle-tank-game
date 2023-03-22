@@ -16,6 +16,6 @@ MonoBehaviour:
   bulletType: 1
   health: 50
   damage: 50
-  movementSpeed: 10
+  movementSpeed: 20
   rotationSpeed: 40
   material: {fileID: 2100000, guid: a57a07740b0eb984c830e55002a54a5c, type: 2}
