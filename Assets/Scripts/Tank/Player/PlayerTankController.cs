@@ -9,11 +9,11 @@ namespace BattleTank
         private FixedJoystick Joystick;
         public PlayerTankView playerTankView {get; private set;}
 
-        public PlayerTankController(TankModel tankModel, PlayerTankView playerTankView, Vector3 spawnPosition, FixedJoystick joystick){
+        public PlayerTankController(TankModel tankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
             this.tankModel = tankModel;
             tankHealth = new TankHealth(tankModel.health);
             this.playerTankView = playerTankView;
-            this.Joystick = joystick;
+            this.Joystick = TankService.Instance.GetFixedJoystick();
             Initialize(spawnPosition);
         }
 
@@ -61,6 +61,10 @@ namespace BattleTank
             CameraService.Instance.StopFollowingPlayer();
             playerTankView.ShowEffectAndDestroy();
             DestructionService.Instance.DestroyEverything();
+        }
+
+        public Vector3 GetTankPosition(){
+            return playerTankView.transform.position;
         }
     }
 }

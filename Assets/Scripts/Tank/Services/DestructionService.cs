@@ -15,7 +15,7 @@ namespace BattleTank
             if(destructionCoroutine != null)
                 return;
             CameraService.Instance.SetCameraZoomOut(true);
-            enemyTanks = EnemyTankSpawner.Instance.GetEnemyTankControllerList();
+            enemyTanks = TankService.Instance.enemyTCList;
             destructionCoroutine = StartCoroutine(StartDestruction());
         }
 

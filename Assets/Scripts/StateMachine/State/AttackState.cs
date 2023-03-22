@@ -24,7 +24,7 @@ namespace BattleTank
             else
                 FireBullet();
             if(enemySM.PlayerTankInAttackRange())
-                enemySM.navMeshAgent.SetDestination(enemySM.playerTransform.position);
+                enemySM.navMeshAgent.SetDestination(TankService.Instance.GetPlayerTankPosition());
             else
                 stateMachine.SetState(enemySM.chaseState);
         }

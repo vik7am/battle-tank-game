@@ -21,6 +21,7 @@ namespace BattleTank
 
         public override void OnStateExit(){
             GameObject.Destroy(enemySM.gameObject);
+            TankService.Instance.RespawnEnemyTank();
         }
 
         public override void Tick(){
