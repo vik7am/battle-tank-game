@@ -5,24 +5,24 @@ namespace BattleTank
 {
     public class TankSpawner : GenericSingleton<TankSpawner>
     {
-        private TankModel tankModel;
         [SerializeField] private Vector3 playerSpawnPosition;
-        [SerializeField] private TankListSO tankListSO;
         [SerializeField] private PlayerTankView playerTankView;
+        [SerializeField] private PlayerTankListSO playerTankListSO;
         [SerializeField] private EnemyTankView enemyTankView;
+        [SerializeField] private EnemyTankListSO enemyTankListSO;
         [SerializeField] private float spawnRange;
         [SerializeField] private float safeZoneRadius;
         
         public PlayerTankController SpawnPlayerTank(Vector3 spawnPosition){
-            int tankNo = Random.Range(0, tankListSO.tankSO.Length);
-            tankModel = new TankModel(tankListSO.tankSO[tankNo]);
-            return new PlayerTankController(tankModel, playerTankView, spawnPosition);
+            int tankNo = Random.Range(0, playerTankListSO.playerTankSO.Length);
+            PlayerTankModel playerTankmodel = new PlayerTankModel(playerTankListSO.playerTankSO[tankNo]);
+            return new PlayerTankController(playerTankmodel, playerTankView, spawnPosition);
         }
 
         public EnemyTankController SpawnEnemyTank(){
-            int tankNo = Random.Range(0, tankListSO.tankSO.Length);
-            tankModel = new TankModel(tankListSO.tankSO[tankNo]);
-            return new EnemyTankController(tankModel, enemyTankView, GetEnemySpawnPosition());
+            int tankNo = Random.Range(0, enemyTankListSO.enemyTankSO.Length);
+            EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankListSO.enemyTankSO[tankNo]);
+            return new EnemyTankController(enemyTankModel, enemyTankView, GetEnemySpawnPosition());
         }
 
         private Vector3 GetEnemySpawnPosition(){

@@ -16,27 +16,32 @@ namespace BattleTank
         public EnemyTankView enemyTankView {get; private set;}
         public float chaseRange {get; private set;}
         public float attackRange {get; private set;}
-        public float enemyPatrolRange {get; private set;}
+        [SerializeField] public float enemyPatrolRange = 50;
+        [SerializeField] public float fireRateRPM = 30;
         
         private void Awake() {
             navMeshAgent = GetComponent<NavMeshAgent>();
             enemyTankView = GetComponent<EnemyTankView>();
         }
-        
-        private void Start(){
-            chaseRange = 15;
-            attackRange = 10;
-            enemyPatrolRange = 50;
+
+        private void Initialize(){
+            chaseRange = enemyTankController.enemyTankModel.chaseRange;
+            attackRange = enemyTankController.enemyTankModel.attackRange;
             idleState = new IdleState(this);
             patrolState = new PatrolState(this);
             chaseState = new ChaseState(this);
             attackState = new AttackState(this);
             deadState = new DeadState(this);
+        }
+        
+        private void StartEnemySM(){
             SetState(idleState);
         }
 
         public void SetEnemyTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;
+            Initialize();
+            StartEnemySM();
         }
 
         private void Update(){

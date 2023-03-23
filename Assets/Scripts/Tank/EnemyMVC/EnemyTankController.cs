@@ -6,12 +6,12 @@ namespace BattleTank
     {
         private EnemySM enemySM;
         public EnemyTankView enemyTankView {get; private set;}
-        public TankModel tankModel {get;}
+        public EnemyTankModel enemyTankModel {get;}
         public TankHealth tankHealth {get;}
 
-        public EnemyTankController(TankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
+        public EnemyTankController(EnemyTankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
             this.enemyTankView = enemyTankView;
-            this.tankModel = tankModel;
+            this.enemyTankModel = tankModel;
             tankHealth = new TankHealth(tankModel.health);
             Initialize(spawnPosition);
         }

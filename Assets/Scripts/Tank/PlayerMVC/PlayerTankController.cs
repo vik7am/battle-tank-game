@@ -4,14 +4,14 @@ namespace BattleTank
 {
     public class PlayerTankController
     {
-        private TankModel tankModel;
+        private PlayerTankModel playerTankModel;
         private TankHealth tankHealth;
         private FixedJoystick Joystick;
         public PlayerTankView playerTankView {get; private set;}
 
-        public PlayerTankController(TankModel tankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
-            this.tankModel = tankModel;
-            tankHealth = new TankHealth(tankModel.health);
+        public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
+            this.playerTankModel = playerTankModel;
+            tankHealth = new TankHealth(playerTankModel.health);
             this.playerTankView = playerTankView;
             this.Joystick = TankService.Instance.GetFixedJoystick();
             Initialize(spawnPosition);
@@ -24,7 +24,7 @@ namespace BattleTank
         }
 
         public Material GetMaterial(){
-            return tankModel.material;
+            return playerTankModel.material;
         }
 
         public void ReduceHealth(float damage){
@@ -36,15 +36,15 @@ namespace BattleTank
         public void FireBullet(){
             Vector3 bulletSpawnPoint = playerTankView.bulletSpawPoint.transform.position;
             Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
-            BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, tankModel.bulletType);
+            BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, playerTankModel.bulletType);
         }
         public Vector3 GetMovementVelocity(){
-            return Input.GetAxisRaw("VerticalUI") * tankModel.movementSpeed * playerTankView.transform.forward; //Keyboard Input code
+            return Input.GetAxisRaw("VerticalUI") * playerTankModel.movementSpeed * playerTankView.transform.forward; //Keyboard Input code
             //return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward; //Joystick Input code
         }
 
         public float GetRotationAngle(){
-            return Input.GetAxisRaw("HorizontalUI") * tankModel.rotationSpeed; //Keyboard Input code
+            return Input.GetAxisRaw("HorizontalUI") * playerTankModel.rotationSpeed; //Keyboard Input code
             //return Joystick.Horizontal * tankModel.rotationSpeed; //Joystick Input code
         }
 

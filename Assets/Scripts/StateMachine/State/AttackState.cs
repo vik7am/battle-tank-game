@@ -10,7 +10,7 @@ namespace BattleTank
         
         public AttackState(EnemySM enemySM): base(enemySM) {
             this.enemySM = enemySM;
-            fireRateRPM = 30;
+            fireRateRPM = enemySM.fireRateRPM;;
         }
 
         public override void OnStateEnter() {
@@ -31,7 +31,7 @@ namespace BattleTank
 
         private void FireBullet(){
             Vector3 bulletspawn = enemySM.enemyTankView.bulletSpawPoint.transform.position;
-            BulletType bulletType = enemySM.enemyTankController.tankModel.bulletType;
+            BulletType bulletType = enemySM.enemyTankController.enemyTankModel.bulletType;
             BulletService.Instance.SpawnBullet(bulletspawn, enemySM.transform.rotation, bulletType);
             coolDownTime = 1/fireRateRPM * 60; // converting fire rate from minutes to seconds
         }

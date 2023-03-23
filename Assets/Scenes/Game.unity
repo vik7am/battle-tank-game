@@ -320,11 +320,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpawnPosition: {x: 0, y: 0, z: 0}
-  tankListSO: {fileID: 11400000, guid: 760268e0afa5aa9418cc62c20630cb91, type: 2}
   playerTankView: {fileID: 1603336803949069279, guid: d18c93473182ca34bb12ee325f9406ae,
     type: 3}
+  playerTankListSO: {fileID: 11400000, guid: ac26cf41f8da4414cb990a16b0c5bdf0, type: 2}
   enemyTankView: {fileID: 5449234430744134065, guid: 5601cf402fb874649ad2a5fe60ead5a1,
     type: 3}
+  enemyTankListSO: {fileID: 11400000, guid: 8ad255b0b57fd6a4499dca2edc3bafac, type: 2}
   spawnRange: 50
   safeZoneRadius: 15
 --- !u!4 &796297370

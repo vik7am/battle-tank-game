@@ -17,7 +17,7 @@ namespace BattleTank
 
         private void UpdateTankColor(){
             for(int i=0; i<tankBody.Count; i++)
-                tankBody[i].material = enemyTankController.tankModel.material;
+                tankBody[i].material = enemyTankController.enemyTankModel.material;
         }
 
         public void Damage(float damage){
