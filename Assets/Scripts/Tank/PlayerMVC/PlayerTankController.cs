@@ -1,5 +1,4 @@
 using UnityEngine;
-
 namespace BattleTank
 {
     public class PlayerTankController
@@ -27,16 +26,20 @@ namespace BattleTank
             return playerTankModel.material;
         }
 
-        public void ReduceHealth(float damage){
+        public void ReduceHealth(TankName shooter, float damage){
             tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsDead())
+            if(tankHealth.IsDead()){
+                TankService.Instance.TankDestroyed(shooter, TankName.PLAYER_TANK);
                 DestroyTank();
+            }
         }
 
         public void FireBullet(){
             Vector3 bulletSpawnPoint = playerTankView.bulletSpawPoint.transform.position;
             Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
-            BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, playerTankModel.bulletType);
+            BulletController bulletController = BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, playerTankModel.bulletType);
+            bulletController.FireBullet(TankName.PLAYER_TANK);
+            TankService.Instance.BulletFired(TankName.PLAYER_TANK);
         }
         public Vector3 GetMovementVelocity(){
             return Input.GetAxisRaw("VerticalUI") * playerTankModel.movementSpeed * playerTankView.transform.forward; //Keyboard Input code

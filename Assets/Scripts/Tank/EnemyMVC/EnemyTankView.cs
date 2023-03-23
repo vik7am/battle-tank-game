@@ -20,12 +20,18 @@ namespace BattleTank
                 tankBody[i].material = enemyTankController.enemyTankModel.material;
         }
 
-        public void Damage(float damage){
+        public void Damage(TankName shooter, float damage){
             if(enemyTankController.tankHealth.IsDead())
                 return;
             enemyTankController.tankHealth.ReduceHealth(damage);
-            if(enemyTankController.tankHealth.IsDead())
+            if(enemyTankController.tankHealth.IsDead()){
+                TankService.Instance.TankDestroyed(shooter, TankName.ENEMY_TANK);
                 enemyTankController.DestroyTank();
+            }
+        }
+
+        public TankName GetTankName(){
+            return TankName.ENEMY_TANK;
         }
     }
 }

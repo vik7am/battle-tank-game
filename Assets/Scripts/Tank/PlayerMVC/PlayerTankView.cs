@@ -27,9 +27,9 @@ namespace BattleTank
             UpdateTankColor();
         }
 
-        public void Damage(float damage){
+        public void Damage(TankName shooter, float damage){
             if(playerTankController.IsTankAlive())
-                playerTankController.ReduceHealth(damage);
+                playerTankController.ReduceHealth(shooter, damage);
         }
 
         private void Update(){
@@ -53,6 +53,10 @@ namespace BattleTank
         IEnumerator DestroyEnemyTank(){
             yield return new WaitForSeconds(1.0f);
             Destroy(gameObject);
+        }
+
+        public TankName GetTankName(){
+            return TankName.PLAYER_TANK;
         }
     }
 }

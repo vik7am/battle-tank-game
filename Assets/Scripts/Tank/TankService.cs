@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace BattleTank
 {
@@ -9,6 +10,10 @@ namespace BattleTank
         public List<EnemyTankController> enemyTCList {get; private set;}
         [SerializeField] private FixedJoystick fixedJoystick;
         [SerializeField] private float enemyTankCount;
+
+        public event Action<TankName> OnBulletFired;
+        public event Action<TankName, TankName> OnTankDestroyed;
+        public event Action<TankName, TankName> OnBulletHit;
         
         void Start()
         {
@@ -33,6 +38,18 @@ namespace BattleTank
         public void RespawnEnemyTank(){
             if(IsPlayerTankAlive() == true)
                 enemyTCList.Add(TankSpawner.Instance.SpawnEnemyTank());
+        }
+
+        public void BulletFired(TankName tankName){
+            OnBulletFired?.Invoke(tankName);
+        }
+
+        public void TankDestroyed(TankName shooter, TankName reciever){
+            OnTankDestroyed?.Invoke(shooter, reciever);
+        }
+
+        public void BulletHit(TankName shooter, TankName reciever){
+            OnBulletHit?.Invoke(shooter, reciever);
         }
     }
 }

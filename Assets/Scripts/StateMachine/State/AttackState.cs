@@ -32,7 +32,8 @@ namespace BattleTank
         private void FireBullet(){
             Vector3 bulletspawn = enemySM.enemyTankView.bulletSpawPoint.transform.position;
             BulletType bulletType = enemySM.enemyTankController.enemyTankModel.bulletType;
-            BulletService.Instance.SpawnBullet(bulletspawn, enemySM.transform.rotation, bulletType);
+            BulletController bulletController = BulletService.Instance.SpawnBullet(bulletspawn, enemySM.transform.rotation, bulletType);
+            bulletController.FireBullet(TankName.ENEMY_TANK);
             coolDownTime = 1/fireRateRPM * 60; // converting fire rate from minutes to seconds
         }
     }
