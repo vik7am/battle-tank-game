@@ -1771,6 +1771,9 @@ MonoBehaviour:
   image: {fileID: 2085656088}
   text: {fileID: 1104424768}
   duration: 2
+  bulletFired: {fileID: 11400000, guid: 2483b613c6cda15449607180592518b6, type: 2}
+  bulletDodged: {fileID: 11400000, guid: 5079e5fe54d889845934c037fe2217f7, type: 2}
+  enemyTankDestroyed: {fileID: 11400000, guid: 31dce198a8d485149a18eaeeaf21e266, type: 2}
 --- !u!114 &2085656088
 MonoBehaviour:
   m_ObjectHideFlags: 0

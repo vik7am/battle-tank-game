@@ -11,15 +11,13 @@ namespace BattleTank
         private bool achievementPanelActive;
         [SerializeField] private float duration;
         private float elapsedTime;
-        private int bulletFiredCounter;
-        private int enemyTankDestroyedCounter;
-        private int enemyBulletsDodgedCounter;
+
+        [SerializeField] private AchievemntSO bulletFired;
+        [SerializeField] private AchievemntSO bulletDodged;
+        [SerializeField] private AchievemntSO enemyTankDestroyed;
 
         void Start()
         {
-            bulletFiredCounter = 0;
-            enemyTankDestroyedCounter = 0;
-            enemyBulletsDodgedCounter = 0;
             HideAchievementPanel();
             TankService.Instance.OnBulletFired += BulletFiredAchievement;
             TankService.Instance.OnBulletHit += EnemyBulletsDodgedAchievement;
@@ -50,30 +48,30 @@ namespace BattleTank
         public void BulletFiredAchievement(TankName tankName){
             if(tankName != TankName.PLAYER_TANK)
                 return;
-            switch(++bulletFiredCounter){
-                case 2: ShowAchievement("2 Bullets Fired!"); break;
-                case 5: ShowAchievement("5 Bullets Fired!"); break;
-                case 10: ShowAchievement("10 Bullets Fired!"); break;
-            }
+            UpdateAchievement(bulletFired);
         }
 
         public void EnemyTankDestroyedAchievement(TankName shooter, TankName reciever){
             if(shooter == TankName.PLAYER_TANK && reciever == TankName.ENEMY_TANK){
-                switch(++enemyTankDestroyedCounter){
-                    case 2: ShowAchievement("2 Tanks Destroyed!"); break;
-                    case 5: ShowAchievement("5 Tanks Destroyed!"); break;
-                    case 10: ShowAchievement("10 Tanks Destroyed!"); break;
-                }
+                UpdateAchievement(enemyTankDestroyed);
             }
         }
 
         public void EnemyBulletsDodgedAchievement(TankName shooter, TankName reciever){
             if(shooter == TankName.ENEMY_TANK && reciever != TankName.PLAYER_TANK){
-                switch(++enemyBulletsDodgedCounter){
-                    case 2: ShowAchievement("2 bullets Dodged!"); break;
-                    case 5: ShowAchievement("5 bullets Dodged!"); break;
-                    case 10: ShowAchievement("10 bullets Dodged!"); break;
-                }
+                UpdateAchievement(bulletDodged);
+            }
+        }
+
+        public void UpdateAchievement(AchievemntSO so){
+            if(so.currentLevel == so.level.Length)
+                return;
+            so.currentScore++;
+            if(so.currentScore == so.level[so.currentLevel].target){
+                string title = so.level[so.currentLevel].title;
+                string description = so.level[so.currentLevel].description;
+                Debug.Log(title + " || " + description);
+                so.currentLevel++;
             }
         }
     }
