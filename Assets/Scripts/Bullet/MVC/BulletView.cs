@@ -23,9 +23,9 @@ namespace BattleTank
             if(other.GetComponent<IDamageable>() != null){
                 IDamageable damagableObject = other.GetComponent<IDamageable>();
                 damagableObject.Damage(bulletController.tankName, bulletController.bulletModel.damage);
-                TankService.Instance.BulletHit(bulletController.tankName, damagableObject.GetTankName());
+                EventService.Instance.BulletHit(bulletController.tankName, damagableObject.GetTankName());
             }
-            TankService.Instance.BulletHit(bulletController.tankName, TankName.NONE);
+            EventService.Instance.BulletHit(bulletController.tankName, TankName.NONE);
             Destroy(gameObject);
         }
     }

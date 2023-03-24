@@ -17,9 +17,8 @@ namespace BattleTank
         }
 
         private void UpdateTankColor(){
-            Material material = playerTankController.GetMaterial();
             for(int i=0; i<tankBody.Count; i++)
-                tankBody[i].material = material;
+                tankBody[i].material = playerTankController.playerTankModel.material;
         }
         
         public void SetTankController(PlayerTankController playerTankController){
@@ -28,8 +27,7 @@ namespace BattleTank
         }
 
         public void Damage(TankName shooter, float damage){
-            if(playerTankController.IsTankAlive())
-                playerTankController.ReduceHealth(shooter, damage);
+            playerTankController.TakeDmage(shooter, damage);
         }
 
         private void Update(){

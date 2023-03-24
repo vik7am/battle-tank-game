@@ -8,10 +8,10 @@ namespace BattleTank
         [SerializeField] private AchievemntSO bulletDodged;
         [SerializeField] private AchievemntSO enemyTankDestroyed;
 
-        void Start(){
-            TankService.Instance.OnBulletFired += BulletFiredAchievement;
-            TankService.Instance.OnBulletHit += EnemyBulletsDodgedAchievement;
-            TankService.Instance.OnTankDestroyed += EnemyTankDestroyedAchievement;
+        private void Start(){
+            EventService.Instance.OnBulletFired += BulletFiredAchievement;
+            EventService.Instance.OnBulletHit += EnemyBulletsDodgedAchievement;
+            EventService.Instance.OnTankDestroyed += EnemyTankDestroyedAchievement;
         }
 
         public void BulletFiredAchievement(TankName tankName){
@@ -33,7 +33,7 @@ namespace BattleTank
         }
 
         public void UpdateAchievement(AchievemntSO so){
-            if(so.currentLevel == so.level.Length)
+            if(so.currentLevel == so.level.Length) // Achievement's all level completed
                 return;
             so.currentScore++;
             if(so.currentScore == so.level[so.currentLevel].target){

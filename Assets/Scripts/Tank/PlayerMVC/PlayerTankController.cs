@@ -3,16 +3,16 @@ namespace BattleTank
 {
     public class PlayerTankController
     {
-        private PlayerTankModel playerTankModel;
         private TankHealth tankHealth;
         private FixedJoystick Joystick;
+        public PlayerTankModel playerTankModel {get;}
         public PlayerTankView playerTankView {get; private set;}
 
         public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
             this.playerTankModel = playerTankModel;
             tankHealth = new TankHealth(playerTankModel.health);
             this.playerTankView = playerTankView;
-            this.Joystick = TankService.Instance.GetFixedJoystick();
+            this.Joystick = UIService.Instance.GetFixedJoystick();
             Initialize(spawnPosition);
         }
 
@@ -22,25 +22,6 @@ namespace BattleTank
             CameraService.Instance.StartFollowingPlayer(playerTankView.transform);
         }
 
-        public Material GetMaterial(){
-            return playerTankModel.material;
-        }
-
-        public void ReduceHealth(TankName shooter, float damage){
-            tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsDead()){
-                TankService.Instance.TankDestroyed(shooter, TankName.PLAYER_TANK);
-                DestroyTank();
-            }
-        }
-
-        public void FireBullet(){
-            Vector3 bulletSpawnPoint = playerTankView.bulletSpawPoint.transform.position;
-            Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
-            BulletController bulletController = BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, playerTankModel.bulletType);
-            bulletController.FireBullet(TankName.PLAYER_TANK);
-            TankService.Instance.BulletFired(TankName.PLAYER_TANK);
-        }
         public Vector3 GetMovementVelocity(){
             return Input.GetAxisRaw("VerticalUI") * playerTankModel.movementSpeed * playerTankView.transform.forward; //Keyboard Input code
             //return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward; //Joystick Input code
@@ -56,14 +37,31 @@ namespace BattleTank
                 FireBullet();
         }
 
-        public bool IsTankAlive(){
-            return !tankHealth.IsDead();
+        public void FireBullet(){
+            Vector3 bulletSpawnPoint = playerTankView.bulletSpawPoint.transform.position;
+            Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
+            BulletController bulletController = BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, playerTankModel.bulletType);
+            bulletController.FireBullet(TankName.PLAYER_TANK);
+            EventService.Instance.BulletFired(TankName.PLAYER_TANK);
+        }
+
+        public void TakeDmage(TankName shooter, float damage){
+            if(tankHealth.IsDead())
+                return;
+            tankHealth.ReduceHealth(damage);
+            if(tankHealth.IsDead()){
+                EventService.Instance.TankDestroyed(shooter, TankName.PLAYER_TANK);
+                DestroyTank();
+            }
         }
 
         private void DestroyTank(){
             CameraService.Instance.StopFollowingPlayer();
             playerTankView.ShowEffectAndDestroy();
-            DestructionService.Instance.DestroyEverything();
+        }
+
+        public bool IsTankAlive(){
+            return !tankHealth.IsDead();
         }
 
         public Vector3 GetTankPosition(){

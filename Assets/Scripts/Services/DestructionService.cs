@@ -11,8 +11,17 @@ namespace BattleTank
         [SerializeField] private float delay;
         private Coroutine destructionCoroutine;
 
+        private void Start(){
+            EventService.Instance.OnTankDestroyed += TankDestroyed;
+        }
+
+        public void TankDestroyed(TankName shooter, TankName reciever){
+            if(reciever == TankName.PLAYER_TANK)
+                DestroyEverything();
+        }
+
         public void DestroyEverything(){
-            if(destructionCoroutine != null)
+            if(destructionCoroutine != null) // don't do anything is destruction is already in progress.
                 return;
             CameraService.Instance.SetCameraZoomOut(true);
             enemyTanks = TankService.Instance.enemyTCList;

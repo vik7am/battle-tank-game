@@ -23,6 +23,16 @@ namespace BattleTank
             enemySM.SetEnemyTankController(this);
         }
 
+        public void TakeDamage(TankName shooter, float damage){
+            if(tankHealth.IsDead())
+                return;
+            tankHealth.ReduceHealth(damage);
+            if(tankHealth.IsDead()){
+                EventService.Instance.TankDestroyed(shooter, TankName.ENEMY_TANK);
+                DestroyTank();
+            }
+        }
+
         public void DestroyTank(){
             if(enemyTankView == null)
                 return;

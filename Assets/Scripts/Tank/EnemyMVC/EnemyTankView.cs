@@ -21,13 +21,7 @@ namespace BattleTank
         }
 
         public void Damage(TankName shooter, float damage){
-            if(enemyTankController.tankHealth.IsDead())
-                return;
-            enemyTankController.tankHealth.ReduceHealth(damage);
-            if(enemyTankController.tankHealth.IsDead()){
-                TankService.Instance.TankDestroyed(shooter, TankName.ENEMY_TANK);
-                enemyTankController.DestroyTank();
-            }
+            enemyTankController.TakeDamage(shooter, damage);
         }
 
         public TankName GetTankName(){
