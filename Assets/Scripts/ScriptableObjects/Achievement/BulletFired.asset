@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96aa80de73f99046936e6861d241596, type: 3}
   m_Name: BulletFired
   m_EditorClassIdentifier: 
-  currentScore: 0
-  currentLevel: 0
-  level:
-  - title: level 1
+  <achievementName>k__BackingField: Bullets Fired
+  <level>k__BackingField:
+  - title: Level 1
     description: Fired 2 Bullets
     target: 2
-  - title: level 2
-    description: Fired 5 Bullets
+  - title: Level 2
+    description: fired 5 Bullets
     target: 5
-  - title: level 3
+  - title: Level 3
     description: Fired 10 Bullets
     target: 10

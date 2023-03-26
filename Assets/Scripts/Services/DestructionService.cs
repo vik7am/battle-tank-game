@@ -12,7 +12,7 @@ namespace BattleTank
         private Coroutine destructionCoroutine;
 
         private void Start(){
-            EventService.Instance.OnTankDestroyed += TankDestroyed;
+            EventService.Instance.onTankDestroyed += TankDestroyed;
         }
 
         public void TankDestroyed(TankName shooter, TankName reciever){

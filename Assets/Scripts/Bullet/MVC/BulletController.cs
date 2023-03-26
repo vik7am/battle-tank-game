@@ -22,6 +22,7 @@ namespace BattleTank
         public void FireBullet(TankName tankName){
             this.tankName = tankName;
             bulletView.SetVelocity(bulletModel.speed);
+            EventService.Instance.OnBulletFired(tankName);
         }
     }
 }

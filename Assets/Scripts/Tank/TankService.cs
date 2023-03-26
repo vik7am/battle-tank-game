@@ -14,7 +14,7 @@ namespace BattleTank
             enemyTCList = new List<EnemyTankController>();
             for(int i=0; i<enemyTankCount; i++)
                 enemyTCList.Add(TankSpawner.Instance.SpawnEnemyTank());
-            EventService.Instance.OnTankDestroyed += TankDestroyed;
+            EventService.Instance.onTankDestroyed += TankDestroyed;
         }
 
         public Vector3 GetPlayerTankPosition(){

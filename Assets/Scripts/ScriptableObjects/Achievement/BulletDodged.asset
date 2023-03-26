@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96aa80de73f99046936e6861d241596, type: 3}
   m_Name: BulletDodged
   m_EditorClassIdentifier: 
-  currentScore: 0
-  currentLevel: 0
-  level:
-  - title: level 1
+  <achievementName>k__BackingField: Bullets Dodged
+  <level>k__BackingField:
+  - title: Level 1
     description: Dodged 2 Bullets
     target: 2
-  - title: level 2
+  - title: Level 2
     description: Dodged 5 Bullets
     target: 5
-  - title: level 3
+  - title: Level 3
     description: Dodged 10 Bullets
     target: 10

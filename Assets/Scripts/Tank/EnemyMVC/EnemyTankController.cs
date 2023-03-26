@@ -28,7 +28,7 @@ namespace BattleTank
                 return;
             tankHealth.ReduceHealth(damage);
             if(tankHealth.IsDead()){
-                EventService.Instance.TankDestroyed(shooter, TankName.ENEMY_TANK);
+                EventService.Instance.OnTankDestroyed(shooter, TankName.ENEMY_TANK);
                 DestroyTank();
             }
         }

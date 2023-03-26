@@ -42,7 +42,6 @@ namespace BattleTank
             Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
             BulletController bulletController = BulletService.Instance.SpawnBullet(bulletSpawnPoint, bulletRotation, playerTankModel.bulletType);
             bulletController.FireBullet(TankName.PLAYER_TANK);
-            EventService.Instance.BulletFired(TankName.PLAYER_TANK);
         }
 
         public void TakeDmage(TankName shooter, float damage){
@@ -50,7 +49,7 @@ namespace BattleTank
                 return;
             tankHealth.ReduceHealth(damage);
             if(tankHealth.IsDead()){
-                EventService.Instance.TankDestroyed(shooter, TankName.PLAYER_TANK);
+                EventService.Instance.OnTankDestroyed(shooter, TankName.PLAYER_TANK);
                 DestroyTank();
             }
         }
