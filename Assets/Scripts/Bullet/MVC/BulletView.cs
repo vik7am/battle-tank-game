@@ -25,7 +25,8 @@ namespace BattleTank
                 damagableObject.Damage(bulletController.tankName, bulletController.bulletModel.damage);
                 EventService.Instance.OnBulletHit(bulletController.tankName, damagableObject.GetTankName());
             }
-            EventService.Instance.OnBulletHit(bulletController.tankName, TankName.NONE);
+            else
+                EventService.Instance.OnBulletHit(bulletController.tankName, TankName.NONE);
             Destroy(gameObject);
         }
     }
