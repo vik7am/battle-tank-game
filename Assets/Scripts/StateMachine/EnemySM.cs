@@ -12,33 +12,36 @@ namespace BattleTank
         public DeadState deadState {get; private set;}
 
         public NavMeshAgent navMeshAgent {get; private set;}
-        public Transform playerTransform {get; private set;}
         public EnemyTankController enemyTankController {get; private set;}
         public EnemyTankView enemyTankView {get; private set;}
         public float chaseRange {get; private set;}
         public float attackRange {get; private set;}
-        public float enemyPatrolRange {get; private set;}
+        [SerializeField] public float enemyPatrolRange = 50;
+        [SerializeField] public float fireRateRPM = 30;
         
         private void Awake() {
             navMeshAgent = GetComponent<NavMeshAgent>();
             enemyTankView = GetComponent<EnemyTankView>();
         }
-        
-        private void Start(){
-            chaseRange = 15;
-            attackRange = 10;
-            enemyPatrolRange = 50;
-            playerTransform = PlayerTankSpawner.Instance.playerTankController.playerTankView.transform;
+
+        private void Initialize(){
+            chaseRange = enemyTankController.enemyTankModel.chaseRange;
+            attackRange = enemyTankController.enemyTankModel.attackRange;
             idleState = new IdleState(this);
             patrolState = new PatrolState(this);
             chaseState = new ChaseState(this);
             attackState = new AttackState(this);
             deadState = new DeadState(this);
+        }
+        
+        private void StartEnemySM(){
             SetState(idleState);
         }
 
         public void SetEnemyTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;
+            Initialize();
+            StartEnemySM();
         }
 
         private void Update(){
@@ -47,15 +50,15 @@ namespace BattleTank
         }
 
         public bool PlayerTankInChaseRange(){
-            if(playerTransform == null)
+            if(TankService.Instance.IsPlayerTankAlive() == false)
                 return false;
-            return Vector3.Distance(transform.position, playerTransform.position) < chaseRange;
+            return Vector3.Distance(transform.position, TankService.Instance.GetPlayerTankPosition()) < chaseRange;
         }
 
         public bool PlayerTankInAttackRange(){
-            if(playerTransform == null)
+            if(TankService.Instance.IsPlayerTankAlive() == false)
                 return false;
-            return Vector3.Distance(transform.position, playerTransform.position) < attackRange;
+            return Vector3.Distance(transform.position, TankService.Instance.GetPlayerTankPosition()) < attackRange;
         }
 
         public Vector3 GetRandomPoint(){

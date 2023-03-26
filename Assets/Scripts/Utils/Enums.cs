@@ -1,13 +1,20 @@
 namespace BattleTank
 {
+    public enum TankName{
+        NONE,
+        PLAYER_TANK,
+        ENEMY_TANK
+    }
+
     public enum TankType{
         NONE,
-        RED_TANK,
-        GREEN_TANK,
-        BLUE_TANK
+        HEAVY_TANK,
+        NORMAL_TANK,
+        LIGHT_TANK
     }
 
     public enum BulletType{
+        NONE,
         NORMAL,
         FAST,
         SLOW

@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ff2c48769cfd0429bf690983e64ceb, type: 3}
   m_Name: NormalBullet
   m_EditorClassIdentifier: 
-  bulletType: 0
-  damage: 50
+  bulletType: 1
+  damage: 15
   speed: 20
-  bulletView: {fileID: 1725479556628035768, guid: 93dc9fb177134dd45b4b22decbb905cf,
-    type: 3}
