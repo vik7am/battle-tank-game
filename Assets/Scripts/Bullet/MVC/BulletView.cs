@@ -27,7 +27,9 @@ namespace BattleTank
             }
             else
                 EventService.Instance.OnBulletHit(bulletController.tankName, TankName.NONE);
-            Destroy(gameObject);
+            BulletPoolService.Instance.ReturnBullet(this);
+            gameObject.SetActive(false);
+            
         }
     }
 }
