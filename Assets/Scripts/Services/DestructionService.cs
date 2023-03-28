@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class DestructionService : GenericSingleton<DestructionService>
+    public class DestructionService : GenericMonoSingleton<DestructionService>
     {
         private List<EnemyTankController> enemyTanks;
         [SerializeField] private Transform environment;

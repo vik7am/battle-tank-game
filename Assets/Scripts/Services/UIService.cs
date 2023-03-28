@@ -5,7 +5,7 @@ using TMPro;
 
 namespace BattleTank
 {
-    public class UIService : GenericSingleton<UIService>
+    public class UIService : GenericMonoSingleton<UIService>
     {
         [SerializeField] private GameObject achievementPanel;
         [SerializeField] private TextMeshProUGUI titleAP;

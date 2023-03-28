@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class CameraService : GenericSingleton<CameraService>
+    public class CameraService : GenericMonoSingleton<CameraService>
     {
         [SerializeField] private Camera cam;
         private bool camZoomOut;

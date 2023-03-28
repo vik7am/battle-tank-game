@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class ParticleEffectService : GenericSingleton<ParticleEffectService>
+    public class ParticleEffectService : GenericMonoSingleton<ParticleEffectService>
     {
         [SerializeField] private ParticleSystem tankExplosionEffact;
         [SerializeField] private float tankExplosionEffectDuration;

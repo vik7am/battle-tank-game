@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class BulletService : GenericSingleton<BulletService>
+    public class BulletService : GenericMonoSingleton<BulletService>
     {
         private BulletModel bulletModel;
         [SerializeField] private BulletView bulletView;
