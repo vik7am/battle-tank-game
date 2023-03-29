@@ -2,7 +2,7 @@ using System;
 
 namespace BattleTank
 {
-    public class EventService : GenericSingleton<EventService>
+    public class EventService : GenericMonoSingleton<EventService>
     {
         public event Action<TankName> onBulletFired;
         public event Action<TankName, TankName> onTankDestroyed;

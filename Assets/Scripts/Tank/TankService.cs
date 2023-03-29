@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public class TankService : GenericSingleton<TankService>
+    public class TankService : GenericMonoSingleton<TankService>
     {
         public PlayerTankController playerTankController {get; private set;}
         public List<EnemyTankController> enemyTCList {get; private set;}

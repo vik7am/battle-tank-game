@@ -8,15 +8,21 @@ namespace BattleTank
         public BulletView bulletView {get; private set;}
         public TankName tankName {get; private set;}
 
-        public BulletController(BulletModel bulletModel, BulletView bulletView, Vector3 spawnPoint, Quaternion rotation){
+        public BulletController(BulletModel bulletModel, BulletView bulletView){
             this.bulletModel = bulletModel;
             this.bulletView = bulletView;
-            Instantiate(spawnPoint, rotation);
+            Instantiate();
         }
 
-        public void Instantiate(Vector3 spawnPoint, Quaternion rotation){
-            bulletView = GameObject.Instantiate<BulletView>(bulletView, spawnPoint, rotation);
+        public void Instantiate(){
+            bulletView = BulletPoolService.Instance.GetItem();
             bulletView.SetBulletController(this);
+        }
+
+        public void SetBulletTransform(Vector3 spawnPoint, Quaternion rotation){
+            bulletView.transform.position = spawnPoint;
+            bulletView.transform.rotation = rotation;
+            bulletView.gameObject.SetActive(true);
         }
 
         public void FireBullet(TankName tankName){

@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace BattleTank
 {
-    public class TankSpawner : GenericSingleton<TankSpawner>
+    public class TankSpawner : GenericMonoSingleton<TankSpawner>
     {
         [SerializeField] private Vector3 playerSpawnPosition;
         [SerializeField] private PlayerTankView playerTankView;
