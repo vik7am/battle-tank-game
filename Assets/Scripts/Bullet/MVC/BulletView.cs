@@ -28,8 +28,6 @@ namespace BattleTank
             else
                 EventService.Instance.OnBulletHit(bulletController.tankName, TankName.NONE);
             BulletPoolService.Instance.ReturnItem(this);
-            gameObject.SetActive(false);
-            
         }
     }
 }

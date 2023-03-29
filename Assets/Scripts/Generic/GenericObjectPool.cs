@@ -4,19 +4,29 @@ using UnityEngine;
 namespace BattleTank
 {
     public abstract class GenericObjectPool<T> : GenericMonoSingleton<GenericObjectPool<T>>
-    where T : MonoBehaviour
+    where T : Component
     {
-        private Queue<T> itemPool;
+        private Stack<T> itemPool;
+        protected int initialPoolSize;
         protected T itemPrefab;
+        
         private void Start() {
-            itemPool = new Queue<T>();
+            itemPool = new Stack<T>();
             SetPrefab();
+            SetInitialPoolSize();
+            InitializePool();
+        }
+
+        private void InitializePool(){
+            for(int i=0; i<initialPoolSize; i++){
+                ReturnItem(CreateNewItem());
+            }
         }
 
         public T GetItem(){
             if(itemPool.Count == 0)
                 return CreateNewItem();
-            return itemPool.Dequeue();
+            return itemPool.Pop();
         }
 
         private T CreateNewItem(){
@@ -26,9 +36,11 @@ namespace BattleTank
         }
 
         public void ReturnItem(T item){
-            itemPool.Enqueue(item);
+            item.gameObject.SetActive(false);
+            itemPool.Push(item);
         }
 
         protected abstract void SetPrefab();
+        protected abstract void SetInitialPoolSize();
     }
 }
