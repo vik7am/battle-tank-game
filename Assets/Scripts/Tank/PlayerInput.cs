@@ -44,15 +44,14 @@ namespace BattleTank
             }
         }
 
-        private void Update()
-        {
+        private void Update(){
             if(Input.GetKeyDown(KeyCode.Space))
                 controller.FireBullet();
             UpdatePlayerInput();
             UpdateTankRotation();
         }
 
-        private void FixedUpdate() {
+        private void FixedUpdate(){
             UpdateTankMovement();
         }
     }

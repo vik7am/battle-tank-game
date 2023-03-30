@@ -37,7 +37,7 @@ namespace BattleTank
             int n = enemyTanks.Count;
             yield return new WaitForSeconds(delay);
             for(int i=0; i<n; i++){
-                if(enemyTanks[i].IsTankAlive() == false)
+                if(enemyTanks[i].enemyTankModel.isAlive == false)
                     continue;
                 enemyTanks[i].DestroyTank();
                 yield return new WaitForSeconds(delay);

@@ -6,20 +6,31 @@ namespace BattleTank
     {
         public TankType tankType {get;}
         public BulletType bulletType {get;}
-        public float health {get;}
+        public float maxHealth {get;}
         public float movementSpeed {get;}
         public float rotationSpeed {get;}
         public Material material {get;}
-        public int playerLives {get;}
+        public float currentHealth {get; private set;}
+        public bool isAlive {get; private set;}
 
         public PlayerTankModel(PlayerTankSO playerTankSO){
             tankType = playerTankSO.tankType;
             bulletType = playerTankSO.bulletType;
-            health = playerTankSO.health;
+            maxHealth = playerTankSO.health;
             movementSpeed = playerTankSO.movementSpeed;
             rotationSpeed = playerTankSO.rotationSpeed;
             material = playerTankSO.material;
-            playerLives = playerTankSO.tankLives;
+            currentHealth = maxHealth;
+            isAlive = true;
+        }
+
+        public void SetCurrentHealth(float health){
+            currentHealth = Mathf.Clamp(health, 0, maxHealth);
+            SetIsAlive();
+        }
+
+        public void SetIsAlive(){
+            isAlive = currentHealth != 0;
         }
     }
 }

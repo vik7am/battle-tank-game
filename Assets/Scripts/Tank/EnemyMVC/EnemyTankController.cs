@@ -7,12 +7,10 @@ namespace BattleTank
         private EnemySM enemySM;
         public EnemyTankView enemyTankView {get; private set;}
         public EnemyTankModel enemyTankModel {get;}
-        public TankHealth tankHealth {get;}
 
         public EnemyTankController(EnemyTankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
             this.enemyTankView = enemyTankView;
             this.enemyTankModel = tankModel;
-            tankHealth = new TankHealth(tankModel.health);
             Initialize(spawnPosition);
         }
 
@@ -20,6 +18,7 @@ namespace BattleTank
             enemyTankView = EnemyTankPoolService.Instance.GetItem();
             enemyTankView.transform.position = position;
             enemyTankView.transform.rotation = Quaternion.identity;
+            enemyTankView.SetTankMaterial(enemyTankModel.material);
             enemyTankView.gameObject.SetActive(true);
             enemySM = enemyTankView.GetComponent<EnemySM>();
             enemyTankView.SetTankController(this);
@@ -27,10 +26,10 @@ namespace BattleTank
         }
 
         public void TakeDamage(TankName shooter, float damage){
-            if(tankHealth.IsDead())
+            if(enemyTankModel.isAlive == false)
                 return;
-            tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsDead()){
+            enemyTankModel.SetCurrentHealth(enemyTankModel.currentHealth - damage);
+            if(enemyTankModel.isAlive == false){
                 EventService.Instance.OnTankDestroyed(shooter, TankName.ENEMY_TANK);
                 DestroyTank();
             }
@@ -41,10 +40,6 @@ namespace BattleTank
                 return;
             enemySM.SetState(enemySM.deadState);
             enemyTankView = null;
-        }
-
-        public bool IsTankAlive(){
-            return !tankHealth.IsDead();
         }
 
     }

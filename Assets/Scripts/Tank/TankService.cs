@@ -18,11 +18,11 @@ namespace BattleTank
         }
 
         public Vector3 GetPlayerTankPosition(){
-            return playerTankController.GetTankPosition();
+            return playerTankController.playerTankView.GetTankPosition();
         }
 
         public bool IsPlayerTankAlive(){
-            return playerTankController.IsTankAlive();
+            return playerTankController.playerTankModel.isAlive;
         }
 
         private void TankDestroyed(TankName shooter, TankName reciever){
@@ -34,7 +34,5 @@ namespace BattleTank
             if(IsPlayerTankAlive() == true)
                 enemyTCList.Add(TankSpawner.Instance.SpawnEnemyTank());
         }
-
-        
     }
 }

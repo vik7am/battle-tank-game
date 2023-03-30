@@ -12,12 +12,11 @@ namespace BattleTank
 
         public void SetTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;
-            UpdateTankColor();
         }
 
-        private void UpdateTankColor(){
-            for(int i=0; i<tankBody.Count; i++)
-                tankBody[i].material = enemyTankController.enemyTankModel.material;
+        public void SetTankMaterial(Material material){
+            foreach(MeshRenderer meshRenderer in tankBody)
+                meshRenderer.material = material;
         }
 
         public void Damage(TankName shooter, float damage){

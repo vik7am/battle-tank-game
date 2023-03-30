@@ -6,13 +6,12 @@ namespace BattleTank
     public class PlayerTankView : MonoBehaviour, IDamageable
     {
         private PlayerTankController playerTankController;
-        private Coroutine destroyCoroutine;
         public GameObject bulletSpawPoint;
         public List<MeshRenderer> tankBody;
 
         public void SetTankMaterial(Material material){
-            for(int i=0; i<tankBody.Count; i++)
-                tankBody[i].material = material;
+            foreach(MeshRenderer meshRenderer in tankBody)
+                meshRenderer.material = material;
         }
         
         public void SetTankController(PlayerTankController playerTankController){
@@ -24,14 +23,16 @@ namespace BattleTank
         }
 
         public void ShowEffectAndDestroy(){
-            if(destroyCoroutine != null)
-                return;
             Destroy(gameObject, 1.0f);
             ParticleEffectService.Instance.ShowTankExplosionEffect(transform.position);
         }
 
         public TankName GetTankName(){
             return TankName.PLAYER_TANK;
+        }
+
+        public Vector3 GetTankPosition(){
+            return transform.position;
         }
     }
 }

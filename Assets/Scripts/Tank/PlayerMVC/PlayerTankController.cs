@@ -4,7 +4,6 @@ namespace BattleTank
 {
     public class PlayerTankController
     {
-        private TankHealth tankHealth;
         private FixedJoystick Joystick;
         public PlayerTankModel playerTankModel {get;}
         public PlayerTankView playerTankView {get; private set;}
@@ -12,7 +11,6 @@ namespace BattleTank
 
         public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
             this.playerTankModel = playerTankModel;
-            tankHealth = new TankHealth(playerTankModel.health);
             this.playerTankView = playerTankView;
             this.Joystick = UIService.Instance.GetFixedJoystick();
             Initialize(spawnPosition);
@@ -36,10 +34,10 @@ namespace BattleTank
         }
 
         public void TakeDmage(TankName shooter, float damage){
-            if(tankHealth.IsDead())
+            if(playerTankModel.isAlive == false)
                 return;
-            tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsDead()){
+            playerTankModel.SetCurrentHealth(playerTankModel.currentHealth - damage);
+            if(playerTankModel.isAlive == false){
                 EventService.Instance.OnTankDestroyed(shooter, TankName.PLAYER_TANK);
                 DestroyTank();
             }
@@ -48,14 +46,6 @@ namespace BattleTank
         private void DestroyTank(){
             CameraService.Instance.StopFollowingPlayer();
             playerTankView.ShowEffectAndDestroy();
-        }
-
-        public bool IsTankAlive(){
-            return !tankHealth.IsDead();
-        }
-
-        public Vector3 GetTankPosition(){
-            return playerTankView.transform.position;
         }
     }
 }
