@@ -17,6 +17,7 @@ namespace BattleTank
 
         private void Start(){
             fixedJoystick =  UIService.Instance.GetFixedJoystick();
+            UIService.Instance.SetJoyStickUI(useJoyStick);
         }
 
         public void SetPlayerTankController(PlayerTankController controller){

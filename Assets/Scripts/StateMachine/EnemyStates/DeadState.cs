@@ -20,7 +20,7 @@ namespace BattleTank
         }
 
         public override void OnStateExit(){
-            EnemyTankPoolService.Instance.ReturnItem(enemySM.enemyTankView);
+            ObjectPoolService.Instance.enemyTankPool.ReturnItem(enemySM.enemyTankView);
         }
 
         public override void Tick(){

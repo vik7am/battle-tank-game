@@ -3,17 +3,16 @@ using UnityEngine;
 
 namespace BattleTank
 {
-    public abstract class GenericObjectPool<T> : GenericMonoSingleton<GenericObjectPool<T>>
-    where T : Component
+    public class GenericObjectPool<T> where T : Component
     {
         private Stack<T> itemPool;
         protected int initialPoolSize;
         protected T itemPrefab;
         
-        private void Start() {
+        public GenericObjectPool(T prefab, int size) {
+            itemPrefab = prefab;
+            initialPoolSize = size;
             itemPool = new Stack<T>();
-            SetPrefab();
-            SetInitialPoolSize();
             InitializePool();
         }
 
@@ -30,7 +29,7 @@ namespace BattleTank
         }
 
         private T CreateNewItem(){
-            T item = Instantiate<T>(itemPrefab);
+            T item = GameObject.Instantiate<T>(itemPrefab);
             item.gameObject.SetActive(false);
             return item;
         }
@@ -40,7 +39,12 @@ namespace BattleTank
             itemPool.Push(item);
         }
 
-        protected abstract void SetPrefab();
-        protected abstract void SetInitialPoolSize();
+        public void SetPrefab(T prefab){
+            itemPrefab = prefab;
+        }
+
+        public void SetInitialPoolSize(int size){
+            initialPoolSize = size;
+        }
     }
 }

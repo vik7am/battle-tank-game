@@ -11,6 +11,7 @@ namespace BattleTank
         [SerializeField] private TextMeshProUGUI titleAP;
         [SerializeField] private TextMeshProUGUI descriptionAP;
         [SerializeField] private FixedJoystick fixedJoystick;
+        [SerializeField] private GameObject joyStickUI;
         private Coroutine coroutine;
         private Queue<string> titleQueue;
         private Queue<string> descriptionQueue;
@@ -19,6 +20,8 @@ namespace BattleTank
             titleQueue = new Queue<string>();
             descriptionQueue = new Queue<string>();
         }
+
+        public void SetJoyStickUI(bool status){ joyStickUI.SetActive(status); }
 
         public FixedJoystick GetFixedJoystick(){ return fixedJoystick; }
 

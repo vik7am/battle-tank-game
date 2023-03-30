@@ -9,7 +9,7 @@ namespace BattleTank
         [SerializeField] private float tankExplosionEffectDuration;
 
         public void ShowTankExplosionEffect(Vector3 spawnPosition){
-            ParticleSystem effect = ParticleEffectPoolService.Instance.GetItem();
+            ParticleSystem effect = ObjectPoolService.Instance.particlePool.GetItem();
             effect.transform.position = spawnPosition;
             effect.gameObject.SetActive(true);
             effect.Play();
@@ -18,7 +18,7 @@ namespace BattleTank
 
         IEnumerator DestroyEffect(ParticleSystem effect, float duration){
             yield return new WaitForSeconds(duration);
-            ParticleEffectPoolService.Instance.ReturnItem(effect);
+            ObjectPoolService.Instance.particlePool.ReturnItem(effect);
         }
     }
 }

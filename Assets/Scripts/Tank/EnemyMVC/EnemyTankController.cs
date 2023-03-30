@@ -15,7 +15,7 @@ namespace BattleTank
         }
 
         private void Initialize(Vector3 position){
-            enemyTankView = EnemyTankPoolService.Instance.GetItem();
+            enemyTankView = ObjectPoolService.Instance.enemyTankPool.GetItem();
             enemyTankView.transform.position = position;
             enemyTankView.transform.rotation = Quaternion.identity;
             enemyTankView.SetTankMaterial(enemyTankModel.material);

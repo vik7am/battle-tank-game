@@ -15,7 +15,7 @@ namespace BattleTank
         }
 
         public void Instantiate(){
-            bulletView = BulletPoolService.Instance.GetItem();
+            bulletView = ObjectPoolService.Instance.bulletPool.GetItem();
             bulletView.SetBulletController(this);
         }
 
