@@ -1,4 +1,5 @@
 using UnityEngine;
+
 namespace BattleTank
 {
     public class PlayerTankController
@@ -7,6 +8,7 @@ namespace BattleTank
         private FixedJoystick Joystick;
         public PlayerTankModel playerTankModel {get;}
         public PlayerTankView playerTankView {get; private set;}
+        private PlayerInput playerInput;
 
         public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
             this.playerTankModel = playerTankModel;
@@ -18,23 +20,11 @@ namespace BattleTank
 
         private void Initialize(Vector3 spawnPosition){
             playerTankView = GameObject.Instantiate<PlayerTankView>(playerTankView, spawnPosition, Quaternion.identity);
+            playerInput = playerTankView.GetComponent<PlayerInput>();
+            playerTankView.SetTankMaterial(playerTankModel.material);
             playerTankView.SetTankController(this);
+            playerInput.SetPlayerTankController(this);
             CameraService.Instance.StartFollowingPlayer(playerTankView.transform);
-        }
-
-        public Vector3 GetMovementVelocity(){
-            return Input.GetAxisRaw("VerticalUI") * playerTankModel.movementSpeed * playerTankView.transform.forward; //Keyboard Input code
-            //return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward; //Joystick Input code
-        }
-
-        public float GetRotationAngle(){
-            return Input.GetAxisRaw("HorizontalUI") * playerTankModel.rotationSpeed; //Keyboard Input code
-            //return Joystick.Horizontal * tankModel.rotationSpeed; //Joystick Input code
-        }
-
-        public void CheckForPlayerInput(){
-            if(Input.GetKeyDown(KeyCode.Space))
-                FireBullet();
         }
 
         public void FireBullet(){
