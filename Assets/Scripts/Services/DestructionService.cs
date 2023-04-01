@@ -12,12 +12,11 @@ namespace BattleTank
         private Coroutine destructionCoroutine;
 
         private void Start(){
-            EventService.Instance.onTankDestroyed += TankDestroyed;
+            PlayerTankController.onTankDestroyed += PlayerTankDestroyed;
         }
 
-        public void TankDestroyed(TankName shooter, TankName reciever){
-            if(reciever == TankName.PLAYER_TANK)
-                DestroyEverything();
+        public void PlayerTankDestroyed(TankName shooter){
+            DestroyEverything();
         }
 
         public void DestroyEverything(){
@@ -37,8 +36,9 @@ namespace BattleTank
             int n = enemyTanks.Count;
             yield return new WaitForSeconds(delay);
             for(int i=0; i<n; i++){
-                if(enemyTanks[i].enemyTankModel.isAlive == false)
+                if(enemyTanks[i].enemyTankModel.isAlive == false){
                     continue;
+                }
                 enemyTanks[i].DestroyTank();
                 yield return new WaitForSeconds(delay);
             }

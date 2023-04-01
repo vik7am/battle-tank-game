@@ -23,8 +23,9 @@ namespace BattleTank
         }
 
         public T GetItem(){
-            if(itemPool.Count == 0)
+            if(itemPool.Count == 0){
                 return CreateNewItem();
+            }
             return itemPool.Pop();
         }
 

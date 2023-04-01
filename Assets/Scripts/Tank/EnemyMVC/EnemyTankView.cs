@@ -15,8 +15,8 @@ namespace BattleTank
         }
 
         public void SetTankMaterial(Material material){
-            foreach(MeshRenderer meshRenderer in tankBody)
-                meshRenderer.material = material;
+            for(int i=0; i<tankBody.Count; i++)
+                tankBody[i].material = material;
         }
 
         public void Damage(TankName shooter, float damage){

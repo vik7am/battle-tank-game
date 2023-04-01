@@ -15,9 +15,9 @@ namespace BattleTank
             bulletFiredModel = new AchievementModel(bulletFired);
             bulletDodgedModel = new AchievementModel(bulletDodged);
             enemyTankDestroyedModel = new AchievementModel(enemyTankDestroyed);
-            EventService.Instance.onBulletFired += BulletFiredAchievement;
-            EventService.Instance.onBulletHit += EnemyBulletsDodgedAchievement;
-            EventService.Instance.onTankDestroyed += EnemyTankDestroyedAchievement;
+            BulletController.onBulletFired += BulletFiredAchievement;
+            BulletController.onBulletHit += EnemyBulletsDodgedAchievement;
+            EnemyTankController.onTankDestroyed += EnemyTankDestroyedAchievement;
         }
 
         private void BulletFiredAchievement(TankName tankName){
@@ -26,8 +26,8 @@ namespace BattleTank
             UpdateAchievement(bulletFiredModel);
         }
 
-        private void EnemyTankDestroyedAchievement(TankName shooter, TankName reciever){
-            if(shooter == TankName.PLAYER_TANK && reciever == TankName.ENEMY_TANK){
+        private void EnemyTankDestroyedAchievement(TankName shooter){
+            if(shooter == TankName.PLAYER_TANK){
                 UpdateAchievement(enemyTankDestroyedModel);
             }
         }

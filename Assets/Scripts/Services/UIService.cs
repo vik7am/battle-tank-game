@@ -29,8 +29,9 @@ namespace BattleTank
         public void DisplayAchievement(string title, string description){
             titleQueue.Enqueue(title);
             descriptionQueue.Enqueue(description);
-            if(coroutine == null)
+            if(coroutine == null){
                 coroutine = StartCoroutine(DisplayAchievementPanel());
+            }
         }
         
         // reads achievemnts form queue and display on the UI.

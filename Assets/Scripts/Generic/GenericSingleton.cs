@@ -5,8 +5,9 @@ namespace BattleTank
         private static T instance;
 
         public static T Instance(){
-            if(instance == null)
+            if(instance == null){
                 instance = (T)new GenericSingleton<T>();
+            }
             return instance;
         }
     }

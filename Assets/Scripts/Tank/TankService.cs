@@ -12,9 +12,10 @@ namespace BattleTank
         private void Start(){
             playerTankController = TankSpawner.Instance.SpawnPlayerTank(Vector3.zero);
             enemyTCList = new List<EnemyTankController>();
-            for(int i=0; i<enemyTankCount; i++)
+            for(int i=0; i<enemyTankCount; i++){
                 enemyTCList.Add(TankSpawner.Instance.SpawnEnemyTank());
-            EventService.Instance.onTankDestroyed += TankDestroyed;
+            }
+            EnemyTankController.onTankDestroyed += EnemyTankDestroyed;
         }
 
         public Vector3 GetPlayerTankPosition(){
@@ -25,14 +26,15 @@ namespace BattleTank
             return playerTankController.playerTankModel.isAlive;
         }
 
-        private void TankDestroyed(TankName shooter, TankName reciever){
-            if(reciever == TankName.ENEMY_TANK)
+        private void EnemyTankDestroyed(TankName shooter){
+            if(IsPlayerTankAlive() == true){
                 RespawnEnemyTank();
+            }
+                
         }
 
         private void RespawnEnemyTank(){
-            if(IsPlayerTankAlive() == true)
-                enemyTCList.Add(TankSpawner.Instance.SpawnEnemyTank());
+            enemyTCList.Add(TankSpawner.Instance.SpawnEnemyTank());
         }
     }
 }

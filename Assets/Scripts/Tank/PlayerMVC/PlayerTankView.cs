@@ -10,8 +10,8 @@ namespace BattleTank
         public List<MeshRenderer> tankBody;
 
         public void SetTankMaterial(Material material){
-            foreach(MeshRenderer meshRenderer in tankBody)
-                meshRenderer.material = material;
+            for(int i=0; i<tankBody.Count; i++)
+                tankBody[i].material = material;
         }
         
         public void SetTankController(PlayerTankController playerTankController){
