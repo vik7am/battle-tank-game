@@ -4,7 +4,6 @@ namespace BattleTank
 {
     public class PlayerTankController
     {
-        private FixedJoystick Joystick;
         public PlayerTankModel playerTankModel {get;}
         public PlayerTankView playerTankView {get; private set;}
         private PlayerInput playerInput;
@@ -13,7 +12,6 @@ namespace BattleTank
         public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
             this.playerTankModel = playerTankModel;
             this.playerTankView = playerTankView;
-            this.Joystick = UIService.Instance.GetFixedJoystick();
             Initialize(spawnPosition);
         }
 

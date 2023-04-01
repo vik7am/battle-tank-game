@@ -7,7 +7,7 @@ namespace BattleTank
         private FixedJoystick fixedJoystick;
         private bool useVirtualInput;
         private Rigidbody rigidBody;
-        PlayerTankController controller;
+        private PlayerTankController controller;
         float verticalInput;
         float horizontalInput;
 
@@ -16,9 +16,11 @@ namespace BattleTank
         }
 
         private void Start(){
-            fixedJoystick =  UIService.Instance.GetFixedJoystick();
-            useVirtualInput = UIService.Instance.VirtualJoystickEnabled();
-            UIService.onFireButtonPressed += FireBullet;
+            useVirtualInput = UIService.Instance.virtualInputUI.gameObject.activeSelf;
+            if(useVirtualInput){
+                fixedJoystick =  UIService.Instance.virtualInputUI.GetFixedJoystick();
+                VirtualInputUI.onFireButtonPressed += FireBullet;
+            }
         }
 
         public void SetPlayerTankController(PlayerTankController controller){

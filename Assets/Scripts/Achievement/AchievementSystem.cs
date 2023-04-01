@@ -10,6 +10,7 @@ namespace BattleTank
         private AchievementModel bulletFiredModel;
         private AchievementModel bulletDodgedModel;
         private AchievementModel enemyTankDestroyedModel;
+        public static event System.Action<string, string> onAchievementUnlocked;
         
         private void Start(){
             bulletFiredModel = new AchievementModel(bulletFired);
@@ -46,7 +47,7 @@ namespace BattleTank
             if(achievementModel.currentScore == achievementModel.level[currentLevel].target){
                 string title = achievementModel.level[currentLevel].title;
                 string description = achievementModel.level[currentLevel].description;
-                UIService.Instance.DisplayAchievement(title, description);
+                onAchievementUnlocked?.Invoke(title, description);
                 achievementModel.currentLevel++;
             }
         }
