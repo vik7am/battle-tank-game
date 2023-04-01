@@ -9,7 +9,7 @@ namespace BattleTank
         public List<EnemyTankController> enemyTCList {get; private set;}
         [SerializeField] private float enemyTankCount;
         
-        private void Start(){
+        public void StartGame(){
             playerTankController = TankSpawner.Instance.SpawnPlayerTank(Vector3.zero);
             enemyTCList = new List<EnemyTankController>();
             for(int i=0; i<enemyTankCount; i++){

@@ -5,7 +5,7 @@ namespace BattleTank
     public class PlayerInput : MonoBehaviour
     {
         private FixedJoystick fixedJoystick;
-        [SerializeField] private bool useJoyStick;
+        private bool useVirtualInput;
         private Rigidbody rigidBody;
         PlayerTankController controller;
         float verticalInput;
@@ -17,7 +17,8 @@ namespace BattleTank
 
         private void Start(){
             fixedJoystick =  UIService.Instance.GetFixedJoystick();
-            UIService.Instance.SetJoyStickUI(useJoyStick);
+            useVirtualInput = UIService.Instance.VirtualJoystickEnabled();
+            UIService.onFireButtonPressed += FireBullet;
         }
 
         public void SetPlayerTankController(PlayerTankController controller){
@@ -35,19 +36,23 @@ namespace BattleTank
         }
 
         private void UpdatePlayerInput(){
-            if(useJoyStick){
+            if(useVirtualInput){
                 verticalInput = fixedJoystick.Vertical;
                 horizontalInput = fixedJoystick.Horizontal;
             }
             else{
                 verticalInput = Input.GetAxisRaw("VerticalUI");
                 horizontalInput = Input.GetAxisRaw("HorizontalUI");
+                if(Input.GetKeyDown(KeyCode.Space))
+                    controller.FireBullet();
             }
         }
 
+        private void FireBullet(){
+            controller.FireBullet();
+        }
+
         private void Update(){
-            if(Input.GetKeyDown(KeyCode.Space))
-                controller.FireBullet();
             UpdatePlayerInput();
             UpdateTankRotation();
         }

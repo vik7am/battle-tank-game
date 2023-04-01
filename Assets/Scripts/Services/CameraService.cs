@@ -6,11 +6,12 @@ namespace BattleTank
     {
         [SerializeField] private Camera cam;
         private bool camZoomOut;
-        private float camSize;
+        [SerializeField] private float camSize;
 
         private void Start() {
+            DestructionService.onDestructionStart += StartCameraZoomOut;
+            DestructionService.onDestructionEnd += StopCameraZoomOut;
             camZoomOut = false;
-            camSize = 15;
         }
 
         public void StartFollowingPlayer(Transform player){
@@ -22,8 +23,12 @@ namespace BattleTank
             transform.SetParent(null);
         }
 
-        public void SetCameraZoomOut(bool status){
-            camZoomOut = status;
+        public void StartCameraZoomOut(){
+            camZoomOut = true;
+        }
+
+        public void StopCameraZoomOut(){
+            camZoomOut = true;
         }
 
         private void Update() {
