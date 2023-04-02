@@ -42,6 +42,7 @@ namespace BattleTank
             else{
                 onBulletHit?.Invoke(tankName, TankName.NONE);
             }
+            ParticleEffectService.Instance.ShowParticleEffect(bulletView.transform.position, ParticleEffectType.BULLET_EXPLOSION);
             ObjectPoolService.Instance.bulletPool.ReturnItem(bulletView);
         }
     }

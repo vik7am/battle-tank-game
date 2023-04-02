@@ -19,4 +19,9 @@ namespace BattleTank
         FAST,
         SLOW
     }
+
+    public enum ParticleEffectType{
+        TANK_EXPLOSION,
+        BULLET_EXPLOSION
+    }
 }

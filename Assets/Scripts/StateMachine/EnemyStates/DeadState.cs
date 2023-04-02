@@ -15,7 +15,7 @@ namespace BattleTank
 
         public override void OnStateEnter(){
             enemySM.navMeshAgent.isStopped = true;
-            ParticleEffectService.Instance.ShowTankExplosionEffect(enemySM.transform.position);
+            ParticleEffectService.Instance.ShowParticleEffect(enemySM.transform.position, ParticleEffectType.TANK_EXPLOSION);
             timeElapsed = 0;
         }
 

@@ -24,7 +24,7 @@ namespace BattleTank
 
         public void ShowEffectAndDestroy(){
             Destroy(gameObject, 1.0f);
-            ParticleEffectService.Instance.ShowTankExplosionEffect(transform.position);
+            ParticleEffectService.Instance.ShowParticleEffect(transform.position, ParticleEffectType.TANK_EXPLOSION);
         }
 
         public TankName GetTankName(){

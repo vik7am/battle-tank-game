@@ -12,37 +12,32 @@ namespace BattleTank
         [SerializeField] private TextMeshProUGUI audioStatus;
         [SerializeField] private Button audioStatusButton;
         [SerializeField] private AudioSource audioSource;
-        private bool virtualInputEnabled;
-        private bool audioEnabled;
+        private bool useVirtualInput;
+        private bool isAudioEnabled;
 
 
         private void Start(){
             startButton.onClick.AddListener(StartGame);
-            inputSelectionButton.onClick.AddListener(UpdateInput);
-            audioStatusButton.onClick.AddListener(UpdateAudioStatus);
-            UpdateInput();
-            UpdateAudioStatus();
+            inputSelectionButton.onClick.AddListener(SwitchPlayerInput);
+            audioStatusButton.onClick.AddListener(ToggleAudioSource);
+            SwitchPlayerInput();
+            ToggleAudioSource();
         }
 
-        private void UpdateInput(){
-            virtualInputEnabled = !virtualInputEnabled;
-            if(virtualInputEnabled)
-                inputSelection.text = "Joystick";
-            else
-                inputSelection.text = "Keyboard";
+        private void SwitchPlayerInput(){
+            useVirtualInput = !useVirtualInput;
+            inputSelection.text = (useVirtualInput)? "Joystick": "Keyboard";
         }
 
-        private void UpdateAudioStatus(){
-            audioEnabled = !audioEnabled;
-            audioSource.enabled = audioEnabled;
-            if(audioEnabled)
-                audioStatus.text = "Audio On";
-            else
-                audioStatus.text = "Audio Off";
+        private void ToggleAudioSource(){
+            isAudioEnabled = !isAudioEnabled;
+            audioSource.enabled = isAudioEnabled;
+            audioStatus.text = (isAudioEnabled)? "Audio On": "Audio Off";
+            
         }
 
         private void StartGame(){
-            if(virtualInputEnabled){
+            if(useVirtualInput){
                 UIService.Instance.ShowVirtualInputUI();
             }
             TankService.Instance.StartGame();

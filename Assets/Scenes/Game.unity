@@ -277,11 +277,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1725479556628035768, guid: 93dc9fb177134dd45b4b22decbb905cf,
     type: 3}
-  particlePrefab: {fileID: 19874418, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
+  particlePrefab: {fileID: 1218474683506345360, guid: a67a3b27519e00d4caced567d1b54e78,
+    type: 3}
   enemyTankPrefab: {fileID: 5449234430744134065, guid: 5601cf402fb874649ad2a5fe60ead5a1,
     type: 3}
   bulletPoolSize: 5
-  particlePoolSize: 2
+  particlePoolSize: 5
   enemyTankPoolSize: 4
 --- !u!4 &236620600
 Transform:
@@ -608,9 +609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f491274e92159b544a418c08cd81023c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankExplosionEffact: {fileID: 19874418, guid: ee49a9a8678ecf8468eb488e1ac8d42b,
-    type: 3}
-  tankExplosionEffectDuration: 1
 --- !u!1001 &571682351
 PrefabInstance:
   m_ObjectHideFlags: 0
