@@ -7,7 +7,7 @@ namespace BattleTank
         public PlayerTankModel playerTankModel {get;}
         public PlayerTankView playerTankView {get; private set;}
         private PlayerInput playerInput;
-        public static event System.Action<TankName> onTankDestroyed;
+        public static event System.Action<TankId> onTankDestroyed;
         public static event System.Action<float, float> onPlayerStatsUpdate;
 
         public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
@@ -32,10 +32,10 @@ namespace BattleTank
             Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
             BulletController bulletController = BulletService.Instance.SpawnBullet(playerTankModel.bulletType);
             bulletController.SetBulletTransform(bulletSpawnPoint, bulletRotation);
-            bulletController.FireBullet(TankName.PLAYER_TANK);
+            bulletController.FireBullet(TankId.PLAYER);
         }
 
-        public void TakeDmage(TankName shooter, float damage){
+        public void TakeDmage(TankId shooter, float damage){
             if(playerTankModel.isAlive == false)
                 return;
             playerTankModel.SetCurrentHealth(playerTankModel.currentHealth - damage);
@@ -51,9 +51,9 @@ namespace BattleTank
             playerTankView.ShowEffectAndDestroy();
         }
 
-        private void UpdatePlayerScore(TankName shooter, TankName reciever, float damage){
-            if(shooter == TankName.PLAYER_TANK){
-                float score = (reciever == TankName.ENEMY_TANK)? damage: -playerTankModel.penaltyScore;
+        private void UpdatePlayerScore(TankId shooter, TankId reciever, float damage){
+            if(shooter == TankId.PLAYER){
+                float score = (reciever == TankId.ENEMY)? damage: -playerTankModel.penaltyScore;
                 playerTankModel.UpdateScore(score);
                 onPlayerStatsUpdate?.Invoke(playerTankModel.currentHealth, playerTankModel.score);
             }

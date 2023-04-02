@@ -18,7 +18,7 @@ namespace BattleTank
             this.playerTankController = playerTankController;
         }
 
-        public void Damage(TankName shooter, float damage){
+        public void Damage(TankId shooter, float damage){
             playerTankController.TakeDmage(shooter, damage);
         }
 
@@ -27,8 +27,8 @@ namespace BattleTank
             ParticleEffectService.Instance.ShowParticleEffect(transform.position, ParticleEffectType.TANK_EXPLOSION);
         }
 
-        public TankName GetTankName(){
-            return TankName.PLAYER_TANK;
+        public TankId GetTankId(){
+            return TankId.PLAYER;
         }
 
         public Vector3 GetTankPosition(){

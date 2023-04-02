@@ -1,7 +1,7 @@
 namespace BattleTank
 {
     public interface IDamageable{
-        public void Damage(TankName tankName, float damage);
-        public TankName GetTankName();
+        public void Damage(TankId tankId, float damage);
+        public TankId GetTankId();
     }
 }

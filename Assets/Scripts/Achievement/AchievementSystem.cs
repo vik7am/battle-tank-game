@@ -21,20 +21,20 @@ namespace BattleTank
             EnemyTankController.onTankDestroyed += EnemyTankDestroyedAchievement;
         }
 
-        private void BulletFiredAchievement(TankName tankName){
-            if(tankName != TankName.PLAYER_TANK)
+        private void BulletFiredAchievement(TankId tankId){
+            if(tankId != TankId.PLAYER)
                 return;
             UpdateAchievement(bulletFiredModel);
         }
 
-        private void EnemyTankDestroyedAchievement(TankName shooter){
-            if(shooter == TankName.PLAYER_TANK){
+        private void EnemyTankDestroyedAchievement(TankId shooter){
+            if(shooter == TankId.PLAYER){
                 UpdateAchievement(enemyTankDestroyedModel);
             }
         }
 
-        private void EnemyBulletsDodgedAchievement(TankName shooter, TankName reciever, float damage){
-            if(shooter == TankName.ENEMY_TANK && reciever != TankName.PLAYER_TANK){
+        private void EnemyBulletsDodgedAchievement(TankId shooter, TankId reciever, float damage){
+            if(shooter == TankId.ENEMY && reciever != TankId.PLAYER){
                 UpdateAchievement(bulletDodgedModel);
             }
         }

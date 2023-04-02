@@ -7,7 +7,7 @@ namespace BattleTank
         private EnemySM enemySM;
         public EnemyTankView enemyTankView {get; private set;}
         public EnemyTankModel enemyTankModel {get;}
-        public static event System.Action<TankName> onTankDestroyed;
+        public static event System.Action<TankId> onTankDestroyed;
 
         public EnemyTankController(EnemyTankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
             this.enemyTankView = enemyTankView;
@@ -26,7 +26,7 @@ namespace BattleTank
             enemySM.SetEnemyTankController(this);
         }
 
-        public void TakeDamage(TankName shooter, float damage){
+        public void TakeDamage(TankId shooter, float damage){
             if(enemyTankModel.isAlive == false)
                 return;
             enemyTankModel.SetCurrentHealth(enemyTankModel.currentHealth - damage);

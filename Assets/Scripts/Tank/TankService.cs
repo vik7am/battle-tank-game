@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 namespace BattleTank
@@ -13,7 +14,7 @@ namespace BattleTank
             playerTankController = TankSpawner.Instance.SpawnPlayerTank(Vector3.zero);
             enemyTCList = new List<EnemyTankController>();
             for(int i=0; i<enemyTankCount; i++){
-                enemyTCList.Add(TankSpawner.Instance.SpawnEnemyTank());
+                StartCoroutine(SpawnEnemyTank());
             }
             EnemyTankController.onTankDestroyed += EnemyTankDestroyed;
         }
@@ -26,15 +27,19 @@ namespace BattleTank
             return playerTankController.playerTankModel.isAlive;
         }
 
-        private void EnemyTankDestroyed(TankName shooter){
+        private void EnemyTankDestroyed(TankId shooter){
             if(IsPlayerTankAlive() == true){
-                RespawnEnemyTank();
+                StartCoroutine(SpawnEnemyTank());
             }
-                
         }
 
-        private void RespawnEnemyTank(){
-            enemyTCList.Add(TankSpawner.Instance.SpawnEnemyTank());
+        IEnumerator SpawnEnemyTank(){
+            EnemyTankController enemyTankController = null;
+            do{
+                enemyTankController = TankSpawner.Instance.SpawnEnemyTank();
+                yield return null;
+            }while(enemyTankController == null);
+            enemyTCList.Add(enemyTankController);
         }
     }
 }

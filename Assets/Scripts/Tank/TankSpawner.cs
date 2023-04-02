@@ -20,37 +20,42 @@ namespace BattleTank
         }
 
         public EnemyTankController SpawnEnemyTank(){
-            int tankNo = Random.Range(0, enemyTankListSO.enemyTankSO.Length);
-            EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankListSO.enemyTankSO[tankNo]);
-            return new EnemyTankController(enemyTankModel, enemyTankView, GetEnemySpawnPosition());
+            Vector3 spawnPosition;
+            if(GetEnemySpawnPosition(out spawnPosition)){
+                int tankNo = Random.Range(0, enemyTankListSO.enemyTankSO.Length);
+                EnemyTankModel enemyTankModel = new EnemyTankModel(enemyTankListSO.enemyTankSO[tankNo]);
+                return new EnemyTankController(enemyTankModel, enemyTankView, spawnPosition);
+            }
+            return null;
         }
 
-        private Vector3 GetEnemySpawnPosition(){
-            bool spawnPointFound = false;
+        private bool GetEnemySpawnPosition(out Vector3 spawnPosition){
+            if(GetRandomSpawnPosition(out spawnPosition)){
+                spawnPosition = new Vector3(spawnPosition.x, 0, spawnPosition.z);
+                if(OutsidePlayerSafeZone(spawnPosition))
+                    return true;
+                return false;
+            }
+            return false;
+        }
+
+        private bool GetRandomSpawnPosition(out Vector3 spawnPosition){
+            NavMeshHit hit;
+            Vector3 randomPoint = spawnRange * Random.insideUnitSphere;
+            if(NavMesh.SamplePosition(randomPoint, out hit, 1, NavMesh.AllAreas)){
+                spawnPosition = hit.position;
+                return true;
+            }
+            spawnPosition = Vector3.zero;
+            return false;
+        }
+
+        private bool OutsidePlayerSafeZone(Vector3 spawnPosition){
             Vector3 playerPosition = TankService.Instance.playerTankController.playerTankView.transform.position;
             playerPosition = new Vector3(playerPosition.x, 0, playerPosition.z);
-            Vector3 spawnPoint = Vector3.zero;
-            do{
-                spawnPoint = GetRandomSpawnPoint();
-                spawnPoint = new Vector3(spawnPoint.x, 0, spawnPoint.z);
-                if(Vector3.Distance(spawnPoint, playerPosition) > safeZoneRadius)
-                    spawnPointFound = true;
-            }while(!spawnPointFound);
-            return spawnPoint;
-        }
-
-        public Vector3 GetRandomSpawnPoint(){
-            bool pointFound = false;
-            Vector3 result = Vector3.zero;
-            NavMeshHit hit;
-            do{
-                Vector3 randomPoint = spawnRange * Random.insideUnitSphere;
-                if(NavMesh.SamplePosition(randomPoint, out hit, 1, NavMesh.AllAreas)){
-                    result = hit.position;
-                    pointFound = true;
-                }
-            }while(pointFound == false);
-            return result;
+            if(Vector3.Distance(spawnPosition, playerPosition) > safeZoneRadius)
+                return true;
+            return false;
         }
     }
 }

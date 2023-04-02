@@ -19,12 +19,12 @@ namespace BattleTank
                 tankBody[i].material = material;
         }
 
-        public void Damage(TankName shooter, float damage){
+        public void Damage(TankId shooter, float damage){
             enemyTankController.TakeDamage(shooter, damage);
         }
 
-        public TankName GetTankName(){
-            return TankName.ENEMY_TANK;
+        public TankId GetTankId(){
+            return TankId.ENEMY;
         }
     }
 }

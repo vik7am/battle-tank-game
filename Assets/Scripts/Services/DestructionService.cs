@@ -17,7 +17,7 @@ namespace BattleTank
             PlayerTankController.onTankDestroyed += PlayerTankDestroyed;
         }
 
-        public void PlayerTankDestroyed(TankName shooter){
+        public void PlayerTankDestroyed(TankId shooter){
             DestroyEverything();
         }
 
