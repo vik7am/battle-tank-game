@@ -22,11 +22,6 @@ namespace BattleTank
             playerTankController.TakeDmage(shooter, damage);
         }
 
-        public void ShowEffectAndDestroy(){
-            Destroy(gameObject, 1.0f);
-            ParticleEffectService.Instance.ShowParticleEffect(transform.position, ParticleEffectType.TANK_EXPLOSION);
-        }
-
         public TankId GetTankId(){
             return TankId.PLAYER;
         }

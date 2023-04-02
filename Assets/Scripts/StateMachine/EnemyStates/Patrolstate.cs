@@ -14,7 +14,8 @@ namespace BattleTank
         }
 
         public override void OnStateEnter(){
-            navMeshAgent.SetDestination(enemySM.GetRandomPoint());
+            enemySM.FindRandomEnemyDestination();
+            //navMeshAgent.SetDestination(enemySM.GetRandomPoint());
             navMeshAgent.isStopped = false;
         }
 
@@ -22,7 +23,8 @@ namespace BattleTank
             if(enemySM.PlayerTankInChaseRange())
                 stateMachine.SetState(enemySM.chaseState);
             else if(navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-                navMeshAgent.SetDestination(enemySM.GetRandomPoint());
+                enemySM.FindRandomEnemyDestination();
+                //navMeshAgent.SetDestination(enemySM.GetRandomPoint());
         }
     }
 }

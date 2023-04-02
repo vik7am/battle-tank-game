@@ -11,6 +11,7 @@ namespace BattleTank
         private void Start() {
             DestructionService.onDestructionStart += StartCameraZoomOut;
             DestructionService.onDestructionEnd += StopCameraZoomOut;
+            PlayerTankController.onTankDestroyed += StopFollowingPlayer;
             camZoomOut = false;
         }
 
@@ -19,7 +20,7 @@ namespace BattleTank
             transform.SetParent(player);
         }
 
-        public void StopFollowingPlayer(){
+        public void StopFollowingPlayer(TankId tankId){
             transform.SetParent(null);
         }
 

@@ -47,8 +47,9 @@ namespace BattleTank
         }
 
         private void DestroyTank(){
-            CameraService.Instance.StopFollowingPlayer();
-            playerTankView.ShowEffectAndDestroy();
+            UIService.Instance.gameOverUI.SetFinalScore(playerTankModel.score);
+            GameObject.Destroy(playerTankView.gameObject, 1.0f);
+            ParticleEffectService.Instance.ShowParticleEffect(playerTankView.GetTankPosition(), ParticleEffectType.TANK_EXPLOSION);
         }
 
         private void UpdatePlayerScore(TankId shooter, TankId reciever, float damage){

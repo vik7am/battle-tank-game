@@ -8,13 +8,13 @@ namespace BattleTank
         [field: SerializeField] public MainMenuUI mainMenuUI {get; private set;}
         [field: SerializeField] public VirtualInputUI virtualInputUI {get; private set;}
         [field: SerializeField] public HeadsUpDisplayUI headsUpDisplayUI {get; private set;}
-        [SerializeField] private GameObject gameOverUI;
-        [SerializeField] private Button startButton;
+        [field: SerializeField] public GameOverUI gameOverUI {get; private set;}
 
         private void Start() {
             mainMenuUI.gameObject.SetActive(true);
             DestructionService.onDestructionStart += HideHeadsUpDisplayUI;
             DestructionService.onDestructionEnd += ShowGameOverUI;
+            PlayerTankController.onTankDestroyed += HideVirtualInputUI;
         }
 
         public void ShowHeadsUpDisplayUI(){
@@ -26,11 +26,15 @@ namespace BattleTank
         }
 
         private void ShowGameOverUI(){
-            gameOverUI.SetActive(true);
+            gameOverUI.gameObject.SetActive(true);
         }
 
         public void ShowVirtualInputUI(){
             virtualInputUI.gameObject.SetActive(true);
+        }
+
+        public void HideVirtualInputUI(TankId tank){
+            virtualInputUI.gameObject.SetActive(false);
         }
         
     }
