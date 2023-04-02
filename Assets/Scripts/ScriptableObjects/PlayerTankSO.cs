@@ -11,6 +11,6 @@ namespace BattleTank
         public float movementSpeed;
         public float rotationSpeed;
         public Material material;
-        public int tankLives;
+        public int penaltyScore;
     }
 }

@@ -8,7 +8,7 @@ namespace BattleTank
         public BulletView bulletView {get; private set;}
         public TankName tankName {get; private set;}
         public static event System.Action<TankName> onBulletFired;
-        public static event System.Action<TankName, TankName> onBulletHit;
+        public static event System.Action<TankName, TankName, float> onBulletHit;
 
         public BulletController(BulletModel bulletModel, BulletView bulletView){
             this.bulletModel = bulletModel;
@@ -37,10 +37,10 @@ namespace BattleTank
             if(other.GetComponent<IDamageable>() != null){
                 IDamageable damagableObject = other.GetComponent<IDamageable>();
                 damagableObject.Damage(tankName, bulletModel.damage);
-                onBulletHit?.Invoke(tankName, damagableObject.GetTankName());
+                onBulletHit?.Invoke(tankName, damagableObject.GetTankName(), bulletModel.damage);
             }
             else{
-                onBulletHit?.Invoke(tankName, TankName.NONE);
+                onBulletHit?.Invoke(tankName, TankName.NONE, 0);
             }
             ParticleEffectService.Instance.ShowParticleEffect(bulletView.transform.position, ParticleEffectType.BULLET_EXPLOSION);
             ObjectPoolService.Instance.bulletPool.ReturnItem(bulletView);

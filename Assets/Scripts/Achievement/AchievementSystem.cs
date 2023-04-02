@@ -33,7 +33,7 @@ namespace BattleTank
             }
         }
 
-        private void EnemyBulletsDodgedAchievement(TankName shooter, TankName reciever){
+        private void EnemyBulletsDodgedAchievement(TankName shooter, TankName reciever, float damage){
             if(shooter == TankName.ENEMY_TANK && reciever != TankName.PLAYER_TANK){
                 UpdateAchievement(bulletDodgedModel);
             }

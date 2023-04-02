@@ -33,13 +33,13 @@ namespace BattleTank
             isAudioEnabled = !isAudioEnabled;
             audioSource.enabled = isAudioEnabled;
             audioStatus.text = (isAudioEnabled)? "Audio On": "Audio Off";
-            
         }
 
         private void StartGame(){
             if(useVirtualInput){
                 UIService.Instance.ShowVirtualInputUI();
             }
+            UIService.Instance.ShowHeadsUpDisplayUI();
             TankService.Instance.StartGame();
             gameObject.SetActive(false);
         }

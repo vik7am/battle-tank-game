@@ -8,10 +8,12 @@ namespace BattleTank
         public PlayerTankView playerTankView {get; private set;}
         private PlayerInput playerInput;
         public static event System.Action<TankName> onTankDestroyed;
+        public static event System.Action<float, float> onPlayerStatsUpdate;
 
         public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
             this.playerTankModel = playerTankModel;
             this.playerTankView = playerTankView;
+            BulletController.onBulletHit += UpdatePlayerScore;
             Initialize(spawnPosition);
         }
 
@@ -22,6 +24,7 @@ namespace BattleTank
             playerTankView.SetTankController(this);
             playerInput.SetPlayerTankController(this);
             CameraService.Instance.StartFollowingPlayer(playerTankView.transform);
+            onPlayerStatsUpdate?.Invoke(playerTankModel.currentHealth, playerTankModel.score);
         }
 
         public void FireBullet(){
@@ -36,8 +39,8 @@ namespace BattleTank
             if(playerTankModel.isAlive == false)
                 return;
             playerTankModel.SetCurrentHealth(playerTankModel.currentHealth - damage);
+            onPlayerStatsUpdate?.Invoke(playerTankModel.currentHealth, playerTankModel.score);
             if(playerTankModel.isAlive == false){
-                //EventService.Instance.OnTankDestroyed(shooter, TankName.PLAYER_TANK);
                 onTankDestroyed?.Invoke(shooter);
                 DestroyTank();
             }
@@ -46,6 +49,14 @@ namespace BattleTank
         private void DestroyTank(){
             CameraService.Instance.StopFollowingPlayer();
             playerTankView.ShowEffectAndDestroy();
+        }
+
+        private void UpdatePlayerScore(TankName shooter, TankName reciever, float damage){
+            if(shooter == TankName.PLAYER_TANK){
+                float score = (reciever == TankName.ENEMY_TANK)? damage: -playerTankModel.penaltyScore;
+                playerTankModel.UpdateScore(score);
+                onPlayerStatsUpdate?.Invoke(playerTankModel.currentHealth, playerTankModel.score);
+            }
         }
     }
 }

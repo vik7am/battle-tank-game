@@ -18,4 +18,4 @@ MonoBehaviour:
   movementSpeed: 15
   rotationSpeed: 50
   material: {fileID: 2100000, guid: 0f10ef2210012994f8b91c9f99eab30e, type: 2}
-  tankLives: 3
+  penaltyScore: 2
