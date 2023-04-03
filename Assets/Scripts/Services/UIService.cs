@@ -1,46 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 namespace BattleTank
 {
     public class UIService : GenericMonoSingleton<UIService>
     {
-        [SerializeField] private GameObject achievementPanel;
-        [SerializeField] private TextMeshProUGUI titleAP;
-        [SerializeField] private TextMeshProUGUI descriptionAP;
-        [SerializeField] private FixedJoystick fixedJoystick;
-        private Coroutine coroutine;
-        private Queue<string> titleQueue;
-        private Queue<string> descriptionQueue;
+        [field: SerializeField] public MainMenuUI mainMenuUI {get; private set;}
+        [field: SerializeField] public VirtualInputUI virtualInputUI {get; private set;}
+        [field: SerializeField] public HeadsUpDisplayUI headsUpDisplayUI {get; private set;}
+        [field: SerializeField] public GameOverUI gameOverUI {get; private set;}
 
         private void Start() {
-            titleQueue = new Queue<string>();
-            descriptionQueue = new Queue<string>();
+            mainMenuUI.gameObject.SetActive(true);
+            DestructionService.onDestructionStart += HideHeadsUpDisplayUI;
+            DestructionService.onDestructionEnd += ShowGameOverUI;
+            PlayerTankController.onTankDestroyed += HideVirtualInputUI;
         }
 
-        public FixedJoystick GetFixedJoystick(){ return fixedJoystick; }
+        public void ShowHeadsUpDisplayUI(){
+            headsUpDisplayUI.gameObject.SetActive(true);
+        }
 
-        // Adds achievement data in queue and starts a new coroutine if previous one is finished
-        public void DisplayAchievement(string title, string description){
-            titleQueue.Enqueue(title);
-            descriptionQueue.Enqueue(description);
-            if(coroutine == null)
-                coroutine = StartCoroutine(DisplayAchievementPanel());
+        public void HideHeadsUpDisplayUI(){
+            headsUpDisplayUI.gameObject.SetActive(false);
+        }
+
+        private void ShowGameOverUI(){
+            gameOverUI.gameObject.SetActive(true);
+        }
+
+        public void ShowVirtualInputUI(){
+            virtualInputUI.gameObject.SetActive(true);
+        }
+
+        public void HideVirtualInputUI(TankId tank){
+            virtualInputUI.gameObject.SetActive(false);
         }
         
-        // reads achievemnts form queue and display on the UI.
-        IEnumerator DisplayAchievementPanel(){
-            while(titleQueue.Count > 0){
-                titleAP.text = titleQueue.Dequeue();
-                descriptionAP.text = descriptionQueue.Dequeue();
-                achievementPanel.SetActive(true);
-                yield return new WaitForSeconds(2);
-                achievementPanel.SetActive(false);
-                yield return new WaitForSeconds(1);
-            }
-            coroutine = null;
-        }
     }
 }

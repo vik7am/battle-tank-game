@@ -11,8 +11,8 @@ namespace BattleTank
             rb = GetComponent<Rigidbody>();
         }
 
-        public void SetVelocity(float speed){
-            rb.velocity = speed * transform.forward;
+        public void SetVelocity(Vector3 velocity){
+            rb.velocity = velocity;
         }
 
         public void SetBulletController(BulletController bulletController){
@@ -20,14 +20,7 @@ namespace BattleTank
         }
 
         private void OnTriggerEnter(Collider other) {
-            if(other.GetComponent<IDamageable>() != null){
-                IDamageable damagableObject = other.GetComponent<IDamageable>();
-                damagableObject.Damage(bulletController.tankName, bulletController.bulletModel.damage);
-                EventService.Instance.OnBulletHit(bulletController.tankName, damagableObject.GetTankName());
-            }
-            else
-                EventService.Instance.OnBulletHit(bulletController.tankName, TankName.NONE);
-            BulletPoolService.Instance.ReturnItem(this);
+            bulletController.BulletCollision(other);
         }
     }
 }

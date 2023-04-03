@@ -4,13 +4,16 @@ namespace BattleTank
 {
     public class CameraService : GenericMonoSingleton<CameraService>
     {
-        [SerializeField] private Camera cam;
         private bool camZoomOut;
-        private float camSize;
+        [SerializeField] private Camera cam;
+        [SerializeField] private float camZoomOutSpeed;
+        [SerializeField] private float camSize;
 
         private void Start() {
+            DestructionService.onDestructionStart += StartCameraZoomOut;
+            DestructionService.onDestructionEnd += StopCameraZoomOut;
+            PlayerTankController.onTankDestroyed += StopFollowingPlayer;
             camZoomOut = false;
-            camSize = 15;
         }
 
         public void StartFollowingPlayer(Transform player){
@@ -18,17 +21,21 @@ namespace BattleTank
             transform.SetParent(player);
         }
 
-        public void StopFollowingPlayer(){
+        public void StopFollowingPlayer(TankId tankId){
             transform.SetParent(null);
         }
 
-        public void SetCameraZoomOut(bool status){
-            camZoomOut = status;
+        public void StartCameraZoomOut(){
+            camZoomOut = true;
+        }
+
+        public void StopCameraZoomOut(){
+            camZoomOut = true;
         }
 
         private void Update() {
             if(camZoomOut){
-                camSize += 1.0f * Time.deltaTime;
+                camSize += camZoomOutSpeed * Time.deltaTime;
                 cam.orthographicSize = camSize;
             }
         }

@@ -1,5 +1,6 @@
 using UnityEngine.AI;
 using UnityEngine;
+using System.Collections;
 
 namespace BattleTank
 {
@@ -18,6 +19,7 @@ namespace BattleTank
         public float attackRange {get; private set;}
         [SerializeField] public float enemyPatrolRange = 50;
         [SerializeField] public float fireRateRPM = 30;
+        private Coroutine coroutine;
         
         private void Awake() {
             navMeshAgent = GetComponent<NavMeshAgent>();
@@ -61,19 +63,21 @@ namespace BattleTank
             return Vector3.Distance(transform.position, TankService.Instance.GetPlayerTankPosition()) < attackRange;
         }
 
-        public Vector3 GetRandomPoint(){
-            bool pointFound = false;
-            Vector3 randomPoint;
-            Vector3 result = Vector3.zero;
-            NavMeshHit hit;
-            do{
-                randomPoint = transform.position + Random.insideUnitSphere * enemyPatrolRange;
-                if(NavMesh.SamplePosition(randomPoint, out hit, 1, NavMesh.AllAreas)){
-                    result = hit.position;
-                    pointFound = true;
-                }
-            }while(pointFound == false);
-            return result;
+        public void FindRandomEnemyDestination(){
+            if(coroutine == null)
+                coroutine = StartCoroutine(FindDestinationCoroutine());
         }
+
+        IEnumerator FindDestinationCoroutine(){
+            bool destinationFound = false;
+            Vector3 destination;
+            do{
+                destinationFound =  Utility.FindRandomPositionInRange(out destination, transform.position, enemyPatrolRange);
+                yield return null;
+            } while(destinationFound == false);
+            navMeshAgent.SetDestination(destination);
+            coroutine = null;
+        }
+        
     }
 }

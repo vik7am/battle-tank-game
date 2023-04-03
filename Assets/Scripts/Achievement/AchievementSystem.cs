@@ -10,30 +10,31 @@ namespace BattleTank
         private AchievementModel bulletFiredModel;
         private AchievementModel bulletDodgedModel;
         private AchievementModel enemyTankDestroyedModel;
+        public static event System.Action<string, string> onAchievementUnlocked;
         
         private void Start(){
             bulletFiredModel = new AchievementModel(bulletFired);
             bulletDodgedModel = new AchievementModel(bulletDodged);
             enemyTankDestroyedModel = new AchievementModel(enemyTankDestroyed);
-            EventService.Instance.onBulletFired += BulletFiredAchievement;
-            EventService.Instance.onBulletHit += EnemyBulletsDodgedAchievement;
-            EventService.Instance.onTankDestroyed += EnemyTankDestroyedAchievement;
+            BulletController.onBulletFired += BulletFiredAchievement;
+            BulletController.onBulletHit += EnemyBulletsDodgedAchievement;
+            EnemyTankController.onTankDestroyed += EnemyTankDestroyedAchievement;
         }
 
-        private void BulletFiredAchievement(TankName tankName){
-            if(tankName != TankName.PLAYER_TANK)
-                return;
-            UpdateAchievement(bulletFiredModel);
+        private void BulletFiredAchievement(TankId tankId){
+            if(tankId == TankId.PLAYER){
+                UpdateAchievement(bulletFiredModel);
+            }
         }
 
-        private void EnemyTankDestroyedAchievement(TankName shooter, TankName reciever){
-            if(shooter == TankName.PLAYER_TANK && reciever == TankName.ENEMY_TANK){
+        private void EnemyTankDestroyedAchievement(TankId shooter){
+            if(shooter == TankId.PLAYER){
                 UpdateAchievement(enemyTankDestroyedModel);
             }
         }
 
-        private void EnemyBulletsDodgedAchievement(TankName shooter, TankName reciever){
-            if(shooter == TankName.ENEMY_TANK && reciever != TankName.PLAYER_TANK){
+        private void EnemyBulletsDodgedAchievement(TankId shooter, TankId reciever, float damage){
+            if(shooter == TankId.ENEMY && reciever != TankId.PLAYER){
                 UpdateAchievement(bulletDodgedModel);
             }
         }
@@ -46,7 +47,7 @@ namespace BattleTank
             if(achievementModel.currentScore == achievementModel.level[currentLevel].target){
                 string title = achievementModel.level[currentLevel].title;
                 string description = achievementModel.level[currentLevel].description;
-                UIService.Instance.DisplayAchievement(title, description);
+                onAchievementUnlocked?.Invoke(title, description);
                 achievementModel.currentLevel++;
             }
         }

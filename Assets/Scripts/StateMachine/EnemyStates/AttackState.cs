@@ -19,10 +19,7 @@ namespace BattleTank
 
         public override void Tick()
         {
-            if(coolDownTime > 0)
-                coolDownTime -= Time.deltaTime;
-            else
-                FireBullet();
+            FireBullet();
             if(enemySM.PlayerTankInAttackRange())
                 enemySM.navMeshAgent.SetDestination(TankService.Instance.GetPlayerTankPosition());
             else
@@ -30,11 +27,15 @@ namespace BattleTank
         }
 
         private void FireBullet(){
+            if(coolDownTime > 0){
+                coolDownTime -= Time.deltaTime;
+                return;
+            }
             Vector3 bulletspawn = enemySM.enemyTankView.bulletSpawPoint.transform.position;
             BulletType bulletType = enemySM.enemyTankController.enemyTankModel.bulletType;
-            BulletController bulletController = BulletService.Instance.SpawnBullet(bulletType);
+            BulletController bulletController = BulletService.Instance.GetBulletController(bulletType);
             bulletController.SetBulletTransform(bulletspawn, enemySM.transform.rotation);
-            bulletController.FireBullet(TankName.ENEMY_TANK);
+            bulletController.FireBullet(TankId.ENEMY);
             coolDownTime = 1/fireRateRPM * 60; // converting fire rate from minutes to seconds
         }
     }

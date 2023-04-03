@@ -1,16 +1,16 @@
 namespace BattleTank
 {
-    public enum TankName{
+    public enum TankId{
         NONE,
-        PLAYER_TANK,
-        ENEMY_TANK
+        PLAYER,
+        ENEMY
     }
 
     public enum TankType{
         NONE,
-        HEAVY_TANK,
-        NORMAL_TANK,
-        LIGHT_TANK
+        HEAVY,
+        NORMAL,
+        LIGHT
     }
 
     public enum BulletType{
@@ -18,5 +18,10 @@ namespace BattleTank
         NORMAL,
         FAST,
         SLOW
+    }
+
+    public enum ParticleEffectType{
+        TANK_EXPLOSION,
+        BULLET_EXPLOSION
     }
 }

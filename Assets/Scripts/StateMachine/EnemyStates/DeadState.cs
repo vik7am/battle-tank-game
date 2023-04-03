@@ -15,12 +15,12 @@ namespace BattleTank
 
         public override void OnStateEnter(){
             enemySM.navMeshAgent.isStopped = true;
-            ParticleEffectService.Instance.ShowTankExplosionEffect(enemySM.transform.position);
+            ParticleEffectService.Instance.ShowParticleEffect(enemySM.transform.position, ParticleEffectType.TANK_EXPLOSION);
             timeElapsed = 0;
         }
 
         public override void OnStateExit(){
-            EnemyTankPoolService.Instance.ReturnItem(enemySM.enemyTankView);
+            ObjectPoolService.Instance.enemyTankPool.ReturnItem(enemySM.enemyTankView);
         }
 
         public override void Tick(){

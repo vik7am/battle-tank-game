@@ -12,8 +12,9 @@ namespace BattleTank
                 instance = (T)this;
                 DontDestroyOnLoad(this);
             }
-            else
+            else{
                 Destroy(this);
+            }
         }
     }
 }

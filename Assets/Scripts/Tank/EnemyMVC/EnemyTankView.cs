@@ -12,20 +12,19 @@ namespace BattleTank
 
         public void SetTankController(EnemyTankController enemyTankController){
             this.enemyTankController = enemyTankController;
-            UpdateTankColor();
         }
 
-        private void UpdateTankColor(){
+        public void SetTankMaterial(Material material){
             for(int i=0; i<tankBody.Count; i++)
-                tankBody[i].material = enemyTankController.enemyTankModel.material;
+                tankBody[i].material = material;
         }
 
-        public void Damage(TankName shooter, float damage){
+        public void Damage(TankId shooter, float damage){
             enemyTankController.TakeDamage(shooter, damage);
         }
 
-        public TankName GetTankName(){
-            return TankName.ENEMY_TANK;
+        public TankId GetTankId(){
+            return TankId.ENEMY;
         }
     }
 }

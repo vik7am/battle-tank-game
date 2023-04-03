@@ -6,7 +6,9 @@ namespace BattleTank
     {
         public BulletModel bulletModel {get;}
         public BulletView bulletView {get; private set;}
-        public TankName tankName {get; private set;}
+        public TankId tankId {get; private set;}
+        public static event System.Action<TankId> onBulletFired;
+        public static event System.Action<TankId, TankId, float> onBulletHit;
 
         public BulletController(BulletModel bulletModel, BulletView bulletView){
             this.bulletModel = bulletModel;
@@ -15,7 +17,7 @@ namespace BattleTank
         }
 
         public void Instantiate(){
-            bulletView = BulletPoolService.Instance.GetItem();
+            bulletView = ObjectPoolService.Instance.bulletPool.GetItem();
             bulletView.SetBulletController(this);
         }
 
@@ -25,10 +27,23 @@ namespace BattleTank
             bulletView.gameObject.SetActive(true);
         }
 
-        public void FireBullet(TankName tankName){
-            this.tankName = tankName;
-            bulletView.SetVelocity(bulletModel.speed);
-            EventService.Instance.OnBulletFired(tankName);
+        public void FireBullet(TankId tankId){
+            this.tankId = tankId;
+            bulletView.SetVelocity(bulletModel.speed * bulletView.transform.forward);
+            onBulletFired?.Invoke(tankId);
+        }
+
+        public void BulletCollision(Collider other){
+            if(other.GetComponent<IDamageable>() != null){
+                IDamageable damagableObject = other.GetComponent<IDamageable>();
+                damagableObject.Damage(tankId, bulletModel.damage);
+                onBulletHit?.Invoke(tankId, damagableObject.GetTankId(), bulletModel.damage);
+            }
+            else{
+                onBulletHit?.Invoke(tankId, TankId.NONE, 0);
+            }
+            ParticleEffectService.Instance.ShowParticleEffect(bulletView.transform.position, ParticleEffectType.BULLET_EXPLOSION);
+            ObjectPoolService.Instance.bulletPool.ReturnItem(bulletView);
         }
     }
 }

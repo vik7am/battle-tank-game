@@ -4,21 +4,20 @@ using UnityEngine;
 namespace BattleTank
 {
     public class ParticleEffectService : GenericMonoSingleton<ParticleEffectService>
-    {
-        [SerializeField] private ParticleSystem tankExplosionEffact;
-        [SerializeField] private float tankExplosionEffectDuration;
-
-        public void ShowTankExplosionEffect(Vector3 spawnPosition){
-            ParticleSystem effect = ParticleEffectPoolService.Instance.GetItem();
-            effect.transform.position = spawnPosition;
-            effect.gameObject.SetActive(true);
+    {    
+        public void ShowParticleEffect(Vector3 spawnPosition, ParticleEffectType particleEffectType){
+            ParticleEffectView effectView = ObjectPoolService.Instance.particlePool.GetItem();
+            ParticleSystem effect = effectView.getParticleEffect(particleEffectType);
+            float duration = effectView.getParticleEffectDuration(particleEffectType);
+            effectView.transform.position = spawnPosition;
+            effectView.gameObject.SetActive(true);
             effect.Play();
-            StartCoroutine(DestroyEffect(effect, tankExplosionEffectDuration));
+            StartCoroutine(DestroyEffect(effectView, duration));
         }
 
-        IEnumerator DestroyEffect(ParticleSystem effect, float duration){
+        IEnumerator DestroyEffect(ParticleEffectView effectView, float duration){
             yield return new WaitForSeconds(duration);
-            ParticleEffectPoolService.Instance.ReturnItem(effect);
+            ObjectPoolService.Instance.particlePool.ReturnItem(effectView);
         }
     }
 }

@@ -7,31 +7,31 @@ namespace BattleTank
         private EnemySM enemySM;
         public EnemyTankView enemyTankView {get; private set;}
         public EnemyTankModel enemyTankModel {get;}
-        public TankHealth tankHealth {get;}
+        public static event System.Action<TankId> onTankDestroyed;
 
         public EnemyTankController(EnemyTankModel tankModel, EnemyTankView enemyTankView, Vector3 spawnPosition){
             this.enemyTankView = enemyTankView;
             this.enemyTankModel = tankModel;
-            tankHealth = new TankHealth(tankModel.health);
             Initialize(spawnPosition);
         }
 
         private void Initialize(Vector3 position){
-            enemyTankView = EnemyTankPoolService.Instance.GetItem();
+            enemyTankView = ObjectPoolService.Instance.enemyTankPool.GetItem();
             enemyTankView.transform.position = position;
             enemyTankView.transform.rotation = Quaternion.identity;
+            enemyTankView.SetTankMaterial(enemyTankModel.material);
             enemyTankView.gameObject.SetActive(true);
             enemySM = enemyTankView.GetComponent<EnemySM>();
             enemyTankView.SetTankController(this);
             enemySM.SetEnemyTankController(this);
         }
 
-        public void TakeDamage(TankName shooter, float damage){
-            if(tankHealth.IsDead())
+        public void TakeDamage(TankId shooter, float damage){
+            if(enemyTankModel.isAlive == false)
                 return;
-            tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsDead()){
-                EventService.Instance.OnTankDestroyed(shooter, TankName.ENEMY_TANK);
+            enemyTankModel.SetCurrentHealth(enemyTankModel.currentHealth - damage);
+            if(enemyTankModel.isAlive == false){
+                onTankDestroyed?.Invoke(shooter);
                 DestroyTank();
             }
         }
@@ -41,10 +41,6 @@ namespace BattleTank
                 return;
             enemySM.SetState(enemySM.deadState);
             enemyTankView = null;
-        }
-
-        public bool IsTankAlive(){
-            return !tankHealth.IsDead();
         }
 
     }

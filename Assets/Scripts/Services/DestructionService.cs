@@ -10,20 +10,21 @@ namespace BattleTank
         [SerializeField] private Transform environment;
         [SerializeField] private float delay;
         private Coroutine destructionCoroutine;
+        public static System.Action onDestructionStart;
+        public static System.Action onDestructionEnd;
 
         private void Start(){
-            EventService.Instance.onTankDestroyed += TankDestroyed;
+            PlayerTankController.onTankDestroyed += PlayerTankDestroyed;
         }
 
-        public void TankDestroyed(TankName shooter, TankName reciever){
-            if(reciever == TankName.PLAYER_TANK)
-                DestroyEverything();
+        public void PlayerTankDestroyed(TankId shooter){
+            DestroyEverything();
         }
 
         public void DestroyEverything(){
             if(destructionCoroutine != null) // don't do anything is destruction is already in progress.
                 return;
-            CameraService.Instance.SetCameraZoomOut(true);
+            onDestructionStart?.Invoke();    
             enemyTanks = TankService.Instance.enemyTCList;
             destructionCoroutine = StartCoroutine(StartDestruction());
         }
@@ -37,8 +38,9 @@ namespace BattleTank
             int n = enemyTanks.Count;
             yield return new WaitForSeconds(delay);
             for(int i=0; i<n; i++){
-                if(enemyTanks[i].IsTankAlive() == false)
+                if(enemyTanks[i].enemyTankModel.isAlive == false){
                     continue;
+                }
                 enemyTanks[i].DestroyTank();
                 yield return new WaitForSeconds(delay);
             }
@@ -48,9 +50,9 @@ namespace BattleTank
             int n = environment.childCount;
             for(int i=n-1; i>=0; i--){
                 yield return new WaitForSeconds(delay);
-                Destroy(environment.GetChild(i).gameObject);
+                environment.GetChild(i).gameObject.SetActive(false);
             }
-            CameraService.Instance.SetCameraZoomOut(false);
+            onDestructionEnd?.Invoke();
         }
     }
 }

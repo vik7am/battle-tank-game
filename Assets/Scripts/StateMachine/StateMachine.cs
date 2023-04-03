@@ -7,11 +7,13 @@ namespace BattleTank
         protected BaseState currentState;
 
         public void SetState(BaseState state){
-            if(currentState != null)
+            if(currentState != null){
                 currentState.OnStateExit();
+            }
             currentState = state;
-            if(currentState != null)
+            if(currentState != null){
                 currentState.OnStateEnter();
+            }
         }
     }
 }

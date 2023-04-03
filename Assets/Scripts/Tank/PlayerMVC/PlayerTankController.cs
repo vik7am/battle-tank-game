@@ -1,71 +1,63 @@
 using UnityEngine;
+
 namespace BattleTank
 {
     public class PlayerTankController
     {
-        private TankHealth tankHealth;
-        private FixedJoystick Joystick;
         public PlayerTankModel playerTankModel {get;}
         public PlayerTankView playerTankView {get; private set;}
+        private PlayerInput playerInput;
+        public static event System.Action<TankId> onTankDestroyed;
+        public static event System.Action<float, float> onPlayerStatsUpdate;
 
         public PlayerTankController(PlayerTankModel playerTankModel, PlayerTankView playerTankView, Vector3 spawnPosition){
             this.playerTankModel = playerTankModel;
-            tankHealth = new TankHealth(playerTankModel.health);
             this.playerTankView = playerTankView;
-            this.Joystick = UIService.Instance.GetFixedJoystick();
+            BulletController.onBulletHit += UpdatePlayerScore;
             Initialize(spawnPosition);
         }
 
         private void Initialize(Vector3 spawnPosition){
             playerTankView = GameObject.Instantiate<PlayerTankView>(playerTankView, spawnPosition, Quaternion.identity);
+            playerInput = playerTankView.GetComponent<PlayerInput>();
+            playerTankView.SetTankMaterial(playerTankModel.material);
             playerTankView.SetTankController(this);
+            playerInput.SetPlayerTankController(this);
             CameraService.Instance.StartFollowingPlayer(playerTankView.transform);
-        }
-
-        public Vector3 GetMovementVelocity(){
-            return Input.GetAxisRaw("VerticalUI") * playerTankModel.movementSpeed * playerTankView.transform.forward; //Keyboard Input code
-            //return Joystick.Vertical * tankModel.movementSpeed * playerTankView.transform.forward; //Joystick Input code
-        }
-
-        public float GetRotationAngle(){
-            return Input.GetAxisRaw("HorizontalUI") * playerTankModel.rotationSpeed; //Keyboard Input code
-            //return Joystick.Horizontal * tankModel.rotationSpeed; //Joystick Input code
-        }
-
-        public void CheckForPlayerInput(){
-            if(Input.GetKeyDown(KeyCode.Space))
-                FireBullet();
+            onPlayerStatsUpdate?.Invoke(playerTankModel.currentHealth, playerTankModel.score);
         }
 
         public void FireBullet(){
             Vector3 bulletSpawnPoint = playerTankView.bulletSpawPoint.transform.position;
             Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
-            BulletController bulletController = BulletService.Instance.SpawnBullet(playerTankModel.bulletType);
+            BulletController bulletController = BulletService.Instance.GetBulletController(playerTankModel.bulletType);
             bulletController.SetBulletTransform(bulletSpawnPoint, bulletRotation);
-            bulletController.FireBullet(TankName.PLAYER_TANK);
+            bulletController.FireBullet(TankId.PLAYER);
         }
 
-        public void TakeDmage(TankName shooter, float damage){
-            if(tankHealth.IsDead())
+        public void TakeDmage(TankId shooter, float damage){
+            if(playerTankModel.isAlive == false)
                 return;
-            tankHealth.ReduceHealth(damage);
-            if(tankHealth.IsDead()){
-                EventService.Instance.OnTankDestroyed(shooter, TankName.PLAYER_TANK);
+            playerTankModel.SetCurrentHealth(playerTankModel.currentHealth - damage);
+            onPlayerStatsUpdate?.Invoke(playerTankModel.currentHealth, playerTankModel.score);
+            if(playerTankModel.isAlive == false){
+                onTankDestroyed?.Invoke(shooter);
                 DestroyTank();
             }
         }
 
         private void DestroyTank(){
-            CameraService.Instance.StopFollowingPlayer();
-            playerTankView.ShowEffectAndDestroy();
+            UIService.Instance.gameOverUI.SetFinalScore(playerTankModel.score);
+            GameObject.Destroy(playerTankView.gameObject, 1.0f);
+            ParticleEffectService.Instance.ShowParticleEffect(playerTankView.GetTankPosition(), ParticleEffectType.TANK_EXPLOSION);
         }
 
-        public bool IsTankAlive(){
-            return !tankHealth.IsDead();
-        }
-
-        public Vector3 GetTankPosition(){
-            return playerTankView.transform.position;
+        private void UpdatePlayerScore(TankId shooter, TankId reciever, float damage){
+            if(shooter == TankId.PLAYER){
+                float score = (reciever == TankId.ENEMY)? damage: -playerTankModel.penaltyScore;
+                playerTankModel.UpdateScore(score);
+                onPlayerStatsUpdate?.Invoke(playerTankModel.currentHealth, playerTankModel.score);
+            }
         }
     }
 }
