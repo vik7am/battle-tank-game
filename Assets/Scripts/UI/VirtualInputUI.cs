@@ -17,9 +17,8 @@ namespace BattleTank
             onFireButtonPressed?.Invoke();
         }
 
-        public FixedJoystick GetFixedJoystick(){ return fixedJoystick; }
-
-        public Button GetFireButton() {return fireButton; }
-        
+        public FixedJoystick GetFixedJoystick(){
+            return fixedJoystick;
+        }
     }
 }

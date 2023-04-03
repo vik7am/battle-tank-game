@@ -72,7 +72,7 @@ namespace BattleTank
             bool destinationFound = false;
             Vector3 destination;
             do{
-                destinationFound =  Utility.GetRandomPositionInRange(out destination, transform.position, enemyPatrolRange);
+                destinationFound =  Utility.FindRandomPositionInRange(out destination, transform.position, enemyPatrolRange);
                 yield return null;
             } while(destinationFound == false);
             navMeshAgent.SetDestination(destination);

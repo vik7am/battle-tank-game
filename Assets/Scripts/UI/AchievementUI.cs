@@ -10,6 +10,7 @@ namespace BattleTank
         [SerializeField] private GameObject achievementPanel;
         [SerializeField] private TextMeshProUGUI titleAP;
         [SerializeField] private TextMeshProUGUI descriptionAP;
+        [SerializeField] private float delay;
         private Coroutine coroutine;
         private Queue<string> titleQueue;
         private Queue<string> descriptionQueue;
@@ -35,9 +36,9 @@ namespace BattleTank
                 titleAP.text = titleQueue.Dequeue();
                 descriptionAP.text = descriptionQueue.Dequeue();
                 achievementPanel.SetActive(true);
-                yield return new WaitForSeconds(2);
+                yield return new WaitForSeconds(delay);
                 achievementPanel.SetActive(false);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(delay);
             }
             coroutine = null;
         }

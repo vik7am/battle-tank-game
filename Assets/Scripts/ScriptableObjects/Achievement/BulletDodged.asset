@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <achievementName>k__BackingField: Bullets Dodged
   <level>k__BackingField:
-  - title: Level 1
+  - title: Beginner Dodger
     description: Dodged 2 Bullets
     target: 2
-  - title: Level 2
+  - title: Intermediate Dodger
     description: Dodged 5 Bullets
     target: 5
-  - title: Level 3
+  - title: Expert Dodger
     description: Dodged 10 Bullets
     target: 10

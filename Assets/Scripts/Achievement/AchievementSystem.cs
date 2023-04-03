@@ -22,9 +22,9 @@ namespace BattleTank
         }
 
         private void BulletFiredAchievement(TankId tankId){
-            if(tankId != TankId.PLAYER)
-                return;
-            UpdateAchievement(bulletFiredModel);
+            if(tankId == TankId.PLAYER){
+                UpdateAchievement(bulletFiredModel);
+            }
         }
 
         private void EnemyTankDestroyedAchievement(TankId shooter){

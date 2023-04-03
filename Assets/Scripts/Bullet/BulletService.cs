@@ -8,7 +8,7 @@ namespace BattleTank
         [SerializeField] private BulletView bulletView;
         [SerializeField] private BulletListSO bulletListSO;
 
-        public BulletController SpawnBullet(BulletType bulletType){
+        public BulletController GetBulletController(BulletType bulletType){
             for(int i=0; i<bulletListSO.bulletSO.Length; i++){
                 if(bulletListSO.bulletSO[i].bulletType == bulletType){
                     bulletModel = new BulletModel(bulletListSO.bulletSO[i]);

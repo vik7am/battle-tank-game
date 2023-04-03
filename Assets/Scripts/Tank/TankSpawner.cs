@@ -12,13 +12,13 @@ namespace BattleTank
         [SerializeField] private float spawnRange;
         [SerializeField] private float safeZoneRadius;
         
-        public PlayerTankController SpawnPlayerTank(Vector3 spawnPosition){
+        public PlayerTankController GetPlayerTankController(Vector3 spawnPosition){
             int tankNo = Random.Range(0, playerTankListSO.playerTankSO.Length);
             PlayerTankModel playerTankmodel = new PlayerTankModel(playerTankListSO.playerTankSO[tankNo]);
             return new PlayerTankController(playerTankmodel, playerTankView, spawnPosition);
         }
 
-        public EnemyTankController SpawnEnemyTank(){
+        public EnemyTankController GetEnemyTankController(){
             Vector3 spawnPosition;
             if(FindEnemySpawnPosition(out spawnPosition)){
                 int tankNo = Random.Range(0, enemyTankListSO.enemyTankSO.Length);
@@ -29,7 +29,7 @@ namespace BattleTank
         }
 
         private bool FindEnemySpawnPosition(out Vector3 spawnPosition){
-            if(Utility.GetRandomPositionInRange(out spawnPosition, Vector3.zero, spawnRange)){
+            if(Utility.FindRandomPositionInRange(out spawnPosition, Vector3.zero, spawnRange)){
                 spawnPosition.SetYAxisToZero();
                 if(OutsidePlayerSafeZone(spawnPosition))
                     return true;

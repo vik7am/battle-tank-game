@@ -4,8 +4,9 @@ namespace BattleTank
 {
     public class CameraService : GenericMonoSingleton<CameraService>
     {
-        [SerializeField] private Camera cam;
         private bool camZoomOut;
+        [SerializeField] private Camera cam;
+        [SerializeField] private float camZoomOutSpeed;
         [SerializeField] private float camSize;
 
         private void Start() {
@@ -34,7 +35,7 @@ namespace BattleTank
 
         private void Update() {
             if(camZoomOut){
-                camSize += 1.0f * Time.deltaTime;
+                camSize += camZoomOutSpeed * Time.deltaTime;
                 cam.orthographicSize = camSize;
             }
         }

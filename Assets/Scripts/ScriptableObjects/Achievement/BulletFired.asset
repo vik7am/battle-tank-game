@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <achievementName>k__BackingField: Bullets Fired
   <level>k__BackingField:
-  - title: Level 1
+  - title: Beginner Shooter
     description: Fired 2 Bullets
     target: 2
-  - title: Level 2
-    description: fired 5 Bullets
+  - title: Intermediate Shooter
+    description: Fired 5 Bullets
     target: 5
-  - title: Level 3
+  - title: Expert Shooter
     description: Fired 10 Bullets
     target: 10

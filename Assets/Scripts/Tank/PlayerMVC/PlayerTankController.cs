@@ -30,7 +30,7 @@ namespace BattleTank
         public void FireBullet(){
             Vector3 bulletSpawnPoint = playerTankView.bulletSpawPoint.transform.position;
             Quaternion bulletRotation = playerTankView.bulletSpawPoint.transform.rotation;
-            BulletController bulletController = BulletService.Instance.SpawnBullet(playerTankModel.bulletType);
+            BulletController bulletController = BulletService.Instance.GetBulletController(playerTankModel.bulletType);
             bulletController.SetBulletTransform(bulletSpawnPoint, bulletRotation);
             bulletController.FireBullet(TankId.PLAYER);
         }

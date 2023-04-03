@@ -11,10 +11,10 @@ namespace BattleTank
         [SerializeField] private float enemyTankCount;
         
         public void StartGame(){
-            playerTankController = TankSpawner.Instance.SpawnPlayerTank(Vector3.zero);
+            playerTankController = TankSpawner.Instance.GetPlayerTankController(Vector3.zero);
             enemyTCList = new List<EnemyTankController>();
             for(int i=0; i<enemyTankCount; i++){
-                StartCoroutine(SpawnEnemyTank());
+                StartCoroutine(SpawnEnemyTankCoroutine());
             }
             EnemyTankController.onTankDestroyed += EnemyTankDestroyed;
         }
@@ -29,14 +29,14 @@ namespace BattleTank
 
         private void EnemyTankDestroyed(TankId shooter){
             if(IsPlayerTankAlive() == true){
-                StartCoroutine(SpawnEnemyTank());
+                StartCoroutine(SpawnEnemyTankCoroutine());
             }
         }
 
-        IEnumerator SpawnEnemyTank(){
+        IEnumerator SpawnEnemyTankCoroutine(){
             EnemyTankController enemyTankController = null;
             do{
-                enemyTankController = TankSpawner.Instance.SpawnEnemyTank();
+                enemyTankController = TankSpawner.Instance.GetEnemyTankController();
                 yield return null;
             }while(enemyTankController == null);
             enemyTCList.Add(enemyTankController);
