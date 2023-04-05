@@ -2664,7 +2664,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304999364}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24328132, guid: 86a7353f2579d476fbaa7f161c2e5d00,
     type: 2}
@@ -3989,6 +3989,8 @@ MonoBehaviour:
   audioStatus: {fileID: 999148094}
   audioStatusButton: {fileID: 1846634341}
   audioSource: {fileID: 1304999367}
+  useVirtualInput: 0
+  isAudioEnabled: 1
 --- !u!1 &2128280930
 GameObject:
   m_ObjectHideFlags: 0

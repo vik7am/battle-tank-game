@@ -12,26 +12,31 @@ namespace BattleTank
         [SerializeField] private TextMeshProUGUI audioStatus;
         [SerializeField] private Button audioStatusButton;
         [SerializeField] private AudioSource audioSource;
-        private bool useVirtualInput;
-        private bool isAudioEnabled;
+        [SerializeField] private bool useVirtualInput;
+        [SerializeField] private bool isAudioEnabled;
 
 
         private void Start(){
             startButton.onClick.AddListener(StartGame);
             inputSelectionButton.onClick.AddListener(SwitchPlayerInput);
             audioStatusButton.onClick.AddListener(ToggleAudioSource);
-            SwitchPlayerInput();
-            ToggleAudioSource();
+            audioSource.enabled = isAudioEnabled;
+            UpdateUIButton();
         }
 
         private void SwitchPlayerInput(){
             useVirtualInput = !useVirtualInput;
-            inputSelection.text = (useVirtualInput)? "Joystick": "Keyboard";
+            UpdateUIButton();
         }
 
         private void ToggleAudioSource(){
             isAudioEnabled = !isAudioEnabled;
             audioSource.enabled = isAudioEnabled;
+            UpdateUIButton();
+        }
+
+        private void UpdateUIButton(){
+            inputSelection.text = (useVirtualInput)? "Joystick": "Keyboard";
             audioStatus.text = (isAudioEnabled)? "Audio On": "Audio Off";
         }
 
